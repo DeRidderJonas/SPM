@@ -11,6 +11,8 @@ public:
 		Background2,
 		Background3,
 		Background4,
+		Door,
+		DoorShadow,
 		Brick,
 		Healthbar,
 		Pointer,

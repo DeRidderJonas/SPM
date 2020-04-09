@@ -49,6 +49,8 @@ void GameObject::Update(float elapsedSec, const Level* level)
 		m_Velocity.y -= elapsedSec * m_FallAcceleration;
 	}
 
+	level->HandleWallCollision(m_Hitbox, m_Velocity);
+
 	//GameObject is moving vertically
 	m_Hitbox.left += elapsedSec * m_Velocity.x;
 

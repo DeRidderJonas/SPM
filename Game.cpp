@@ -29,12 +29,13 @@ void Game::Initialize( )
 	//TODO: actually spawn enemies according to floor lvl
 	Rectf spawnBox{ m_pLevel->GetBoundaries() };
 	spawnBox.bottom += 20.f;
-	Managers::GetInstance()->GetEnemyManager()->Spawn(Enemy::Type::Goomba, 3, spawnBox);
+	spawnBox.height -= 100.f;
+	//Managers::GetInstance()->GetEnemyManager()->Spawn(Enemy::Type::Goomba, 3, spawnBox);
 	Managers::GetInstance()->GetEnemyManager()->Spawn(Enemy::Type::Spiny, 1, spawnBox);
-	Managers::GetInstance()->GetEnemyManager()->Spawn(Enemy::Type::Squiglet, 1, spawnBox);
+	//Managers::GetInstance()->GetEnemyManager()->Spawn(Enemy::Type::Squiglet, 1, spawnBox);
 
-	Managers::GetInstance()->GetItemManager()->Spawn(Item::Type::RedShroomshake, Point2f{200.f, 10.f}, m_pPlayer);
-	Managers::GetInstance()->GetItemManager()->Spawn(Item::Type::RedShroomshake, Point2f{10.f, 10.f}, m_pPlayer);
+	//Managers::GetInstance()->GetItemManager()->Spawn(Item::Type::RedShroomshake, Point2f{200.f, 10.f}, m_pPlayer);
+	//Managers::GetInstance()->GetItemManager()->Spawn(Item::Type::RedShroomshake, Point2f{10.f, 10.f}, m_pPlayer);
 }
 
 void Game::InitPlayer()

@@ -16,7 +16,9 @@ public:
 	void SetBackgroundTexture(const Texture* pBackground);
 
 	void HandleCollision(Rectf& actorShape, Vector2f& actorVelocity) const;
+	void HandleWallCollision(Rectf& actorShape, Vector2f& actorVelocity) const;
 	bool IsOnGround(const Rectf& actorShape) const;
+	bool IsNextToWall(const Rectf& actorShape) const;
 
 	Rectf GetBoundaries() const;
 private:

@@ -12,13 +12,19 @@ Level::Level(const Texture* pBackground, const Texture* pBrick)
 	Rectf boundaries{ 0.f,0.f, pBackground->GetWidth(), pBackground->GetHeight() };
 	float wallSize{ 10.f };
 
-	SVGParser::GetVerticesFromSvgFile("Resources/Level/test.svg", m_Platforms);
+	SVGParser::GetVerticesFromSvgFile("Resources/Level/level1.svg", m_Platforms);
 	/*m_Platforms.push_back(std::vector<Point2f>());
 	m_Platforms[0].push_back(Point2f{ boundaries.left, boundaries.bottom + wallSize });
 	m_Platforms[0].push_back(Point2f{ boundaries.left + boundaries.width, boundaries.bottom + wallSize});
 	m_Platforms[0].push_back(Point2f{ boundaries.left + boundaries.width, boundaries.bottom});
 	m_Platforms[0].push_back(Point2f{ boundaries.left, boundaries.bottom});
 	m_Platforms[0].push_back(Point2f{ boundaries.left, boundaries.bottom + wallSize });*/
+	std::vector<Point2f> p{};
+	p.push_back(Point2f{ 0.f, 450.f });
+	p.push_back(Point2f{ 0.f, 470.f });
+	p.push_back(Point2f{ 300.f, 470.f });
+	p.push_back(Point2f{ 300.f, 450.f });
+	m_Platforms.push_back(p);
 }
 
 void Level::Draw() const
@@ -55,11 +61,31 @@ void Level::HandleCollision(Rectf& actorShape, Vector2f& actorVelocity) const
 
 		if (hitInfo.intersectPoint.x > 0.0001f && hitInfo.intersectPoint.y > 0.0001f)
 		{
-			if(actorVelocity.y <= 0) actorShape.bottom = hitInfo.intersectPoint.y;
+			if (actorVelocity.y <= 0)
+			{
+				actorShape.bottom = hitInfo.intersectPoint.y;
+				Rectf platformRect{ GetRectfForVertices(platformVertices) };
+				if (actorShape.bottom < platformRect.bottom + platformRect.height / 2) actorShape.bottom = platformRect.bottom + platformRect.height;
+			}
 			actorVelocity.y = (actorVelocity.y <= 0) ? 0.f : -actorVelocity.y;
 			return;
 		}
+	}
+}
 
+void Level::HandleWallCollision(Rectf& actorShape, Vector2f& actorVelocity) const
+{
+	for (std::vector<Point2f> platformVertices : m_Platforms)
+	{
+		Rectf wall{ GetRectfForVertices(platformVertices) };
+		bool isWall{ wall.height > 50.f };
+
+		if (isWall && utils::IsOverlapping(wall, actorShape))
+		{
+			bool actorLeftOfWall{ actorShape.left + actorShape.width - 2.f <= wall.left };
+			if (actorLeftOfWall) actorShape.left = wall.left - actorShape.width - 2.f;
+			else actorShape.left = wall.left + wall.width + 2.f;
+		}
 	}
 }
 
@@ -80,6 +106,22 @@ bool Level::IsOnGround(const Rectf& actorShape) const
 	return false;
 }
 
+bool Level::IsNextToWall(const Rectf& actorShape) const
+{
+	for (std::vector<Point2f> platformVertices : m_Platforms)
+	{
+		Rectf wall{ GetRectfForVertices(platformVertices) };
+		bool isWall{ wall.height > 50.f };
+
+		if (isWall && utils::IsOverlapping(wall, actorShape))
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
 Rectf Level::GetBoundaries() const
 {
 	return m_Boundaries;
@@ -95,8 +137,13 @@ void Level::DrawPlatforms() const
 		{
 			Rectf brick{ platformRect.left + i * m_pBrick->GetWidth(), platformRect.bottom, m_pBrick->GetWidth(), m_pBrick->GetHeight() };
 			m_pBrick->Draw(brick);
-			glColor3f(1.f, 0.f, 0.f);
-			utils::DrawRect(brick);
+		}
+
+		int verticalAmountOfTiles{ int(platformRect.height / m_pBrick->GetHeight()) };
+		for (size_t i = 0; i < verticalAmountOfTiles; i++)
+		{
+			Rectf brick{ platformRect.left, platformRect.bottom + i * m_pBrick->GetHeight(), m_pBrick->GetWidth(), m_pBrick->GetHeight() };
+			m_pBrick->Draw(brick);
 		}
 	}
 }

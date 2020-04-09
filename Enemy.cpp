@@ -74,7 +74,6 @@ bool Enemy::CanBeFlipped() const
 
 bool Enemy::canMove(bool toLeft, const Level* plevel)
 {
-	//TODO: make an actual check according to platforms
 	Point2f nextStep{ m_Hitbox.left + m_Hitbox.width + 1.f, m_Hitbox.bottom };
 	if (toLeft)
 	{
@@ -83,11 +82,10 @@ bool Enemy::canMove(bool toLeft, const Level* plevel)
 	}
 	else
 	{
-		if (m_Hitbox.left + m_Hitbox.width > plevel->GetBoundaries().left + plevel->GetBoundaries().width)
-		{
-			return false;
-		}
+		if (m_Hitbox.left + m_Hitbox.width > plevel->GetBoundaries().left + plevel->GetBoundaries().width) return false;
 	}
 
+	if (plevel->IsNextToWall(m_Hitbox)) return false;
+	
 	return plevel->IsOnGround(Rectf{ nextStep.x,nextStep.y, m_Hitbox.width, m_Hitbox.height });
 }
