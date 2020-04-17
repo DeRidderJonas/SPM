@@ -21,9 +21,11 @@ public:
 	void DrawPickUpItem(const Rectf& itemRect) const;
 
 	void SpawnRandom(Point2f bottomLeft, Player* pPlayer, bool& KeySpawned);
+	bool InventoryHasType(Item::Type itemType);
 
 	void Scroll(bool up);
 	void UseActiveItem();
+	void RemoveKey();
 private:
 	std::vector<Item*> m_FloorItems;
 	std::vector<Item*> m_Inventory;

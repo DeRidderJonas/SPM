@@ -10,7 +10,7 @@ public:
 		Key,
 		RedShroomshake
 	};
-	Item(Texture* pTexture, Texture* pName, Texture* pDescription, Point2f bottomLeft, Player* pPlayer = nullptr);
+	Item(Type type, Texture* pTexture, Texture* pName, Texture* pDescription, Point2f bottomLeft, Player* pPlayer = nullptr);
 	virtual ~Item() = default;
 
 	void Draw() const;
@@ -19,7 +19,10 @@ public:
 	virtual void Use() = 0;
 
 	Rectf GetHitbox() const;
+	Type GetType() const;
 protected:
+	Type m_type;
+
 	Texture* m_pTexture;
 	Texture* m_pNameTexture;
 	Texture* m_pDescriptionTexture;

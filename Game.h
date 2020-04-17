@@ -36,6 +36,7 @@ private:
 	Player* m_pPlayer;
 
 	Level* m_pLevel;
+	int m_Level;
 
 	bool m_IsPlayerInMenu;
 	int m_IsInventoryActive;
@@ -46,7 +47,7 @@ private:
 	void Initialize( );
 	void InitPlayer();
 	void InitManagers();
-	void InitLevel();
+	//void InitLevel();
 	void Cleanup( );
 	void DestroyPlayer();
 	void DestroyManagers();
@@ -66,4 +67,6 @@ private:
 	void ClearBackground( ) const;
 
 	void PrintControlsInfo() const;
+	void AdvanceToNextLevel();
+	void SpawnEnemies();
 };

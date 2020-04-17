@@ -10,6 +10,7 @@ Game::Game( const Window& window )
 	, m_PickUpDuration{1.f}
 	, m_PickUpRem{0.f}
 	, m_IsInventoryActive{true}
+	, m_Level{0}
 {
 	Initialize( );
 }
@@ -22,20 +23,15 @@ Game::~Game( )
 void Game::Initialize( )
 {
 	InitManagers();
-	InitLevel();
+	//InitLevel();
 	InitPlayer();
-	NotifyCameraLevelChange();
 
-	//TODO: actually spawn enemies according to floor lvl
-	Rectf spawnBox{ m_pLevel->GetBoundaries() };
-	spawnBox.bottom += 20.f;
-	spawnBox.height -= 100.f;
-	//Managers::GetInstance()->GetEnemyManager()->Spawn(Enemy::Type::Goomba, 3, spawnBox);
-	Managers::GetInstance()->GetEnemyManager()->Spawn(Enemy::Type::Spiny, 1, spawnBox);
-	//Managers::GetInstance()->GetEnemyManager()->Spawn(Enemy::Type::Squiglet, 1, spawnBox);
+	AdvanceToNextLevel();
 
-	//Managers::GetInstance()->GetItemManager()->Spawn(Item::Type::RedShroomshake, Point2f{200.f, 10.f}, m_pPlayer);
+	Managers::GetInstance()->GetItemManager()->Spawn(Item::Type::RedShroomshake, Point2f{200.f, 10.f}, m_pPlayer);
 	//Managers::GetInstance()->GetItemManager()->Spawn(Item::Type::RedShroomshake, Point2f{10.f, 10.f}, m_pPlayer);
+
+	NotifyCameraLevelChange();
 }
 
 void Game::InitPlayer()
@@ -47,12 +43,6 @@ void Game::InitPlayer()
 void Game::InitManagers()
 {
 	Managers::GetInstance();
-}
-
-void Game::InitLevel()
-{
-	m_pLevel = new Level(Managers::GetInstance()->GetTextureManager()->GetRandomBackground(), 
-		Managers::GetInstance()->GetTextureManager()->GetTexture(TextureManager::TextureType::Brick));
 }
 
 void Game::Cleanup( )
@@ -234,33 +224,48 @@ void Game::ProcessKeyUpEvent( const SDL_KeyboardEvent& e )
 {
 	//std::cout << "KEYUP event: " << e.keysym.sym << std::endl;
 	if(e.keysym.sym == SDLK_ESCAPE)	m_IsPlayerInMenu = !m_IsPlayerInMenu;
-	if (e.keysym.sym == SDLK_i) PrintControlsInfo();
 
-	if (!m_IsPlayerInMenu) return;
-	
-	switch ( e.keysym.sym )
+	if (m_IsPlayerInMenu)
 	{
-	case SDLK_w:
-	case SDLK_UP:
-		if (m_IsInventoryActive) Managers::GetInstance()->GetItemManager()->Scroll(true);
-		else Managers::GetInstance()->GetPixlManager()->Scroll(true);
-		break;
-	case SDLK_s:
-	case SDLK_DOWN:
-		if (m_IsInventoryActive) Managers::GetInstance()->GetItemManager()->Scroll(false);
-		else Managers::GetInstance()->GetPixlManager()->Scroll(false);
-		break;
-	case SDLK_a:
-	case SDLK_LEFT:
-	case SDLK_d:
-	case SDLK_RIGHT:
-		m_IsInventoryActive = !m_IsInventoryActive;
-		break;
-	case SDLK_SPACE:
-		if (m_IsInventoryActive)	Managers::GetInstance()->GetItemManager()->UseActiveItem();
-		else Managers::GetInstance()->GetPixlManager()->ActivateSelectedPixl(m_pPlayer);
-		m_IsPlayerInMenu = false;
-		break;
+		switch (e.keysym.sym)
+		{
+		case SDLK_w:
+		case SDLK_UP:
+			if (m_IsInventoryActive) Managers::GetInstance()->GetItemManager()->Scroll(true);
+			else Managers::GetInstance()->GetPixlManager()->Scroll(true);
+			break;
+		case SDLK_s:
+		case SDLK_DOWN:
+			if (m_IsInventoryActive) Managers::GetInstance()->GetItemManager()->Scroll(false);
+			else Managers::GetInstance()->GetPixlManager()->Scroll(false);
+			break;
+		case SDLK_a:
+		case SDLK_LEFT:
+		case SDLK_d:
+		case SDLK_RIGHT:
+			m_IsInventoryActive = !m_IsInventoryActive;
+			break;
+		case SDLK_SPACE:
+			if (m_IsInventoryActive)	Managers::GetInstance()->GetItemManager()->UseActiveItem();
+			else Managers::GetInstance()->GetPixlManager()->ActivateSelectedPixl(m_pPlayer);
+			m_IsPlayerInMenu = false;
+			break;
+		}
+	}
+	else
+	{
+		switch (e.keysym.sym)
+		{
+		case SDLK_i:
+			PrintControlsInfo();
+			break;
+		case SDLK_w:
+			bool playerHasKey{ Managers::GetInstance()->GetItemManager()->InventoryHasType(Item::Type::Key) };
+			if (!playerHasKey || !m_pPlayer->IsOverlapping(m_pLevel->GetDoor())) break;
+
+			AdvanceToNextLevel();
+			break;
+		}
 	}
 }
 
@@ -317,6 +322,7 @@ void Game::PrintControlsInfo() const
 	std::cout << "Move right: D" << '\n';
 	std::cout << "Jump: SPACEBAR" << '\n';
 	std::cout << "Attack (with currently activated Pixl): F" << '\n';
+	std::cout << "Go through door: W" << '\n';
 	std::cout << "Open Menu: ESCAPE" << '\n';
 	std::cout << "----Menu controls----" << '\n';
 	std::cout << "Go up: W" << '\n';
@@ -324,4 +330,39 @@ void Game::PrintControlsInfo() const
 	std::cout << "Go to menu to the left: A" << '\n';
 	std::cout << "Go to menu to the right: D" << '\n';
 	std::cout << "Use/Select: SPACEBAR" << '\n';
+}
+
+void Game::AdvanceToNextLevel()
+{
+	Managers::GetInstance()->GetItemManager()->RemoveKey();
+	m_Level++;
+	m_pPlayer->SetPosition(Point2f{10.f, 50.f});
+	delete m_pLevel;
+	m_pLevel = new Level(Managers::GetInstance()->GetTextureManager()->GetRandomBackground());
+	SpawnEnemies();
+}
+
+void Game::SpawnEnemies()
+{
+	EnemyManager* em{ Managers::GetInstance()->GetEnemyManager() };
+
+	Rectf spawnBox{ m_pLevel->GetBoundaries() };
+	spawnBox.bottom += 20.f;
+	spawnBox.height -= 100.f;
+
+	switch (m_Level)
+	{
+	case 1:
+		em->Spawn(Enemy::Type::Goomba, 2, spawnBox);
+		em->Spawn(Enemy::Type::Spiny, 1, spawnBox);
+		em->Spawn(Enemy::Type::Squiglet, 1, spawnBox);
+		break;
+	case 2:
+		em->Spawn(Enemy::Type::Squiglet, 2, spawnBox);
+		em->Spawn(Enemy::Type::Goomba, 2, spawnBox);
+		em->Spawn(Enemy::Type::Spiny, 1, spawnBox);
+		break;
+	default:
+		em->Spawn(Enemy::Type::Goomba, 1, spawnBox);
+	}
 }

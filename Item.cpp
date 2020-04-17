@@ -1,8 +1,9 @@
 #include "pch.h"
 #include "Item.h"
 
-Item::Item(Texture* pTexture, Texture* pName, Texture* pDescription, Point2f bottomLeft, Player* pPlayer)
-	: m_pTexture{pTexture}
+Item::Item(Type type, Texture* pTexture, Texture* pName, Texture* pDescription, Point2f bottomLeft, Player* pPlayer)
+	: m_type{type}
+	, m_pTexture{pTexture}
 	, m_pNameTexture{pName}
 	, m_pDescriptionTexture{pDescription}
 	, m_Hitbox{bottomLeft.x, bottomLeft.y, pTexture->GetWidth(), pTexture->GetHeight()}
@@ -37,4 +38,9 @@ void Item::DrawAtPos(const Point2f& center) const
 Rectf Item::GetHitbox() const
 {
 	return m_Hitbox;
+}
+
+Item::Type Item::GetType() const
+{
+	return m_type;
 }

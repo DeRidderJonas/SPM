@@ -78,12 +78,11 @@ void ProjectileManager::HitSentients(Player* pPlayer)
 void ProjectileManager::Destroy(Projectile* pProjectile)
 {
 	std::vector<Projectile*>::iterator it{ std::find(m_Projectiles.begin(), m_Projectiles.end(), pProjectile) };
-	if (it != m_Projectiles.end())
-	{
-		//Projectile was found
-		int index{ int(std::distance(m_Projectiles.begin(), it)) };
+	if (it == m_Projectiles.end()) return;
+	
+	//Projectile was found
+	int index{ int(std::distance(m_Projectiles.begin(), it)) };
 
-		delete m_Projectiles[index];
-		m_Projectiles.erase(m_Projectiles.begin() + index);
-	}
+	delete m_Projectiles[index];
+	m_Projectiles.erase(m_Projectiles.begin() + index);
 }

@@ -26,6 +26,7 @@ public:
 	virtual bool JumpedOnByPlayer() const = 0;
 	void FlipHorizontalVelocity();
 	bool CanBeFlipped() const;
+	
 private:
 	const float m_HorizontalSpeed;
 	static const float m_MaxFlipCooldown;

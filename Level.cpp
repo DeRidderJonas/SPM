@@ -3,10 +3,12 @@
 #include "utils.h"
 #include <iostream>
 #include "SVGParser.h"
+#include "Managers.h"
 
-Level::Level(const Texture* pBackground, const Texture* pBrick)
+Level::Level(const Texture* pBackground)
 	: m_pBackgroundTexture{pBackground}
-	, m_pBrick{pBrick}
+	, m_pBrick{Managers::GetInstance()->GetTextureManager()->GetTexture(TextureManager::TextureType::Brick)}
+	, m_pDoor{Managers::GetInstance()->GetTextureManager()->GetTexture(TextureManager::TextureType::Door)}
 	, m_Boundaries{0.f,0.f, pBackground->GetWidth(), pBackground->GetHeight()}
 {
 	Rectf boundaries{ 0.f,0.f, pBackground->GetWidth(), pBackground->GetHeight() };
@@ -25,18 +27,17 @@ Level::Level(const Texture* pBackground, const Texture* pBrick)
 	p.push_back(Point2f{ 300.f, 470.f });
 	p.push_back(Point2f{ 300.f, 450.f });
 	m_Platforms.push_back(p);
+
+	m_Door = Rectf{ 530.f, 245.f,0.f,0.f };
+	m_Door.width = m_pDoor->GetWidth();
+	m_Door.height = m_pDoor->GetHeight();
 }
 
 void Level::Draw() const
 {
 	m_pBackgroundTexture->Draw();
-
+	m_pDoor->Draw(m_Door);
 	DrawPlatforms();
-}
-
-void Level::SetBackgroundTexture(const Texture* pBackground)
-{
-	m_pBackgroundTexture = pBackground;
 }
 
 void Level::HandleCollision(Rectf& actorShape, Vector2f& actorVelocity) const
@@ -125,6 +126,11 @@ bool Level::IsNextToWall(const Rectf& actorShape) const
 Rectf Level::GetBoundaries() const
 {
 	return m_Boundaries;
+}
+
+Rectf Level::GetDoor() const
+{
+	return m_Door;
 }
 
 void Level::DrawPlatforms() const

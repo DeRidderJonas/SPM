@@ -5,7 +5,7 @@
 class Level
 {
 public:
-	Level(const Texture* pBackground, const Texture* pBrick);
+	Level(const Texture* pBackground);
 	
 	Level(const Level& other) = delete;
 	Level& operator=(const Level& other) = delete;
@@ -13,7 +13,6 @@ public:
 	Level& operator=(Level&& other) = delete;
 
 	void Draw() const;
-	void SetBackgroundTexture(const Texture* pBackground);
 
 	void HandleCollision(Rectf& actorShape, Vector2f& actorVelocity) const;
 	void HandleWallCollision(Rectf& actorShape, Vector2f& actorVelocity) const;
@@ -21,11 +20,14 @@ public:
 	bool IsNextToWall(const Rectf& actorShape) const;
 
 	Rectf GetBoundaries() const;
+	Rectf GetDoor() const;
 private:
 	std::vector<std::vector<Point2f>> m_Platforms;
 	const Texture* m_pBackgroundTexture;
 	const Texture* m_pBrick;
+	const Texture* m_pDoor;
 	Rectf m_Boundaries;
+	Rectf m_Door;
 
 	void DrawPlatforms() const;
 	Rectf GetRectfForVertices(std::vector<Point2f> vertices) const;

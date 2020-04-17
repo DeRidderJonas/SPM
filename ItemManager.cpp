@@ -4,6 +4,7 @@
 #include "utils.h"
 #include <iostream>
 #include "Managers.h"
+#include "Key.h"
 
 ItemManager::ItemManager()
 	: m_ActiveItem{0}
@@ -111,6 +112,11 @@ void ItemManager::SpawnRandom(Point2f bottomLeft, Player* pPlayer, bool& KeySpaw
 	if (randType == Item::Type::Key) KeySpawned = true;
 }
 
+bool ItemManager::InventoryHasType(Item::Type itemType)
+{
+	return std::find_if(m_Inventory.begin(), m_Inventory.end(), [itemType](const Item* item) {return item->GetType() == itemType; }) != m_Inventory.end();
+}
+
 void ItemManager::Scroll(bool up)
 {
 	if (up)
@@ -127,23 +133,31 @@ void ItemManager::Scroll(bool up)
 
 void ItemManager::UseActiveItem()
 {
-	if (m_Inventory.size() < 1) return;
+	if (m_Inventory.size() < 1 || m_Inventory[m_ActiveItem]->GetType() == Item::Type::Key) return;
 	m_Inventory[m_ActiveItem]->Use();
 	m_Inventory.erase(m_Inventory.begin() + m_ActiveItem);
 	m_ActiveItem = 0;
 }
 
+void ItemManager::RemoveKey()
+{
+	std::vector<Item*>::iterator it{ std::find_if(m_Inventory.begin(), m_Inventory.end(), [](const Item* item) {return item->GetType() == Item::Type::Key; }) };
+	if (it == m_Inventory.end()) return;
+
+	int index{ int(std::distance(m_Inventory.begin(), it)) };
+	m_Inventory.erase(m_Inventory.begin() + index);
+}
+
 void ItemManager::Pickup(Item* item)
 {
 	std::vector<Item*>::iterator it{ std::find(m_FloorItems.begin(), m_FloorItems.end(), item) };
-	if (it != m_FloorItems.end())
-	{
-		//Item was found
-		int index{ int(std::distance(m_FloorItems.begin(), it)) };
+	if (it == m_FloorItems.end()) return;
+	
+	//Item was found
+	int index{ int(std::distance(m_FloorItems.begin(), it)) };
 
-		Item* toTransfer{ m_FloorItems[index] };
-		m_FloorItems.erase(m_FloorItems.begin() + index);
+	Item* toTransfer{ m_FloorItems[index] };
+	m_FloorItems.erase(m_FloorItems.begin() + index);
 
-		m_Inventory.push_back(toTransfer);
-	}
+	m_Inventory.push_back(toTransfer);
 }

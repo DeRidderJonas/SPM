@@ -2,7 +2,7 @@
 #include "Key.h"
 
 Key::Key(Texture* pTexture, Texture* pName, Texture* pDescription, Point2f bottomLeft)
-	: Item{pTexture, pName, pDescription, bottomLeft}
+	: Item{Item::Type::Key, pTexture, pName, pDescription, bottomLeft}
 {
 }
 

@@ -65,6 +65,7 @@ void Enemy::FlipHorizontalVelocity()
 	if (m_RemainingFlipCooldown > 0.f) return;
 	SetHorizontalVelocity(-m_Velocity.x);
 	m_RemainingFlipCooldown = m_MaxFlipCooldown;
+	m_GameState = m_Velocity.x > 0.f ? GameState::MovingRight : GameState::MovingLeft;
 }
 
 bool Enemy::CanBeFlipped() const
