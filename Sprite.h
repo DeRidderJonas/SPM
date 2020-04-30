@@ -14,10 +14,13 @@ public:
 
 	void SetFrame(int frameNr);
 	void Randomize();
+	void Loop(int amountOfLoops);
+	bool HasEnded() const;
 private:
 	Texture* m_pTexture;
 	int m_Cols, m_Rows;
 	float m_FrameSec, m_AccuSec;
 	int m_ActFrame;
+	int m_AmountOfLoopsRemaining;
 };
 

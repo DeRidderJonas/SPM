@@ -78,7 +78,7 @@ void Game::Update( float elapsedSec )
 		{
 			UpdatePlayer(elapsedSec);
 			UpdateEnemies(elapsedSec);
-			UpdateProjectiles(elapsedSec);
+			UpdateObjects(elapsedSec);
 
 			DoCollisionTests();
 			m_pPlayer->SetIsPickingUp(false);
@@ -98,9 +98,25 @@ void Game::UpdateEnemies(float elapsedSec)
 	Managers::GetInstance()->GetEnemyManager()->AllAttack();
 }
 
-void Game::UpdateProjectiles(float elapsedSec)
+void Game::UpdateObjects(float elapsedSec)
 {
 	Managers::GetInstance()->GetProjectileManager()->UpdateAll(elapsedSec, m_pLevel);
+
+	if (m_InRestArea)
+	{
+		Sprite* pChest{ Managers::GetInstance()->GetSpriteManager()->GetSprite(SpriteManager::SpriteType::Chest) };
+		pChest->Update(elapsedSec);
+
+		if (pChest->HasEnded() && !m_ChestOpened)
+		{
+			PixlManager* pPixlManager{ Managers::GetInstance()->GetPixlManager() };
+			Pixl::Type toUnlock{ pPixlManager->GetNextUnlockablePixl() };
+			pPixlManager->Unlock(toUnlock);
+			m_ChestOpened = true;
+		}
+	}
+
+
 }
 
 void Game::NotifyCameraLevelChange()
@@ -260,8 +276,22 @@ void Game::ProcessKeyUpEvent( const SDL_KeyboardEvent& e )
 			PrintControlsInfo();
 			break;
 		case SDLK_w:
-			bool playerHasKey{ Managers::GetInstance()->GetItemManager()->InventoryHasType(Item::Type::Key) };
-			if (!playerHasKey || !m_pPlayer->IsOverlapping(m_pLevel->GetDoor())) break;
+			if (m_InRestArea)
+			{
+				Rectf chest{ m_pLevel->GetChest() };
+				Rectf chestInteractableArea{ chest.left - 25.f, chest.bottom, chest.width + 50.f, chest.height };
+				if (m_pPlayer->IsOverlapping(chestInteractableArea))
+				{
+					Managers::GetInstance()->GetSpriteManager()->GetSprite(SpriteManager::SpriteType::Chest)->Loop(1);
+					break;
+				}
+				if (!m_pPlayer->IsOverlapping(m_pLevel->GetDoor())) break;
+			}
+			else
+			{
+				bool playerHasKey{ Managers::GetInstance()->GetItemManager()->InventoryHasType(Item::Type::Key) };
+				if (!playerHasKey || !m_pPlayer->IsOverlapping(m_pLevel->GetDoor())) break;
+			}
 
 			AdvanceToNextLevel();
 			break;
@@ -337,9 +367,18 @@ void Game::AdvanceToNextLevel()
 	Managers::GetInstance()->GetItemManager()->RemoveKey();
 	m_Level++;
 	m_pPlayer->SetPosition(Point2f{10.f, 50.f});
-	delete m_pLevel;
-	m_pLevel = new Level(Managers::GetInstance()->GetTextureManager()->GetRandomBackground());
-	SpawnEnemies();
+	m_InRestArea = m_Level % 1 == 0;
+	if (!m_InRestArea)
+	{
+		delete m_pLevel;
+		m_pLevel = new Level(Managers::GetInstance()->GetTextureManager()->GetRandomBackground(), false);
+		SpawnEnemies();
+	}
+	else
+	{
+		delete m_pLevel;
+		m_pLevel = new Level(Managers::GetInstance()->GetTextureManager()->GetTexture(TextureManager::TextureType::RestArea), true);
+	}
 }
 
 void Game::SpawnEnemies()
@@ -355,7 +394,6 @@ void Game::SpawnEnemies()
 	case 1:
 		em->Spawn(Enemy::Type::Goomba, 2, spawnBox);
 		em->Spawn(Enemy::Type::Spiny, 1, spawnBox);
-		em->Spawn(Enemy::Type::Squiglet, 1, spawnBox);
 		break;
 	case 2:
 		em->Spawn(Enemy::Type::Squiglet, 2, spawnBox);

@@ -13,6 +13,7 @@ public:
 		Background4,
 		Door,
 		DoorShadow,
+		RestArea,
 		Brick,
 		Healthbar,
 		Pointer,

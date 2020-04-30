@@ -16,6 +16,7 @@ public:
 	void DrawPixlsMenu(const Point2f& topLeft, bool isActive, const Rectf& descriptionRect) const;
 	void Scroll(bool up);
 	void ActivateSelectedPixl(Player* pPlayer);
+	Pixl::Type GetNextUnlockablePixl() const;
 private:
 	std::map<Pixl::Type, bool> m_UnlockedPixls;
 

@@ -9,6 +9,7 @@ TextureManager::TextureManager()
 	m_TextureMap[TextureType::Background4] = new Texture("Resources/Backgrounds/bg04.png");
 	m_TextureMap[TextureType::Door] = new Texture("Resources/Backgrounds/door.png");
 	m_TextureMap[TextureType::DoorShadow] = new Texture("Resources/Backgrounds/doorshadow.png");
+	m_TextureMap[TextureType::RestArea] = new Texture("Resources/Backgrounds/restarea.png");
 	m_TextureMap[TextureType::Brick] = new Texture("Resources/Backgrounds/bricks.png");
 	m_TextureMap[TextureType::Healthbar] = new Texture("Resources/HUD/Healthbar.png");
 	m_TextureMap[TextureType::Pointer] = new Texture("Resources/HUD/Pointer.png");

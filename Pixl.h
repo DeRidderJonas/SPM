@@ -5,7 +5,7 @@ class Pixl
 public:
 	enum class Type
 	{
-		Cudge, Barry
+		Cudge, Barry, Boomer
 	};
 	Pixl(Type type);
 

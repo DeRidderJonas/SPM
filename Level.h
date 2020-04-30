@@ -1,11 +1,12 @@
 #pragma once
 #include <vector>
 #include "Texture.h"
+#include "Sprite.h"
 #include "Vector2f.h"
 class Level
 {
 public:
-	Level(const Texture* pBackground);
+	Level(const Texture* pBackground, bool isRestArea);
 	
 	Level(const Level& other) = delete;
 	Level& operator=(const Level& other) = delete;
@@ -21,13 +22,20 @@ public:
 
 	Rectf GetBoundaries() const;
 	Rectf GetDoor() const;
+	Rectf GetChest() const;
 private:
 	std::vector<std::vector<Point2f>> m_Platforms;
 	const Texture* m_pBackgroundTexture;
 	const Texture* m_pBrick;
 	const Texture* m_pDoor;
+	Sprite* m_pChest;
 	Rectf m_Boundaries;
 	Rectf m_Door;
+	Rectf m_Chest;
+
+	bool m_IsRestArea;
+
+	static const float m_MinWallHeight;
 
 	void DrawPlatforms() const;
 	Rectf GetRectfForVertices(std::vector<Point2f> vertices) const;

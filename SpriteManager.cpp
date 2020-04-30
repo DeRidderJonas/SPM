@@ -17,7 +17,9 @@ SpriteManager::SpriteManager()
 	m_SpriteMap[SpriteType::InvincibleBubble] = new Sprite("Resources/Mario/Bubble.png", 2, 1, .05f);
 	m_SpriteMap[SpriteType::MarioAttackCudge] = new Sprite("Resources/Mario/Cudge_Attack.png", 4, 1, .075f);
 	m_SpriteMap[SpriteType::MarioAttackBarry] = new Sprite("Resources/Mario/Barry_Attack.png", 6, 2, .075f);
-
+	m_SpriteMap[SpriteType::Chest] = new Sprite("Resources/Backgrounds/Chest.png", 3, 1, 0.5f);
+	
+	m_SpriteMap[SpriteType::Chest]->Loop(0);
 }
 
 SpriteManager::~SpriteManager()

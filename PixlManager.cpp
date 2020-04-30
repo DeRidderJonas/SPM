@@ -1,13 +1,16 @@
 #include "pch.h"
+#include <algorithm>
 #include "PixlManager.h"
 #include "Managers.h"
 #include "utils.h"
+#include <iostream>
 
 PixlManager::PixlManager()
 	: m_SelectedPixl{Pixl::Type::Cudge}
 {
 	m_UnlockedPixls[Pixl::Type::Cudge] = true;
-	m_UnlockedPixls[Pixl::Type::Barry] = true;
+	m_UnlockedPixls[Pixl::Type::Barry] = false;
+	m_UnlockedPixls[Pixl::Type::Boomer] = false;
 }
 
 void PixlManager::Unlock(const Pixl::Type& pixlType)
@@ -44,8 +47,9 @@ void PixlManager::DrawPixlsMenu(const Point2f& topLeft, bool isActive, const Rec
 	Texture* pPixlsTexture{ Managers::GetInstance()->GetTextureManager()->GetTexture(TextureManager::TextureType::PixlsBar) };
 	Rectf MenuRect{ topLeft.x, topLeft.y - pPixlsTexture->GetHeight(), pPixlsTexture->GetWidth(), pPixlsTexture->GetHeight() };
 
+	int amountOfPixlsUnlocked{ int(std::count_if(m_UnlockedPixls.begin(), m_UnlockedPixls.end(), [](const std::pair<const Pixl::Type, bool>& pixl) {return pixl.second; })) };
 	Rectf pixlsBackground{ 0.f, MenuRect.bottom + pPixlsTexture->GetHeight() / 3, menuWidth,
-		m_UnlockedPixls.size() * pixlHeight + (m_UnlockedPixls.size() + 1) * pixlMargin + 2 * menuMargin };
+		amountOfPixlsUnlocked* pixlHeight + (amountOfPixlsUnlocked + 1) * pixlMargin + 2 * menuMargin };
 	pixlsBackground.left = MenuRect.left + MenuRect.width / 2 - pixlsBackground.width / 2;
 	pixlsBackground.bottom -= pixlsBackground.height;
 
@@ -78,12 +82,26 @@ void PixlManager::DrawPixlsMenu(const Point2f& topLeft, bool isActive, const Rec
 
 void PixlManager::Scroll(bool up)
 {
-	m_SelectedPixl = GetNextPixlType(m_SelectedPixl, up);
+	Pixl::Type nextPixlType{ GetNextPixlType(m_SelectedPixl, up) };
+	while (!m_UnlockedPixls.at(nextPixlType))
+	{
+		nextPixlType = GetNextPixlType(nextPixlType, up);
+	}
+	m_SelectedPixl = nextPixlType;
 }
 
 void PixlManager::ActivateSelectedPixl(Player* pPlayer)
 {
 	pPlayer->SetActivePixlType(m_SelectedPixl);
+}
+
+Pixl::Type PixlManager::GetNextUnlockablePixl() const
+{
+	std::map<Pixl::Type, bool>::const_reverse_iterator currLastUnlocked{ std::find_if(m_UnlockedPixls.rbegin(), m_UnlockedPixls.rend(), 
+		[](const std::pair<const Pixl::Type, bool>& pair) {return pair.second; }) };
+	std::cout << int(currLastUnlocked->first) << " : " << currLastUnlocked->second << '\n';
+	return GetNextPixlType(currLastUnlocked->first, true);
+	//return Pixl::Type::Barry;
 }
 
 Pixl::Type PixlManager::GetNextPixlType(Pixl::Type type, bool up) const

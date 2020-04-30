@@ -37,11 +37,13 @@ private:
 
 	Level* m_pLevel;
 	int m_Level;
+	bool m_InRestArea;
 
 	bool m_IsPlayerInMenu;
 	int m_IsInventoryActive;
 	float m_PickUpDuration;
 	float m_PickUpRem;
+	bool m_ChestOpened;
 
 	// FUNCTIONS
 	void Initialize( );
@@ -54,7 +56,7 @@ private:
 	void DestroyLevel();
 	void UpdatePlayer(float elapsedSec);
 	void UpdateEnemies(float elapsedSec);
-	void UpdateProjectiles(float elapsedSec);
+	void UpdateObjects(float elapsedSec);
 	void NotifyCameraLevelChange();
 	void DrawPlayer() const;
 	void DrawEnemies() const;

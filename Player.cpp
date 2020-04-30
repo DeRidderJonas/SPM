@@ -15,7 +15,7 @@ Player::Player(const Point2f& bottomLeft)
 	, m_MaxHealth{10}
 	, m_CurrentHealth{10}
 	, m_RemainingInvincibleSec{0.f}
-	, m_ActivePixl{Pixl::Type::Barry}
+	, m_ActivePixl{Pixl::Type::Cudge}
 	, m_AttackingHitbox{}
 	, m_IsPickingUp{false}
 {
