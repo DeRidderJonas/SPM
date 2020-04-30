@@ -16,6 +16,7 @@ PixlManager::PixlManager()
 void PixlManager::Unlock(const Pixl::Type& pixlType)
 {
 	m_UnlockedPixls[pixlType] = true;
+	m_SelectedPixl = pixlType;
 }
 
 bool PixlManager::IsUnlocked(const Pixl::Type& pixlType) const
@@ -80,6 +81,45 @@ void PixlManager::DrawPixlsMenu(const Point2f& topLeft, bool isActive, const Rec
 	}
 }
 
+void PixlManager::DrawUnlockingPixl(const Rectf& drawRect) const
+{
+	Texture* pStar{ Managers::GetInstance()->GetTextureManager()->GetTexture(TextureManager::TextureType::PickupStar) };
+	Sprite* pPixl{};
+	switch (m_SelectedPixl)
+	{
+	case Pixl::Type::Cudge:
+		pPixl = Managers::GetInstance()->GetSpriteManager()->GetSprite(SpriteManager::SpriteType::Cudge);
+		break;
+	case Pixl::Type::Barry:
+		pPixl = Managers::GetInstance()->GetSpriteManager()->GetSprite(SpriteManager::SpriteType::Barry);
+		break;
+	}
+
+	pStar->Draw(drawRect);
+	pPixl->Draw(Point2f{ drawRect.left + drawRect.width / 2 - pPixl->GetFrameWidth() / 2, drawRect.bottom + drawRect.height / 2 - pPixl->GetFrameHeight() / 2 });
+
+	Texture* pPixlName{};
+	switch (m_SelectedPixl)
+	{
+	case Pixl::Type::Cudge:
+		pPixlName = Managers::GetInstance()->GetTextManager()->GetTexture(TextManager::Text::Cudge);
+		break;
+	case Pixl::Type::Barry:
+		pPixlName = Managers::GetInstance()->GetTextManager()->GetTexture(TextManager::Text::Barry);
+		break;
+	}
+	Rectf nameRect{drawRect.left + drawRect.width/2 - pPixlName->GetWidth()/2, 
+		drawRect.bottom + drawRect.height /2 - pPixl->GetFrameHeight()/2 - pPixlName->GetHeight() - 5.f, 
+		pPixlName->GetWidth(), pPixlName->GetHeight()};
+	float padding{ 5.f };
+	Rectf nameRectBg{ nameRect.left - padding, nameRect.bottom - padding, nameRect.width + 2 * padding, nameRect.height + 2 * padding };
+	glColor3f(1.f, 1.f, 1.f);
+	utils::FillRect(nameRectBg);
+	glColor3f(0.f, 0.f, 0.f);
+	utils::DrawRect(nameRectBg);
+	pPixlName->Draw(nameRect);
+}
+
 void PixlManager::Scroll(bool up)
 {
 	Pixl::Type nextPixlType{ GetNextPixlType(m_SelectedPixl, up) };
@@ -99,9 +139,7 @@ Pixl::Type PixlManager::GetNextUnlockablePixl() const
 {
 	std::map<Pixl::Type, bool>::const_reverse_iterator currLastUnlocked{ std::find_if(m_UnlockedPixls.rbegin(), m_UnlockedPixls.rend(), 
 		[](const std::pair<const Pixl::Type, bool>& pair) {return pair.second; }) };
-	std::cout << int(currLastUnlocked->first) << " : " << currLastUnlocked->second << '\n';
 	return GetNextPixlType(currLastUnlocked->first, true);
-	//return Pixl::Type::Barry;
 }
 
 Pixl::Type PixlManager::GetNextPixlType(Pixl::Type type, bool up) const

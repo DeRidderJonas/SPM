@@ -42,7 +42,9 @@ private:
 	bool m_IsPlayerInMenu;
 	int m_IsInventoryActive;
 	float m_PickUpDuration;
+	float m_PickUpDurationPixl;
 	float m_PickUpRem;
+	bool m_PickUpIsItem;
 	bool m_ChestOpened;
 
 	// FUNCTIONS

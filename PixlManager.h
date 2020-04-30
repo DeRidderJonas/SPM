@@ -14,6 +14,7 @@ public:
 	void SetPixl(const Pixl::Type& pixlType, Pixl* pixl);
 
 	void DrawPixlsMenu(const Point2f& topLeft, bool isActive, const Rectf& descriptionRect) const;
+	void DrawUnlockingPixl(const Rectf& drawRect) const;
 	void Scroll(bool up);
 	void ActivateSelectedPixl(Player* pPlayer);
 	Pixl::Type GetNextUnlockablePixl() const;

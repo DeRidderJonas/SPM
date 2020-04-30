@@ -8,6 +8,7 @@ Game::Game( const Window& window )
 	, m_Camera{window.width, window.height}
 	, m_IsPlayerInMenu{false}
 	, m_PickUpDuration{1.f}
+	, m_PickUpDurationPixl{2.5f}
 	, m_PickUpRem{0.f}
 	, m_IsInventoryActive{true}
 	, m_Level{0}
@@ -113,6 +114,9 @@ void Game::UpdateObjects(float elapsedSec)
 			Pixl::Type toUnlock{ pPixlManager->GetNextUnlockablePixl() };
 			pPixlManager->Unlock(toUnlock);
 			m_ChestOpened = true;
+			m_PickUpRem = m_PickUpDurationPixl;
+			m_PickUpIsItem = false;
+			m_pPlayer->SetIsPickingUp(true);
 		}
 	}
 
@@ -166,10 +170,11 @@ void Game::DrawItems() const
 	if (m_PickUpRem > 0.f)
 	{
 		float margin{ 20.f };
-		Rectf itemRect{ m_pPlayer->GetHitbox().left - 2 * margin, m_pPlayer->GetHitbox().bottom + m_pPlayer->GetHitbox().height - margin, 
+		Rectf drawRect{ m_pPlayer->GetHitbox().left - 2 * margin, m_pPlayer->GetHitbox().bottom + m_pPlayer->GetHitbox().height - margin, 
 			m_pPlayer->GetHitbox().width + 4 * margin, m_pPlayer->GetHitbox().height + 2 * margin };
 		
-		Managers::GetInstance()->GetItemManager()->DrawPickUpItem(itemRect);
+		if(m_PickUpIsItem) Managers::GetInstance()->GetItemManager()->DrawPickUpItem(drawRect);
+		else Managers::GetInstance()->GetPixlManager()->DrawUnlockingPixl(drawRect);
 	}
 }
 
@@ -228,7 +233,11 @@ void Game::DoCollisionTests()
 	Managers::GetInstance()->GetEnemyManager()->HitPlayer();
 	Managers::GetInstance()->GetEnemyManager()->AttackAll(m_pPlayer->GetAttackHitbox());
 	Managers::GetInstance()->GetProjectileManager()->HitSentients(m_pPlayer);
-	if (Managers::GetInstance()->GetItemManager()->IsOverlapping(m_pPlayer)) m_PickUpRem = m_PickUpDuration;
+	if (Managers::GetInstance()->GetItemManager()->IsOverlapping(m_pPlayer))
+	{
+		m_PickUpRem = m_PickUpDuration;
+		m_PickUpIsItem = true;
+	}
 }
 
 void Game::ProcessKeyDownEvent( const SDL_KeyboardEvent & e )
@@ -367,6 +376,8 @@ void Game::AdvanceToNextLevel()
 	Managers::GetInstance()->GetItemManager()->RemoveKey();
 	m_Level++;
 	m_pPlayer->SetPosition(Point2f{10.f, 50.f});
+	m_ChestOpened = false;
+	Managers::GetInstance()->GetSpriteManager()->GetSprite(SpriteManager::SpriteType::Chest)->SetFrame(0);
 	m_InRestArea = m_Level % 1 == 0;
 	if (!m_InRestArea)
 	{
