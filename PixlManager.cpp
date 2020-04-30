@@ -4,6 +4,7 @@
 #include "Managers.h"
 #include "utils.h"
 #include <iostream>
+#include <sstream>
 
 PixlManager::PixlManager()
 	: m_SelectedPixl{Pixl::Type::Cudge}
@@ -140,6 +141,27 @@ Pixl::Type PixlManager::GetNextUnlockablePixl() const
 	std::map<Pixl::Type, bool>::const_reverse_iterator currLastUnlocked{ std::find_if(m_UnlockedPixls.rbegin(), m_UnlockedPixls.rend(), 
 		[](const std::pair<const Pixl::Type, bool>& pair) {return pair.second; }) };
 	return GetNextPixlType(currLastUnlocked->first, true);
+}
+
+std::string PixlManager::ToSaveFormat() const
+{
+	std::stringstream ss{};
+	for (const std::pair<Pixl::Type, bool>& pair : m_UnlockedPixls)
+	{
+		ss << pair.second << ',';
+	}
+	return ss.str();
+}
+
+void PixlManager::LoadFromSave(std::string saveLine)
+{
+	std::stringstream ss{ saveLine };
+	for (std::map<Pixl::Type, bool>::iterator it{ m_UnlockedPixls.begin() }; it != m_UnlockedPixls.end(); ++it)
+	{
+		std::string unlocked{};
+		std::getline(ss, unlocked, ',');
+		it->second = unlocked == "1";
+	}
 }
 
 Pixl::Type PixlManager::GetNextPixlType(Pixl::Type type, bool up) const

@@ -47,6 +47,9 @@ private:
 	bool m_PickUpIsItem;
 	bool m_ChestOpened;
 
+	std::string m_SaveFileName;
+	bool m_ContinuingFromSave;
+
 	// FUNCTIONS
 	void Initialize( );
 	void InitPlayer();
@@ -73,4 +76,7 @@ private:
 	void PrintControlsInfo() const;
 	void AdvanceToNextLevel();
 	void SpawnEnemies();
+
+	void SaveGame() const;
+	void LoadGame();
 };

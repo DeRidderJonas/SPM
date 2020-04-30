@@ -18,6 +18,9 @@ public:
 	void Scroll(bool up);
 	void ActivateSelectedPixl(Player* pPlayer);
 	Pixl::Type GetNextUnlockablePixl() const;
+
+	std::string ToSaveFormat() const;
+	void LoadFromSave(std::string saveLine);
 private:
 	std::map<Pixl::Type, bool> m_UnlockedPixls;
 

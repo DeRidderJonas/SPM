@@ -23,6 +23,7 @@ public:
 	int GetMaxHealth() const;
 	int GetCurrentHealth() const;
 	void RestoreHealth(int amount);
+	void HealthFromLoad(int current, int max);
 
 	void SetIsPickingUp(bool value);
 	void SetActivePixlType(Pixl::Type type);

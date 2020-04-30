@@ -117,6 +117,12 @@ void Player::RestoreHealth(int amount)
 	if (m_CurrentHealth > m_MaxHealth) m_CurrentHealth = m_MaxHealth;
 }
 
+void Player::HealthFromLoad(int current, int max)
+{
+	m_CurrentHealth = current;
+	m_MaxHealth = max;
+}
+
 void Player::SetIsPickingUp(bool value)
 {
 	m_IsPickingUp = value;

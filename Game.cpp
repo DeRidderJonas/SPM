@@ -2,6 +2,8 @@
 #include "Game.h"
 #include "Managers.h"
 #include <iostream>
+#include <sstream>
+#include <fstream>
 
 Game::Game( const Window& window ) 
 	: m_Window{ window }
@@ -12,6 +14,8 @@ Game::Game( const Window& window )
 	, m_PickUpRem{0.f}
 	, m_IsInventoryActive{true}
 	, m_Level{0}
+	, m_SaveFileName{"SaveFile.txt"}
+	, m_ContinuingFromSave{false}
 {
 	Initialize( );
 }
@@ -24,13 +28,13 @@ Game::~Game( )
 void Game::Initialize( )
 {
 	InitManagers();
-	//InitLevel();
 	InitPlayer();
+
+	LoadGame();
 
 	AdvanceToNextLevel();
 
 	Managers::GetInstance()->GetItemManager()->Spawn(Item::Type::RedShroomshake, Point2f{200.f, 10.f}, m_pPlayer);
-	//Managers::GetInstance()->GetItemManager()->Spawn(Item::Type::RedShroomshake, Point2f{10.f, 10.f}, m_pPlayer);
 
 	NotifyCameraLevelChange();
 }
@@ -304,6 +308,9 @@ void Game::ProcessKeyUpEvent( const SDL_KeyboardEvent& e )
 
 			AdvanceToNextLevel();
 			break;
+		case SDLK_p:
+			SaveGame();
+			break;
 		}
 	}
 }
@@ -374,11 +381,16 @@ void Game::PrintControlsInfo() const
 void Game::AdvanceToNextLevel()
 {
 	Managers::GetInstance()->GetItemManager()->RemoveKey();
-	m_Level++;
+	Managers::GetInstance()->GetEnemyManager()->SetKeySpawned(false);
+	if (!m_ContinuingFromSave)
+	{
+		m_Level++;
+		m_ChestOpened = false;
+		Managers::GetInstance()->GetSpriteManager()->GetSprite(SpriteManager::SpriteType::Chest)->SetFrame(0);
+	}
+	else m_ContinuingFromSave = false;
 	m_pPlayer->SetPosition(Point2f{10.f, 50.f});
-	m_ChestOpened = false;
-	Managers::GetInstance()->GetSpriteManager()->GetSprite(SpriteManager::SpriteType::Chest)->SetFrame(0);
-	m_InRestArea = m_Level % 1 == 0;
+	m_InRestArea = m_Level % 3 == 0;
 	if (!m_InRestArea)
 	{
 		delete m_pLevel;
@@ -390,6 +402,8 @@ void Game::AdvanceToNextLevel()
 		delete m_pLevel;
 		m_pLevel = new Level(Managers::GetInstance()->GetTextureManager()->GetTexture(TextureManager::TextureType::RestArea), true);
 	}
+
+	m_Camera.SetLevelBoundaries(m_pLevel->GetBoundaries());
 }
 
 void Game::SpawnEnemies()
@@ -414,4 +428,42 @@ void Game::SpawnEnemies()
 	default:
 		em->Spawn(Enemy::Type::Goomba, 1, spawnBox);
 	}
+}
+
+void Game::SaveGame() const
+{
+	std::ofstream os{ m_SaveFileName };
+	os << m_Level << '\n';
+	os << m_pPlayer->GetCurrentHealth() << '\n';
+	os << m_pPlayer->GetMaxHealth() << '\n';
+	os << Managers::GetInstance()->GetPixlManager()->ToSaveFormat() << '\n';
+	os << Managers::GetInstance()->GetItemManager()->ToSaveFormat();
+}
+
+void Game::LoadGame()
+{
+	std::ifstream is{ m_SaveFileName };
+	if (!is) return;
+
+	m_ContinuingFromSave = true;
+
+	std::string line;
+	//level
+	std::getline(is, line);
+	m_Level = std::stoi(line);
+	//HP
+	std::getline(is, line);
+	int currentHealth = std::stoi(line);
+	std::getline(is, line);
+	m_pPlayer->HealthFromLoad(currentHealth, std::stoi(line));
+	//Pixls
+	std::getline(is, line);
+	Managers::GetInstance()->GetPixlManager()->LoadFromSave(line);
+	//Items
+	std::getline(is, line);
+	Managers::GetInstance()->GetItemManager()->LoadFromSave(line, m_pPlayer);
+
+	//Chest should already be open
+	m_ChestOpened = true;
+	Managers::GetInstance()->GetSpriteManager()->GetSprite(SpriteManager::SpriteType::Chest)->SetFrame(2);
 }

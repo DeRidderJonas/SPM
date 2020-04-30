@@ -26,6 +26,8 @@ public:
 
 	void Kill(Enemy* enemy);
 	std::vector<Enemy*> GetEnemies() const;
+
+	void SetKeySpawned(bool value);
 private:
 	Player* m_pPlayer;
 	std::vector<Enemy*> m_Enemies;

@@ -3,6 +3,7 @@
 #include "ItemFactory.h"
 #include "utils.h"
 #include <iostream>
+#include <sstream>
 #include "Managers.h"
 #include "Key.h"
 
@@ -146,6 +147,26 @@ void ItemManager::RemoveKey()
 
 	int index{ int(std::distance(m_Inventory.begin(), it)) };
 	m_Inventory.erase(m_Inventory.begin() + index);
+}
+
+std::string ItemManager::ToSaveFormat() const
+{
+	std::stringstream ss{};
+	for (Item* item : m_Inventory)
+	{
+		if(item->GetType() != Item::Type::Key) ss << int(item->GetType()) << ',';
+	}
+	return ss.str();
+}
+
+void ItemManager::LoadFromSave(std::string saveLine, Player* pPlayer)
+{
+	std::stringstream ss{ saveLine };
+	std::string item{};
+	while (std::getline(ss, item, ','))
+	{
+		m_Inventory.push_back(ItemFactory::CreateItem(Item::Type(std::stoi(item)), Point2f{}, pPlayer));
+	}
 }
 
 void ItemManager::Pickup(Item* item)

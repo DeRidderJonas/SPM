@@ -129,6 +129,11 @@ std::vector<Enemy*> EnemyManager::GetEnemies() const
 	return m_Enemies;
 }
 
+void EnemyManager::SetKeySpawned(bool value)
+{
+	m_KeySpawned = value;
+}
+
 void EnemyManager::SpawnLoot(Point2f pos)
 {
 	//Loot is spawned after m_Enemies size is decreased

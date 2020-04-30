@@ -26,6 +26,9 @@ public:
 	void Scroll(bool up);
 	void UseActiveItem();
 	void RemoveKey();
+
+	std::string ToSaveFormat() const;
+	void LoadFromSave(std::string saveLine, Player* pPlayer);
 private:
 	std::vector<Item*> m_FloorItems;
 	std::vector<Item*> m_Inventory;
