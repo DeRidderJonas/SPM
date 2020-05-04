@@ -170,8 +170,8 @@ Pixl::Type PixlManager::GetNextPixlType(Pixl::Type type, bool up) const
 	if (up) index++;
 	else index--;
 
-	if (index < 0) return Pixl::Type::Barry;
-	if (index > int(Pixl::Type::Barry)) return Pixl::Type::Cudge;
+	if (index < 0) return Pixl::Type::Boomer;
+	if (index > int(Pixl::Type::Boomer)) return Pixl::Type::Cudge;
 
 	return Pixl::Type(index);
 }

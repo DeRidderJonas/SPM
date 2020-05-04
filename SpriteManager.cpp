@@ -5,10 +5,13 @@
 SpriteManager::SpriteManager()
 {
 	m_SpriteMap[SpriteType::Coconut] = new Sprite("Resources/Projectiles/Coconut.png", 1, 1, 1.f);
+	m_SpriteMap[SpriteType::Bomb] = new Sprite("Resources/Projectiles/Bomb.png", 3, 1, 0.5f);
+	m_SpriteMap[SpriteType::BombExplosion] = new Sprite("Resources/Projectiles/BombExplosion.png", 3, 1, 0.25f);
 	m_SpriteMap[SpriteType::Numbers] = new Sprite("Resources/HUD/Numbers.png", 10, 1, 1.f);
 	m_SpriteMap[SpriteType::Operators] = new Sprite("Resources/HUD/Operators.png", 2, 1, 1.f);
 	m_SpriteMap[SpriteType::Cudge] = new Sprite("Resources/Pixls/Cudge.png", 1, 1, 1.f);
 	m_SpriteMap[SpriteType::Barry] = new Sprite("Resources/Pixls/Barry.png", 1, 1, 1.f);
+	m_SpriteMap[SpriteType::Boomer] = new Sprite("Resources/Pixls/Boomer.png", 1, 1, 1.f);
 	m_SpriteMap[SpriteType::MarioIdle] = new Sprite("Resources/Mario/Mario_Idle.png", 1, 1, 0.075f);
 	m_SpriteMap[SpriteType::MarioRun] = new Sprite("Resources/Mario/Mario.png", 4, 2, 0.075f);
 	m_SpriteMap[SpriteType::MarioJump] = new Sprite("Resources/Mario/Mario_Jump.png", 1, 1, 1.f);
@@ -17,6 +20,7 @@ SpriteManager::SpriteManager()
 	m_SpriteMap[SpriteType::InvincibleBubble] = new Sprite("Resources/Mario/Bubble.png", 2, 1, .05f);
 	m_SpriteMap[SpriteType::MarioAttackCudge] = new Sprite("Resources/Mario/Cudge_Attack.png", 4, 1, .075f);
 	m_SpriteMap[SpriteType::MarioAttackBarry] = new Sprite("Resources/Mario/Barry_Attack.png", 6, 2, .075f);
+	m_SpriteMap[SpriteType::MarioAttackBoomer] = new Sprite("Resources/Mario/Boomer_Attack.png", 3, 1, .16f);
 	m_SpriteMap[SpriteType::Chest] = new Sprite("Resources/Backgrounds/Chest.png", 3, 1, 0.5f);
 	
 	m_SpriteMap[SpriteType::Chest]->Loop(0);

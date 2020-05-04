@@ -204,7 +204,7 @@ Rectf Level::GetChest() const
 
 void Level::DrawPlatforms() const
 {
-	for (std::vector<Point2f> platform : m_Platforms)
+	for (const std::vector<Point2f>& platform : m_Platforms)
 	{
 		Rectf platformRect{GetRectfForVertices(platform)};
 		int amountOfTiles{ int(platformRect.width / m_pBrick->GetWidth()) };

@@ -4,22 +4,19 @@
 
 const float Projectile::m_HorizontalSpeed{ 300.f };
 
-Projectile::Projectile(const Sentient* pOwner, Sprite* pSprite)
-	: GameObject(Point2f{pOwner->GetHitbox().left, pOwner->GetHitbox().bottom}, true, true)
+Projectile::Projectile(const Sentient* pOwner, Sprite* pSprite, bool verticalSpeedConst)
+	: GameObject(Point2f{pOwner->GetHitbox().left, pOwner->GetHitbox().bottom}, true, verticalSpeedConst)
 	, m_pOwner{pOwner}
 	, m_pSprite{pSprite}
 {
 	SetHorizontalVelocity(m_HorizontalSpeed);
 	m_Hitbox.width = m_pSprite->GetFrameWidth();
 	m_Hitbox.height = m_pSprite->GetFrameHeight();
+	pSprite->SetFrame(0);
 }
 
 bool Projectile::Update(const Level* pLevel, float elapsedSec)
 {
-	float border{ 5.f };
-	bool hitLevelBoundaries{ m_Hitbox.left < pLevel->GetBoundaries().left + border || m_Hitbox.left + m_Hitbox.width > pLevel->GetBoundaries().left + pLevel->GetBoundaries().width - border };
-	if (hitLevelBoundaries)	return true;
-	if (pLevel->IsNextToWall(m_Hitbox)) return true;
 	GameObject::Update(elapsedSec, pLevel);
 	m_pSprite->Update(elapsedSec);
 	return false;

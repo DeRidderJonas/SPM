@@ -8,10 +8,13 @@ public:
 	enum class SpriteType
 	{
 		Coconut,
+		Bomb,
+		BombExplosion,
 		Numbers,
 		Operators,
 		Cudge,
 		Barry,
+		Boomer,
 		MarioIdle,
 		MarioRun,
 		MarioJump,
@@ -20,6 +23,7 @@ public:
 		InvincibleBubble,
 		MarioAttackCudge,
 		MarioAttackBarry,
+		MarioAttackBoomer,
 		Chest,
 		NotFound
 	};

@@ -18,7 +18,7 @@ public:
 	ProjectileManager(ProjectileManager&& other) = delete;
 	ProjectileManager operator=(ProjectileManager&& other) = delete;
 
-	Projectile* Spawn(Sentient* pOwner, bool goingLeft);
+	Projectile* Spawn(Sentient* pOwner, bool goingLeft, Projectile::ProjectileType type = Projectile::ProjectileType::Coconut);
 	void UpdateAll(float elapsedSec, const Level* level);
 	void DrawAll() const;
 	void HitSentients(Player* pPlayer);

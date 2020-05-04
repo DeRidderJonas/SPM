@@ -16,6 +16,11 @@ void Sentient::Attack()
 {
 }
 
+void Sentient::AttackEnded()
+{
+	m_GameState = m_FacingLeft ? GameState::MovingLeft : GameState::MovingRight;
+}
+
 void Sentient::Update(float elapsedSec, const Level* level)
 {
 	if (m_GameState == GameState::MovingLeft) m_FacingLeft = true;
@@ -23,7 +28,7 @@ void Sentient::Update(float elapsedSec, const Level* level)
 
 	if (m_GameState == GameState::Attacking) {
 		m_RemainingAttackSec -= elapsedSec;
-		if (m_RemainingAttackSec <= 0.f) m_GameState = m_FacingLeft ? GameState::MovingLeft : GameState::MovingRight;
+		if (m_RemainingAttackSec <= 0.f) AttackEnded();
 		return;
 	}
 	else

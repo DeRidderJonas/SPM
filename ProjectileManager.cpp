@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Managers.h"
 #include "Player.h"
+#include "ProjectileFactory.h"
 
 ProjectileManager::ProjectileManager()
 {
@@ -14,10 +15,16 @@ ProjectileManager::~ProjectileManager()
 	}
 }
 
-Projectile* ProjectileManager::Spawn(Sentient* pOwner, bool goingLeft)
+Projectile* ProjectileManager::Spawn(Sentient* pOwner, bool goingLeft, Projectile::ProjectileType type)
 {
-	Projectile* newProjectile{ new Projectile(pOwner, Managers::GetInstance()->GetSpriteManager()->GetSprite(SpriteManager::SpriteType::Coconut)) };
+	Projectile* newProjectile{ ProjectileFactory::MakeProjectile(pOwner, type) };
 	if (goingLeft) newProjectile->SetHorizontalVelocity(-newProjectile->GetVelocity().x);
+
+	if (type == Projectile::ProjectileType::Bomb)
+	{
+		newProjectile->SetHorizontalVelocity(0.f);
+		newProjectile->SetPosition(Point2f{ pOwner->GetHitbox().left + (goingLeft ? -1 : 1) * newProjectile->GetHitbox().width, pOwner->GetHitbox().bottom });
+	}
 
 	m_Projectiles.push_back(newProjectile);
 

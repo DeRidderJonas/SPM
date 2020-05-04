@@ -14,6 +14,8 @@ public:
 		CudgeDesc,
 		Barry,
 		BarryDesc,
+		Boomer,
+		BoomerDesc,
 		NotFound
 	};
 

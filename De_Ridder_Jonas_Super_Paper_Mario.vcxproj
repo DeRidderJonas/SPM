@@ -151,8 +151,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Bomb.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Coconut.cpp" />
     <ClCompile Include="Managers.cpp" />
+    <ClCompile Include="ProjectileFactory.cpp" />
     <ClCompile Include="RedShroomshake.cpp" />
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="Enemy.cpp" />
@@ -195,8 +198,11 @@
     <ClCompile Include="Vector2f.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Bomb.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Coconut.h" />
     <ClInclude Include="Managers.h" />
+    <ClInclude Include="ProjectileFactory.h" />
     <ClInclude Include="RedShroomshake.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="Enemy.h" />
@@ -217,6 +223,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Projectile.h" />
     <ClInclude Include="ProjectileManager.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Sentient.h" />
     <ClInclude Include="SoundEffect.h" />
     <ClInclude Include="SoundStream.h" />
@@ -236,6 +243,9 @@
     <None Include="De_Ridder_Jonas_Game.xlsx" />
     <None Include="SDLWin32.props" />
     <None Include="SDLx64.props" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="De_Ridder_Jonas_Super_Paper_Mario.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

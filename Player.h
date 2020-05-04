@@ -48,6 +48,7 @@ private:
 
 	void OnInput(float elapsedSec);
 	virtual void Attack() override;
+	virtual void AttackEnded() override;
 
 	void SetActiveSprite(SpriteManager::SpriteType spriteType);
 

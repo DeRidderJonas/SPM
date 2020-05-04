@@ -57,6 +57,7 @@ void Player::Draw() const
 		glTranslatef(m_Hitbox.left + m_pActiveSprite->GetFrameWidth(), m_Hitbox.bottom, 0.f);
 		if (m_GameState == GameState::Attacking && m_ActivePixl.GetType() == Pixl::Type::Cudge) glTranslatef(-GetHitbox().width, 0, 0);
 		if (m_GameState == GameState::Attacking && m_ActivePixl.GetType() == Pixl::Type::Barry) glTranslatef(-GetHitbox().width/2, 0, 0);
+		if (m_GameState == GameState::Attacking && m_ActivePixl.GetType() == Pixl::Type::Boomer) glTranslatef(-0.45f*GetHitbox().width, 0, 0);
 		glScalef(-1, 1, 1);
 		m_pActiveSprite->Draw(Point2f{});
 		glPopMatrix();
@@ -154,6 +155,13 @@ Rectf Player::GetHitbox() const
 		return hitbox;
 	}
 
+	if (m_GameState == GameState::Attacking && m_ActivePixl.GetType() == Pixl::Type::Boomer)
+	{
+		Rectf hitbox{ m_Hitbox };
+		hitbox.width = 2 * hitbox.width / 3;
+		return hitbox;
+	}
+
 	return GameObject::GetHitbox();
 }
 
@@ -229,6 +237,11 @@ void Player::Attack()
 			, m_pActiveSprite->GetFrameWidth(), m_pActiveSprite->GetFrameHeight() };
 		m_RemainingAttackSec = 1.f;
 		break;
+	case Pixl::Type::Boomer:
+		SetActiveSprite(SpriteManager::SpriteType::MarioAttackBoomer);
+		m_RemainingAttackSec = 0.5f;
+		m_RemainingCooldownSec = 6.f;
+		break;
 	default:
 		//No active pixl, revert to falling
 		m_GameState = GameState::Falling;
@@ -236,6 +249,13 @@ void Player::Attack()
 	}
 
 	m_pActiveSprite->SetFrame(0);
+}
+
+void Player::AttackEnded()
+{
+	if (m_ActivePixl.GetType() == Pixl::Type::Boomer) Managers::GetInstance()->GetProjectileManager()->Spawn(this, m_FacingLeft, Projectile::ProjectileType::Bomb);
+
+	m_GameState = GameState::Idle;
 }
 
 void Player::SetActiveSprite(SpriteManager::SpriteType spriteType)

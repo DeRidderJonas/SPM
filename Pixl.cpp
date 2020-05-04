@@ -48,6 +48,8 @@ void Pixl::SetType(Type newType)
 		m_pNameTexture = Managers::GetInstance()->GetTextManager()->GetTexture(TextManager::Text::Barry);
 		m_pDescriptionTexture = Managers::GetInstance()->GetTextManager()->GetTexture(TextManager::Text::BarryDesc);
 		break;
+	case Pixl::Type::Boomer:
+		m_pSprite = Managers::GetInstance()->GetSpriteManager()->GetSprite(SpriteManager::SpriteType::Boomer);
 	default:
 		break;
 	}

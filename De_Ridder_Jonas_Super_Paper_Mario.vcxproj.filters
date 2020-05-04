@@ -37,6 +37,12 @@
     <Filter Include="Game Files\Items\Derived">
       <UniqueIdentifier>{4d2d6105-d1da-404f-a158-c93b88a5200a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game Files\GameObjects\Projectile">
+      <UniqueIdentifier>{983d83ca-c552-478a-8eda-34b1d26cdec1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Files\GameObjects\Projectile\Derived">
+      <UniqueIdentifier>{52592694-7bcf-4981-a6ad-76c8fe8b6309}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -96,9 +102,6 @@
     <ClCompile Include="TextureManager.cpp">
       <Filter>Game Files\Managers</Filter>
     </ClCompile>
-    <ClCompile Include="Projectile.cpp">
-      <Filter>Game Files\GameObjects</Filter>
-    </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Game Files\GameObjects\Sentient</Filter>
     </ClCompile>
@@ -149,6 +152,18 @@
     </ClCompile>
     <ClCompile Include="Managers.cpp">
       <Filter>Game Files\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Projectile.cpp">
+      <Filter>Game Files\GameObjects\Projectile</Filter>
+    </ClCompile>
+    <ClCompile Include="Coconut.cpp">
+      <Filter>Game Files\GameObjects\Projectile\Derived</Filter>
+    </ClCompile>
+    <ClCompile Include="ProjectileFactory.cpp">
+      <Filter>Game Files\Factories</Filter>
+    </ClCompile>
+    <ClCompile Include="Bomb.cpp">
+      <Filter>Game Files\GameObjects\Projectile\Derived</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -206,9 +221,6 @@
     <ClInclude Include="TextureManager.h">
       <Filter>Game Files\Managers</Filter>
     </ClInclude>
-    <ClInclude Include="Projectile.h">
-      <Filter>Game Files\GameObjects</Filter>
-    </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Game Files\GameObjects\Sentient</Filter>
     </ClInclude>
@@ -260,6 +272,21 @@
     <ClInclude Include="Managers.h">
       <Filter>Game Files\Utils</Filter>
     </ClInclude>
+    <ClInclude Include="Projectile.h">
+      <Filter>Game Files\GameObjects\Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="ProjectileFactory.h">
+      <Filter>Game Files\Factories</Filter>
+    </ClInclude>
+    <ClInclude Include="Coconut.h">
+      <Filter>Game Files\GameObjects\Projectile\Derived</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Framework Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Bomb.h">
+      <Filter>Game Files\GameObjects\Projectile\Derived</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="SDLWin32.props" />
@@ -267,5 +294,10 @@
     <None Include="De_Ridder_Jonas_Game.xlsx">
       <Filter>Resource Files</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="De_Ridder_Jonas_Super_Paper_Mario.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

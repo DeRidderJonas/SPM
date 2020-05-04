@@ -8,6 +8,7 @@ public:
 	Sentient(const Point2f& bottomLeft, bool IsHorizontalSpeedConstant = true, float attackDuration = 1.f, float attackCooldown = 5.f);
 	virtual ~Sentient() = default;
 	virtual void Attack();
+	virtual void AttackEnded();
 	virtual void Update(float elapsedSec, const Level* level) override;
 
 	virtual Rectf GetHitbox() const override;

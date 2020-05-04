@@ -10,14 +10,15 @@ class Projectile : public GameObject
 public:
 	enum class ProjectileType
 	{
-		Coconut
+		Coconut, Bomb
 	};
-	Projectile(const Sentient* pOwner, Sprite* pSprite);
-	bool Update(const Level* pLevel, float elapsedSec);
-	void Draw() const;
+	Projectile(const Sentient* pOwner, Sprite* pSprite, bool verticalSpeedConst = true);
+	virtual ~Projectile() = default;
+	virtual bool Update(const Level* pLevel, float elapsedSec);
+	virtual void Draw() const;
 	virtual bool IsOverlapping(const GameObject* other) const override;
 	bool BelongsTo(Sentient* pSentient) const;
-private:
+protected:
 	static const float m_HorizontalSpeed;
 
 	Sprite* m_pSprite;
