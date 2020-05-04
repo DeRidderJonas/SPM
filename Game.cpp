@@ -382,6 +382,10 @@ void Game::AdvanceToNextLevel()
 {
 	Managers::GetInstance()->GetItemManager()->RemoveKey();
 	Managers::GetInstance()->GetEnemyManager()->SetKeySpawned(false);
+	Managers::GetInstance()->GetItemManager()->DestroyAllFloorItems();
+	Managers::GetInstance()->GetEnemyManager()->KillAllEnemies();
+	Managers::GetInstance()->GetProjectileManager()->DestroyAll();
+
 	if (!m_ContinuingFromSave)
 	{
 		m_Level++;
@@ -417,13 +421,13 @@ void Game::SpawnEnemies()
 	switch (m_Level)
 	{
 	case 1:
-		em->Spawn(Enemy::Type::Goomba, 2, spawnBox);
-		em->Spawn(Enemy::Type::Spiny, 1, spawnBox);
+		//em->Spawn(Enemy::Type::Goomba, 2, spawnBox);
+		em->Spawn(Enemy::Type::Squiglet, 1, spawnBox);
 		break;
 	case 2:
-		em->Spawn(Enemy::Type::Squiglet, 2, spawnBox);
-		em->Spawn(Enemy::Type::Goomba, 2, spawnBox);
-		em->Spawn(Enemy::Type::Spiny, 1, spawnBox);
+		em->Spawn(Enemy::Type::Squiglet, 1, spawnBox);
+		//em->Spawn(Enemy::Type::Goomba, 2, spawnBox);
+		//em->Spawn(Enemy::Type::Spiny, 1, spawnBox);
 		break;
 	default:
 		em->Spawn(Enemy::Type::Goomba, 1, spawnBox);

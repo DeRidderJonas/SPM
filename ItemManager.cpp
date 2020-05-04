@@ -101,6 +101,12 @@ void ItemManager::DrawPickUpItem(const Rectf& itemRect) const
 	m_Inventory.at(m_ActiveItem)->DrawAtPos(itemCenter);
 }
 
+void ItemManager::DestroyAllFloorItems()
+{
+	for (Item* item : m_FloorItems) delete item;
+	m_FloorItems.clear();
+}
+
 void ItemManager::SpawnRandom(Point2f bottomLeft, Player* pPlayer, bool& KeySpawned)
 {
 	int amountOfItems{ 2 }; //TODO: update this to actual amount of items
@@ -146,6 +152,7 @@ void ItemManager::RemoveKey()
 	if (it == m_Inventory.end()) return;
 
 	int index{ int(std::distance(m_Inventory.begin(), it)) };
+	delete m_Inventory[index];
 	m_Inventory.erase(m_Inventory.begin() + index);
 }
 

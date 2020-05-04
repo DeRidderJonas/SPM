@@ -24,6 +24,7 @@ public:
 	void HitSentients(Player* pPlayer);
 
 	void Destroy(Projectile* pProjectile);
+	void DestroyAll();
 private:
 	std::vector<Projectile*> m_Projectiles;
 };

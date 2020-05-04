@@ -67,7 +67,7 @@ void Level::HandleCollision(Rectf& actorShape, Vector2f& actorVelocity) const
 		actorShape.left = m_Boundaries.left + m_Boundaries.width - actorShape.width;
 	}
 
-	for (std::vector<Point2f> platformVertices : m_Platforms)
+	for (const std::vector<Point2f>& platformVertices : m_Platforms)
 	{
 		utils::HitInfo hitInfo{};
 		Point2f RayP1{ actorShape.left + actorShape.width / 2, actorShape.bottom };
@@ -111,7 +111,7 @@ void Level::HandleCollision(Rectf& actorShape, Vector2f& actorVelocity) const
 
 void Level::HandleWallCollision(Rectf& actorShape, Vector2f& actorVelocity) const
 {
-	for (std::vector<Point2f> platformVertices : m_Platforms)
+	for (const std::vector<Point2f>& platformVertices : m_Platforms)
 	{
 		Rectf wall{ GetRectfForVertices(platformVertices) };
 		bool isWall{ wall.height > m_MinWallHeight };
@@ -139,7 +139,7 @@ void Level::HandleWallCollision(Rectf& actorShape, Vector2f& actorVelocity) cons
 
 bool Level::IsOnGround(const Rectf& actorShape) const
 {
-	for (std::vector<Point2f> platformVertices : m_Platforms)
+	for (const std::vector<Point2f>& platformVertices : m_Platforms)
 	{
 		utils::HitInfo hitInfo{};
 		Point2f RayP1{ actorShape.left + actorShape.width / 2, actorShape.bottom + actorShape.height / 2 };
@@ -173,7 +173,7 @@ bool Level::IsOnGround(const Rectf& actorShape) const
 
 bool Level::IsNextToWall(const Rectf& actorShape) const
 {
-	for (std::vector<Point2f> platformVertices : m_Platforms)
+	for (const std::vector<Point2f>& platformVertices : m_Platforms)
 	{
 		Rectf wall{ GetRectfForVertices(platformVertices) };
 		bool isWall{ wall.height > m_MinWallHeight };

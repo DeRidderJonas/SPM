@@ -124,6 +124,15 @@ void EnemyManager::Kill(Enemy* enemy)
 	}
 }
 
+void EnemyManager::KillAllEnemies()
+{
+	for (Enemy* enemy : m_Enemies)
+	{
+		delete enemy;
+	}
+	m_Enemies.clear();
+}
+
 std::vector<Enemy*> EnemyManager::GetEnemies() const
 {
 	return m_Enemies;

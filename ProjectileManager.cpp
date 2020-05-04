@@ -90,6 +90,15 @@ void ProjectileManager::Destroy(Projectile* pProjectile)
 	//Projectile was found
 	int index{ int(std::distance(m_Projectiles.begin(), it)) };
 
-	delete m_Projectiles[index];
 	m_Projectiles.erase(m_Projectiles.begin() + index);
+	delete pProjectile;
+}
+
+void ProjectileManager::DestroyAll()
+{
+	for (Projectile* projectile : m_Projectiles)
+	{
+		delete projectile;
+	}
+	m_Projectiles.clear();
 }

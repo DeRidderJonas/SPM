@@ -25,6 +25,7 @@ public:
 	bool HitPlayer();
 
 	void Kill(Enemy* enemy);
+	void KillAllEnemies();
 	std::vector<Enemy*> GetEnemies() const;
 
 	void SetKeySpawned(bool value);
