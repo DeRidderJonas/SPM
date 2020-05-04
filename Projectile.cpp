@@ -10,14 +10,17 @@ Projectile::Projectile(const Sentient* pOwner, Sprite* pSprite)
 	, m_pSprite{pSprite}
 {
 	SetHorizontalVelocity(m_HorizontalSpeed);
+	m_Hitbox.width = m_pSprite->GetFrameWidth();
+	m_Hitbox.height = m_pSprite->GetFrameHeight();
 }
 
-bool Projectile::Update(const Level* level, float elapsedSec)
+bool Projectile::Update(const Level* pLevel, float elapsedSec)
 {
 	float border{ 5.f };
-	bool hitLevelBoundaries{ m_Hitbox.left < level->GetBoundaries().left + border || m_Hitbox.left + m_Hitbox.width > level->GetBoundaries().left + level->GetBoundaries().width - border };
+	bool hitLevelBoundaries{ m_Hitbox.left < pLevel->GetBoundaries().left + border || m_Hitbox.left + m_Hitbox.width > pLevel->GetBoundaries().left + pLevel->GetBoundaries().width - border };
 	if (hitLevelBoundaries)	return true;
-	GameObject::Update(elapsedSec, level);
+	if (pLevel->IsNextToWall(m_Hitbox)) return true;
+	GameObject::Update(elapsedSec, pLevel);
 	m_pSprite->Update(elapsedSec);
 	return false;
 }

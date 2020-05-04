@@ -13,7 +13,7 @@ public:
 		Coconut
 	};
 	Projectile(const Sentient* pOwner, Sprite* pSprite);
-	bool Update(const Level* level, float elapsedSec);
+	bool Update(const Level* pLevel, float elapsedSec);
 	void Draw() const;
 	virtual bool IsOverlapping(const GameObject* other) const override;
 	bool BelongsTo(Sentient* pSentient) const;
