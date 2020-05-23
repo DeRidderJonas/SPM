@@ -427,6 +427,7 @@ void Game::AdvanceToNextLevel()
 	Managers::GetInstance()->GetItemManager()->DestroyAllFloorItems();
 	Managers::GetInstance()->GetEnemyManager()->KillAllEnemies();
 	Managers::GetInstance()->GetProjectileManager()->DestroyAll();
+	Managers::GetInstance()->GetParticleManager()->DestroyAll();
 
 	if (!m_ContinuingFromSave)
 	{

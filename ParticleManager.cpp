@@ -58,6 +58,16 @@ void ParticleManager::DrawAll() const
 	}
 }
 
+void ParticleManager::DestroyAll()
+{
+	for (Particle* p : m_Particles)
+	{
+		delete p;
+	}
+
+	m_Particles.clear();
+}
+
 std::vector<Particle*>::iterator ParticleManager::DestroyParticle(Particle* pParticle)
 {
 	std::vector<Particle*>::iterator it{ std::find(m_Particles.begin(), m_Particles.end(), pParticle) };

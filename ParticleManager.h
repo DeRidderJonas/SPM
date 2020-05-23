@@ -17,6 +17,7 @@ public:
 	void Spawn(const Point2f& bottomLeft, Particle::ParticleType type, int amountOfParticles);
 	void UpdateAll(float elapsedSec, const Level* pLevel);
 	void DrawAll() const;
+	void DestroyAll();
 
 	std::vector<Particle*>::iterator DestroyParticle(Particle* pParticle);
 
