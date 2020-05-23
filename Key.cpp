@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "Key.h"
 
-Key::Key(Texture* pTexture, Texture* pName, Texture* pDescription, Point2f bottomLeft)
+Key::Key(Texture* pTexture, Texture* pName, Texture* pDescription, const Point2f& bottomLeft)
 	: Item{Item::Type::Key, pTexture, pName, pDescription, bottomLeft}
 {
 }

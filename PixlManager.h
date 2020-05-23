@@ -20,7 +20,7 @@ public:
 	Pixl::Type GetNextUnlockablePixl() const;
 
 	std::string ToSaveFormat() const;
-	void LoadFromSave(std::string saveLine);
+	void LoadFromSave(const std::string& saveLine);
 private:
 	std::map<Pixl::Type, bool> m_UnlockedPixls;
 

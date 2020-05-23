@@ -16,7 +16,7 @@ ParticleManager::~ParticleManager()
 	}
 }
 
-void ParticleManager::Spawn(Point2f bottomLeft, Particle::ParticleType type, int amountOfParticles)
+void ParticleManager::Spawn(const Point2f& bottomLeft, Particle::ParticleType type, int amountOfParticles)
 {
 	switch (type)
 	{
@@ -35,7 +35,7 @@ void ParticleManager::Spawn(Point2f bottomLeft, Particle::ParticleType type, int
 	}
 }
 
-void ParticleManager::UpdateAll(float elapsedSec, Level* pLevel)
+void ParticleManager::UpdateAll(float elapsedSec, const Level* pLevel)
 {
 	std::vector<Particle*>::iterator it{ m_Particles.begin() };
 	while (it != m_Particles.end())

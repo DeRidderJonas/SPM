@@ -40,7 +40,7 @@ bool ItemManager::IsOverlapping(Player* pPlayer)
 	return false;
 }
 
-void ItemManager::Spawn(Item::Type itemType, Point2f bottomLeft, Player* pPlayer)
+void ItemManager::Spawn(Item::Type itemType, const Point2f& bottomLeft, Player* pPlayer)
 {
 	m_FloorItems.push_back(ItemFactory::CreateItem(itemType, bottomLeft, pPlayer));
 }
@@ -107,7 +107,7 @@ void ItemManager::DestroyAllFloorItems()
 	m_FloorItems.clear();
 }
 
-void ItemManager::SpawnRandom(Point2f bottomLeft, Player* pPlayer, bool& KeySpawned)
+void ItemManager::SpawnRandom(const Point2f& bottomLeft, Player* pPlayer, bool& KeySpawned)
 {
 	int amountOfItems{ 2 }; //TODO: update this to actual amount of items
 	int randItem{ rand() % amountOfItems };
@@ -168,7 +168,7 @@ std::string ItemManager::ToSaveFormat() const
 	return ss.str();
 }
 
-void ItemManager::LoadFromSave(std::string saveLine, Player* pPlayer)
+void ItemManager::LoadFromSave(const std::string& saveLine, Player* pPlayer)
 {
 	std::stringstream ss{ saveLine };
 	std::string item{};

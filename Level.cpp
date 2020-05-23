@@ -21,18 +21,13 @@ Level::Level(const Texture* pBackground, bool isRestArea)
 	if (isRestArea)
 	{
 		SVGParser::GetVerticesFromSvgFile("Resources/Level/restArea.svg", m_Platforms);
-		m_Door = Rectf{ boundaries.left + boundaries.width - m_pDoor->GetWidth() - 100.f, boundaries.bottom + 18.f, m_pDoor->GetWidth(), m_pDoor->GetHeight() };
+		m_Door = Rectf{ boundaries.left + boundaries.width - m_pDoor->GetWidth() - 300.f, boundaries.bottom + 18.f, m_pDoor->GetWidth(), m_pDoor->GetHeight() };
 		m_Chest = Rectf{ boundaries.left + boundaries.width / 2, boundaries.bottom + 45.f, m_pChest->GetFrameWidth(), m_pChest->GetFrameHeight() };
 	}
 	else
 	{
 		SVGParser::GetVerticesFromSvgFile("Resources/Level/level1.svg", m_Platforms);
-		/*m_Platforms.push_back(std::vector<Point2f>());
-		m_Platforms[0].push_back(Point2f{ boundaries.left, boundaries.bottom + wallSize });
-		m_Platforms[0].push_back(Point2f{ boundaries.left + boundaries.width, boundaries.bottom + wallSize});
-		m_Platforms[0].push_back(Point2f{ boundaries.left + boundaries.width, boundaries.bottom});
-		m_Platforms[0].push_back(Point2f{ boundaries.left, boundaries.bottom});
-		m_Platforms[0].push_back(Point2f{ boundaries.left, boundaries.bottom + wallSize });*/
+
 		std::vector<Point2f> p{};
 		p.push_back(Point2f{ 0.f, 450.f });
 		p.push_back(Point2f{ 0.f, 470.f });

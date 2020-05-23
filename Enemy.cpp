@@ -73,7 +73,7 @@ bool Enemy::CanBeFlipped() const
 	return m_RemainingFlipCooldown < 0.f;
 }
 
-bool Enemy::canMove(bool toLeft, const Level* plevel)
+bool Enemy::canMove(bool toLeft, const Level* plevel) const
 {
 	Point2f nextStep{ m_Hitbox.left + m_Hitbox.width + 1.f, m_Hitbox.bottom };
 	if (toLeft)

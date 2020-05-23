@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "Item.h"
 
-Item::Item(Type type, Texture* pTexture, Texture* pName, Texture* pDescription, Point2f bottomLeft, Player* pPlayer)
+Item::Item(Type type, Texture* pTexture, Texture* pName, Texture* pDescription, const Point2f& bottomLeft, Player* pPlayer)
 	: m_type{type}
 	, m_pTexture{pTexture}
 	, m_pNameTexture{pName}

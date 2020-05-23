@@ -4,7 +4,7 @@
 class Bomb : public Projectile
 {
 public:
-	Bomb(Sentient* pOwner, Sprite* pSpriteNormal, Sprite* pSpriteExploding);
+	Bomb(const Sentient* pOwner, Sprite* pSpriteNormal, Sprite* pSpriteExploding);
 	virtual ~Bomb() = default;
 	virtual bool Update(const Level* pLevel, float elapsedSec) override;
 	virtual void Draw() const override;

@@ -13,7 +13,7 @@ public:
 	Particle(Point2f bottomLeft, float lifeDuration, Sprite* pSprite, ParticleType type);
 	virtual ~Particle();
 
-	virtual void Update(float elapsedSec, Level* pLevel) = 0;
+	virtual void Update(float elapsedSec, const Level* pLevel) = 0;
 	void Draw() const;
 	ParticleType GetType() const;
 	bool CanBeKilled() const;

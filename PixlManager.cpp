@@ -155,7 +155,7 @@ std::string PixlManager::ToSaveFormat() const
 	return ss.str();
 }
 
-void PixlManager::LoadFromSave(std::string saveLine)
+void PixlManager::LoadFromSave(const std::string& saveLine)
 {
 	std::stringstream ss{ saveLine };
 	for (std::map<Pixl::Type, bool>::iterator it{ m_UnlockedPixls.begin() }; it != m_UnlockedPixls.end(); ++it)

@@ -5,7 +5,7 @@
 class ItemFactory
 {
 public:
-	static Item* CreateItem(Item::Type itemType, Point2f bottomLeft, Player* pPlayer = nullptr);
+	static Item* CreateItem(Item::Type itemType, const Point2f& bottomLeft, Player* pPlayer = nullptr);
 private:
 	static Texture* GetTexture(Item::Type itemType);
 };

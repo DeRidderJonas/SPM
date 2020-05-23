@@ -5,7 +5,7 @@
 #include "Spiny.h"
 #include "Squiglet.h"
 
-Enemy* EnemyFactory::CreateEnemy(Enemy::Type type, Rectf spawnBox)
+Enemy* EnemyFactory::CreateEnemy(Enemy::Type type, const Rectf& spawnBox)
 {
 	float randX{ (rand() % int(spawnBox.width)) + spawnBox.left };
 	float randY{ (rand() % int(spawnBox.height)) + spawnBox.bottom };

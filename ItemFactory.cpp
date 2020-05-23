@@ -4,7 +4,7 @@
 #include "Key.h"
 #include "RedShroomshake.h"
 
-Item* ItemFactory::CreateItem(Item::Type itemType, Point2f bottomLeft, Player* pPlayer)
+Item* ItemFactory::CreateItem(Item::Type itemType, const Point2f& bottomLeft, Player* pPlayer)
 {
 	switch (itemType)
 	{

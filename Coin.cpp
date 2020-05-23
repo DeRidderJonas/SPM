@@ -13,7 +13,7 @@ Coin::Coin(const Point2f& bottomLeft)
 	m_pSprite->SetFrame(rand() % 4);
 }
 
-void Coin::Update(float elapsedSec, Level* level)
+void Coin::Update(float elapsedSec, const Level* level)
 {
 	float fallAcceleration{ 25.1f };
 	float horizontalFriction{ 0.6f };

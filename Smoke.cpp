@@ -11,7 +11,7 @@ Smoke::Smoke(Point2f bottomLeft)
 	m_Velocity.y = randFloat * m_StartVelocity.y;
 }
 
-void Smoke::Update(float elapsedSec, Level* pLevel)
+void Smoke::Update(float elapsedSec, const Level* pLevel)
 {
 	m_pSprite->Update(elapsedSec);
 	m_TimeRemaining -= elapsedSec;

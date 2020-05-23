@@ -12,7 +12,6 @@ public:
 
 	Enemy(Sprite* pSprite, const Point2f& bottomLeft, float horSpeed = 200.f, float attackDuration = 1.f, float attackCooldown = 5.f);
 	
-	//TODO: on death, spawn item with itemManager
 	virtual ~Enemy();
 	Enemy(const Enemy& other) = delete;
 	Enemy& operator=(const Enemy& other) = delete;
@@ -32,7 +31,7 @@ private:
 	static const float m_MaxFlipCooldown;
 	float m_RemainingFlipCooldown;
 
-	bool canMove(bool toLeft, const Level* plevel);
+	bool canMove(bool toLeft, const Level* plevel) const;
 protected:
 	Sprite* m_pSprite;
 };

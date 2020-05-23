@@ -14,14 +14,14 @@ public:
 	ItemManager& operator=(ItemManager&& other) = delete;
 
 	bool IsOverlapping(Player* pPlayer);
-	void Spawn(Item::Type itemType, Point2f bottomLeft, Player* pPlayer = nullptr);
+	void Spawn(Item::Type itemType, const Point2f& bottomLeft, Player* pPlayer = nullptr);
 
 	void DrawAllFloorItems() const;
 	void DrawInventoryItems(const Point2f& topLeft, bool isActive, const Rectf& descriptionRect) const;
 	void DrawPickUpItem(const Rectf& itemRect) const;
 	void DestroyAllFloorItems();
 
-	void SpawnRandom(Point2f bottomLeft, Player* pPlayer, bool& KeySpawned);
+	void SpawnRandom(const Point2f& bottomLeft, Player* pPlayer, bool& KeySpawned);
 	bool InventoryHasType(Item::Type itemType);
 
 	void Scroll(bool up);
@@ -29,7 +29,7 @@ public:
 	void RemoveKey();
 
 	std::string ToSaveFormat() const;
-	void LoadFromSave(std::string saveLine, Player* pPlayer);
+	void LoadFromSave(const std::string& saveLine, Player* pPlayer);
 private:
 	std::vector<Item*> m_FloorItems;
 	std::vector<Item*> m_Inventory;

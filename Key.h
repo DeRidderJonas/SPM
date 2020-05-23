@@ -3,7 +3,7 @@
 class Key : public Item
 {
 public:
-	Key(Texture* pTexture, Texture* pName, Texture* pDescription, Point2f bottomLeft);
+	Key(Texture* pTexture, Texture* pName, Texture* pDescription, const Point2f& bottomLeft);
 	virtual ~Key() = default;
 
 	virtual void Use() override;
