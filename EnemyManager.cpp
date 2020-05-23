@@ -119,6 +119,8 @@ void EnemyManager::Kill(Enemy* enemy)
 		
 		m_Enemies.erase(m_Enemies.begin() + index);
 		SpawnLoot(Point2f{enemy->GetHitbox().left + enemy->GetHitbox().width/2, enemy->GetHitbox().bottom});
+		Managers::GetInstance()->GetParticleManager()->Spawn(Point2f{ enemy->GetHitbox().left, enemy->GetHitbox().bottom }, Particle::ParticleType::Coin, rand() % 5 + 5);
+		Managers::GetInstance()->GetParticleManager()->Spawn(Point2f{ enemy->GetHitbox().left, enemy->GetHitbox().bottom }, Particle::ParticleType::Smoke, rand() % 2 + 1);
 
 		delete enemy;
 	}

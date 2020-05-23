@@ -18,6 +18,7 @@ Player::Player(const Point2f& bottomLeft)
 	, m_ActivePixl{Pixl::Type::Cudge}
 	, m_AttackingHitbox{}
 	, m_IsPickingUp{false}
+	, m_AmountOfCoins{0}
 {
 	m_Hitbox.width = m_pActiveSprite->GetFrameWidth();
 	m_Hitbox.height = m_pActiveSprite->GetFrameHeight();
@@ -168,6 +169,16 @@ Rectf Player::GetHitbox() const
 Rectf Player::GetAttackHitbox() const
 {
 	return m_AttackingHitbox;
+}
+
+void Player::AdjustAmountOfCoins(int adjustment)
+{
+	m_AmountOfCoins += adjustment;
+}
+
+int Player::GetAmountOfCoins() const
+{
+	return m_AmountOfCoins;
 }
 
 void Player::OnInput(float elapsedSec)

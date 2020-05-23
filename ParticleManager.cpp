@@ -4,6 +4,7 @@
 #include "Smoke.h"
 
 ParticleManager::ParticleManager()
+	: m_pPlayer{nullptr}
 {
 }
 
@@ -62,11 +63,19 @@ std::vector<Particle*>::iterator ParticleManager::DestroyParticle(Particle* pPar
 	std::vector<Particle*>::iterator it{ std::find(m_Particles.begin(), m_Particles.end(), pParticle) };
 	if (it != m_Particles.end())
 	{
+		if (pParticle->GetType() == Particle::ParticleType::Coin) m_pPlayer->AdjustAmountOfCoins(1);
+
 		int index{ int(std::distance(m_Particles.begin(), it)) };
 		std::vector<Particle*>::iterator it = m_Particles.erase(m_Particles.begin() + index);
 		delete pParticle;
+
 		return it;
 	}
 
 	return m_Particles.end();
+}
+
+void ParticleManager::SetPlayer(Player* pPlayer)
+{
+	m_pPlayer = pPlayer;
 }

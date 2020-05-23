@@ -4,7 +4,7 @@
 const Vector2f Coin::m_StartVelocity{ 50.f, 500.f };
 
 Coin::Coin(const Point2f& bottomLeft)
-	: Particle(bottomLeft, 5.f, new Sprite("Resources/Particle/coin.png", 4, 1, 0.1f), ParticleType::Coin)
+	: Particle(bottomLeft, float(rand() % 3 + 3), new Sprite("Resources/Particle/coin.png", 4, 1, 0.1f), ParticleType::Coin)
 {
 	float randFloat{ (rand() % 10 + 1) / 10.f };
 	m_Velocity.y = randFloat * m_StartVelocity.y;

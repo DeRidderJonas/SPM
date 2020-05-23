@@ -16,6 +16,7 @@ public:
 		RestArea,
 		Brick,
 		Healthbar,
+		Coinbar,
 		Pointer,
 		ItemsBar,
 		PixlsBar,

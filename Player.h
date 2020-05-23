@@ -30,12 +30,16 @@ public:
 
 	virtual Rectf GetHitbox() const override;
 	Rectf GetAttackHitbox() const;
+
+	void AdjustAmountOfCoins(int adjustment);
+	int GetAmountOfCoins() const;
 private:
 	static const float m_HorizontalSpeed;
 	static const float m_JumpSpeed;
 	static const float m_MaxInvincibleSec;
 
 	bool m_IsPickingUp;
+	int m_AmountOfCoins;
 
 	Sprite* m_pActiveSprite;
 	Sprite* m_pInvincibleBubble;

@@ -108,6 +108,8 @@ void PixlManager::DrawUnlockingPixl(const Rectf& drawRect) const
 	case Pixl::Type::Barry:
 		pPixlName = Managers::GetInstance()->GetTextManager()->GetTexture(TextManager::Text::Barry);
 		break;
+	default:
+		pPixlName = Managers::GetInstance()->GetTextManager()->GetTexture(TextManager::Text::NotFound);
 	}
 	Rectf nameRect{drawRect.left + drawRect.width/2 - pPixlName->GetWidth()/2, 
 		drawRect.bottom + drawRect.height /2 - pPixl->GetFrameHeight()/2 - pPixlName->GetHeight() - 5.f, 

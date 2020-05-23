@@ -2,6 +2,7 @@
 #include "structs.h"
 #include <vector>
 #include "Particle.h"
+#include "Player.h"
 class ParticleManager
 {
 public:
@@ -19,7 +20,10 @@ public:
 
 	std::vector<Particle*>::iterator DestroyParticle(Particle* pParticle);
 
+	void SetPlayer(Player* pPlayer);
+
 private:
 	std::vector<Particle*> m_Particles;
+	Player* m_pPlayer;
 };
 

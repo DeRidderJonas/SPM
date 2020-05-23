@@ -43,6 +43,7 @@ void Game::InitPlayer()
 {
 	m_pPlayer = new Player(Point2f{ 10.f,50.f });
 	Managers::GetInstance()->GetEnemyManager()->SetPlayer(m_pPlayer);
+	Managers::GetInstance()->GetParticleManager()->SetPlayer(m_pPlayer);
 }
 
 void Game::InitManagers()
@@ -197,6 +198,7 @@ void Game::DrawParticles() const
 void Game::DrawHUD() const
 {
 	const float margin{ 10.f };
+	//Health HUD
 	Texture* pHealthbar{ Managers::GetInstance()->GetTextureManager()->GetTexture(TextureManager::TextureType::Healthbar) };
 	Rectf destRect{ margin, m_Window.height - pHealthbar->GetHeight() - margin, pHealthbar->GetWidth(), pHealthbar->GetHeight() };
 	pHealthbar->Draw(destRect);
@@ -226,6 +228,30 @@ void Game::DrawHUD() const
 	pNumbers->SetFrame(MaxHealthNum2);
 	pNumbers->Draw(bottomLeft);
 	bottomLeft.x += numberWidth;
+
+	//Coins HUD
+	Texture* pCoinbar{ Managers::GetInstance()->GetTextureManager()->GetTexture(TextureManager::TextureType::Coinbar) };
+	destRect.left = m_Window.width - pCoinbar->GetWidth() - margin;
+	destRect.height = pCoinbar->GetHeight();
+	destRect.width = pCoinbar->GetWidth();
+	pCoinbar->Draw(destRect);
+
+	//Coin numbers
+	int amountOfCoins{ m_pPlayer->GetAmountOfCoins() };
+	int hundreds{ amountOfCoins / 100 }, tens{ (amountOfCoins % 100) / 10 }, digit{(amountOfCoins % 10)};
+	bottomLeft.x = m_Window.width - 3.f * margin - pCoinbar->GetWidth() / 3;
+
+	pNumbers->SetFrame(hundreds);
+	pNumbers->Draw(bottomLeft);
+	bottomLeft.x += numberWidth;
+
+	pNumbers->SetFrame(tens);
+	pNumbers->Draw(bottomLeft);
+	bottomLeft.x += numberWidth;
+
+	pNumbers->SetFrame(digit);
+	pNumbers->Draw(bottomLeft);
+
 }
 
 void Game::DrawLevel() const
@@ -325,6 +351,7 @@ void Game::ProcessKeyUpEvent( const SDL_KeyboardEvent& e )
 			break;
 		case SDLK_o:
 			//Put debug code here
+			Managers::GetInstance()->GetParticleManager()->Spawn(Point2f{ 200.f, 20.f }, Particle::ParticleType::Coin, 10);
 			break;
 		}
 	}
