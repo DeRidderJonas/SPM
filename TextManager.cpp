@@ -12,6 +12,8 @@ TextManager::TextManager()
 	m_TextMap[Text::RedShroomshakeDesc] = new Texture("Restores 10 health points", "Resources/HUD/DIN-Light.otf", descFontSize, black);
 	m_TextMap[Text::PowerBlock] = new Texture("Power Block", "Resources/HUD/DIN-Light.otf", nameFontSize, black);
 	m_TextMap[Text::PowerBlockDesc] = new Texture("Kills a random amount of enemies", "Resources/HUD/DIN-Light.otf", descFontSize, black);
+	m_TextMap[Text::IceStorm] = new Texture("Ice Storm", "Resources/HUD/DIN-Light.otf", nameFontSize, black);
+	m_TextMap[Text::IceStormDesc] = new Texture("Freezes a random amount of enemies", "Resources/HUD/DIN-Light.otf", descFontSize, black);
 	m_TextMap[Text::Cudge] = new Texture("Cudge", "Resources/HUD/DIN-Light.otf", nameFontSize, black);
 	m_TextMap[Text::CudgeDesc] = new Texture("Press 'F' to whack things with a mighty hammer", "Resources/HUD/DIN-Light.otf", descFontSize, black);
 	m_TextMap[Text::Barry] = new Texture("Barry", "Resources/HUD/DIN-Light.otf", nameFontSize, black);

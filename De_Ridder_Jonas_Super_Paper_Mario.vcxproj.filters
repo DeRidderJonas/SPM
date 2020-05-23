@@ -183,6 +183,9 @@
     <ClCompile Include="PowerBlock.cpp">
       <Filter>Game Files\Items\Derived</Filter>
     </ClCompile>
+    <ClCompile Include="IceStorm.cpp">
+      <Filter>Game Files\Items\Derived</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -318,6 +321,9 @@
       <Filter>Game Files\Utils</Filter>
     </ClInclude>
     <ClInclude Include="PowerBlock.h">
+      <Filter>Game Files\Items\Derived</Filter>
+    </ClInclude>
+    <ClInclude Include="IceStorm.h">
       <Filter>Game Files\Items\Derived</Filter>
     </ClInclude>
   </ItemGroup>

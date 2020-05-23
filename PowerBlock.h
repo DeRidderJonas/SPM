@@ -5,6 +5,6 @@ class PowerBlock : public Item
 {
 public:
 	PowerBlock(Texture* pTexture, Texture* pName, Texture* pDescription, const Point2f& bottomLeft);
-	virtual void Use() override;
+	virtual void Use() const override;
 };
 

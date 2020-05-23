@@ -9,6 +9,8 @@ Sentient::Sentient(const Point2f& bottomLeft, bool IsHorizontalSpeedConstant, fl
 	, m_AttackCooldown{attackCooldown}
 	, m_RemainingCooldownSec{0.f}
 	, m_FacingLeft{false}
+	, m_FreezeDuration{10.f}
+	, m_RemainingFrozenSec{0.f}
 {
 }
 
@@ -36,6 +38,13 @@ void Sentient::Update(float elapsedSec, const Level* level)
 		m_RemainingCooldownSec -= elapsedSec;
 		GameObject::Update(elapsedSec, level);
 	}
+
+	m_RemainingFrozenSec -= elapsedSec;
+}
+
+void Sentient::Freeze()
+{
+	m_RemainingFrozenSec = m_FreezeDuration;
 }
 
 Rectf Sentient::GetHitbox() const

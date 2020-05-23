@@ -12,6 +12,8 @@ public:
 		RedShroomshakeDesc,
 		PowerBlock,
 		PowerBlockDesc,
+		IceStorm,
+		IceStormDesc,
 		Cudge,
 		CudgeDesc,
 		Barry,

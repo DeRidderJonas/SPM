@@ -11,6 +11,8 @@ public:
 	virtual void AttackEnded();
 	virtual void Update(float elapsedSec, const Level* level) override;
 
+	void Freeze();
+
 	virtual Rectf GetHitbox() const override;
 protected:
 	float m_AttackDuration;
@@ -19,5 +21,8 @@ protected:
 	float m_RemainingCooldownSec;
 
 	bool m_FacingLeft;
+
+	float m_RemainingFrozenSec;
+	float m_FreezeDuration;
 };
 

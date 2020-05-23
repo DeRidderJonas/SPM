@@ -2,6 +2,7 @@
 #include "Enemy.h"
 #include "utils.h"
 #include <iostream>
+#include "Managers.h"
 
 const float Enemy::m_MaxFlipCooldown{ 1.f };
 
@@ -25,7 +26,6 @@ Enemy::~Enemy()
 
 void Enemy::Update(float elapsedSec, const Level* level)
 {
-	m_pSprite->Update(elapsedSec);
 
 	switch (m_GameState)
 	{
@@ -42,6 +42,9 @@ void Enemy::Update(float elapsedSec, const Level* level)
 		break;
 	}
 
+	if (m_RemainingFrozenSec > 0.f) SetHorizontalVelocity(0.f);
+	else m_pSprite->Update(elapsedSec);
+
 	m_RemainingFlipCooldown -= elapsedSec;
 
 	Sentient::Update(elapsedSec, level);
@@ -55,9 +58,14 @@ void Enemy::Draw() const
 		glTranslatef(m_Hitbox.left + m_pSprite->GetFrameWidth(), m_Hitbox.bottom, 0.f);
 		glScalef(-1, 1, 1);
 		m_pSprite->Draw(Point2f{});
+		if (m_RemainingFrozenSec > 0.f) Managers::GetInstance()->GetTextureManager()->GetTexture(TextureManager::TextureType::Frozen)->Draw(Rectf{0.f,0.f,m_Hitbox.width,m_Hitbox.height});
 		glPopMatrix();
 	}
-	else m_pSprite->Draw(m_Hitbox);
+	else
+	{
+		m_pSprite->Draw(m_Hitbox);
+		if (m_RemainingFrozenSec > 0.f) Managers::GetInstance()->GetTextureManager()->GetTexture(TextureManager::TextureType::Frozen)->Draw(m_Hitbox);
+	}
 }
 
 void Enemy::FlipHorizontalVelocity()

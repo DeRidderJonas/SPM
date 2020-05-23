@@ -6,7 +6,7 @@ Key::Key(Texture* pTexture, Texture* pName, Texture* pDescription, const Point2f
 {
 }
 
-void Key::Use()
+void Key::Use() const
 {
 	//No use other than opening the door
 }

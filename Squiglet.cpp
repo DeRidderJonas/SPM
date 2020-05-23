@@ -10,7 +10,7 @@ Squiglet::Squiglet(const Point2f& bottomLeft)
 
 void Squiglet::Attack()
 {
-	bool canAttack{ m_RemainingCooldownSec <= 0.f && (m_GameState == GameState::MovingLeft || m_GameState == GameState::MovingRight) };
+	bool canAttack{ m_RemainingCooldownSec <= 0.f && m_RemainingFrozenSec <= 0.f && (m_GameState == GameState::MovingLeft || m_GameState == GameState::MovingRight) };
 	if (canAttack)
 	{
 		m_GameState = GameState::Attacking;

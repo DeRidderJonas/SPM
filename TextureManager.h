@@ -24,6 +24,8 @@ public:
 		Key,
 		RedShroomshake,
 		PowerBlock,
+		IceStorm,
+		Frozen,
 		NotFound
 	};
 

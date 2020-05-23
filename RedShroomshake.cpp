@@ -8,7 +8,7 @@ RedShroomshake::RedShroomshake(Texture* pTexture, Texture* pName, Texture* pDesc
 {
 }
 
-void RedShroomshake::Use()
+void RedShroomshake::Use() const
 {
 	m_pPlayer->RestoreHealth(m_HealthRestore);
 }

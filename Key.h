@@ -6,6 +6,6 @@ public:
 	Key(Texture* pTexture, Texture* pName, Texture* pDescription, const Point2f& bottomLeft);
 	virtual ~Key() = default;
 
-	virtual void Use() override;
+	virtual void Use() const override;
 };
 

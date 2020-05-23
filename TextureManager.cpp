@@ -20,6 +20,8 @@ TextureManager::TextureManager()
 	m_TextureMap[TextureType::Key] = new Texture("Resources/Items/Key.png");
 	m_TextureMap[TextureType::RedShroomshake] = new Texture("Resources/Items/RedShroomshake.png");
 	m_TextureMap[TextureType::PowerBlock] = new Texture("Resources/Items/PowerBlock.png");
+	m_TextureMap[TextureType::IceStorm] = new Texture("Resources/Items/IceStorm.png");
+	m_TextureMap[TextureType::Frozen] = new Texture("Resources/Items/Frozen.png");
 }
 
 TextureManager::~TextureManager()

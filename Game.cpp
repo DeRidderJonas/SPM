@@ -34,7 +34,7 @@ void Game::Initialize( )
 
 	AdvanceToNextLevel();
 
-	Managers::GetInstance()->GetItemManager()->Spawn(Item::Type::PowerBlock, Point2f{200.f, 10.f}, m_pPlayer);
+	Managers::GetInstance()->GetItemManager()->Spawn(Item::Type::IceStorm, Point2f{200.f, 10.f}, m_pPlayer);
 
 	NotifyCameraLevelChange();
 }

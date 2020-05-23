@@ -8,7 +8,7 @@ PowerBlock::PowerBlock(Texture* pTexture, Texture* pName, Texture* pDescription,
 {
 }
 
-void PowerBlock::Use()
+void PowerBlock::Use() const
 {
 	EnemyManager* em{ Managers::GetInstance()->GetEnemyManager() };
 	auto killRandom = [&em](Enemy* pEnemy) {

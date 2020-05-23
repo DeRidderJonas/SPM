@@ -9,7 +9,8 @@ public:
 	{
 		Key,
 		RedShroomshake,
-		PowerBlock
+		PowerBlock,
+		IceStorm
 	};
 	Item(Type type, Texture* pTexture, Texture* pName, Texture* pDescription, const Point2f& bottomLeft, Player* pPlayer = nullptr);
 	virtual ~Item() = default;
@@ -17,7 +18,7 @@ public:
 	void Draw() const;
 	void DrawInInventory(const Rectf& inventoryRect, bool drawDescription, const Rectf& descriptionRect) const;
 	void DrawAtPos(const Point2f& center) const;
-	virtual void Use() = 0;
+	virtual void Use() const = 0;
 
 	Rectf GetHitbox() const;
 	Type GetType() const;

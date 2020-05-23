@@ -109,7 +109,7 @@ void ItemManager::DestroyAllFloorItems()
 
 void ItemManager::SpawnRandom(const Point2f& bottomLeft, Player* pPlayer, bool& KeySpawned)
 {
-	int amountOfItems{ 3 }; //TODO: update this to actual amount of items
+	int amountOfItems{ 4 }; //TODO: update this to actual amount of items
 	int randItem{ rand() % amountOfItems };
 	Item::Type randType{ Item::Type(randItem) };
 	if (KeySpawned && randType == Item::Type::Key) return;
@@ -144,6 +144,7 @@ void ItemManager::UseActiveItem()
 {
 	if (m_Inventory.size() < 1 || m_Inventory[m_ActiveItem]->GetType() == Item::Type::Key) return;
 	m_Inventory[m_ActiveItem]->Use();
+	delete m_Inventory[m_ActiveItem];
 	m_Inventory.erase(m_Inventory.begin() + m_ActiveItem);
 	m_ActiveItem = 0;
 }
