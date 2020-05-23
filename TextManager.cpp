@@ -16,7 +16,7 @@ TextManager::TextManager()
 	m_TextMap[Text::BarryDesc] = new Texture("Use Barry to create a spiky barrier around you", "Resources/HUD/DIN-Light.otf", descFontSize, black);
 	m_TextMap[Text::Boomer] = new Texture("Boomer", "Resources/HUD/DIN-Light.otf", nameFontSize, black);
 	m_TextMap[Text::BoomerDesc] = new Texture("Use Boomers power to blow up foes", "Resources/HUD/DIN-Light.otf", descFontSize, black);
-	m_TextMap[Text::NotFound] = new Texture("", "Resources/HUD/DIN-Light.otf", descFontSize, black);
+	m_TextMap[Text::NotFound] = new Texture(" ", "Resources/HUD/DIN-Light.otf", descFontSize, black);
 }
 
 TextManager::~TextManager()

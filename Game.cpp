@@ -482,6 +482,7 @@ void Game::SaveGame() const
 	os << m_Level << '\n';
 	os << m_pPlayer->GetCurrentHealth() << '\n';
 	os << m_pPlayer->GetMaxHealth() << '\n';
+	os << m_pPlayer->GetAmountOfCoins() << '\n';
 	os << Managers::GetInstance()->GetPixlManager()->ToSaveFormat() << '\n';
 	os << Managers::GetInstance()->GetItemManager()->ToSaveFormat();
 }
@@ -502,6 +503,10 @@ void Game::LoadGame()
 	int currentHealth = std::stoi(line);
 	std::getline(is, line);
 	m_pPlayer->HealthFromLoad(currentHealth, std::stoi(line));
+	//Coins
+	std::getline(is, line);
+	int coins = std::stoi(line);
+	m_pPlayer->AdjustAmountOfCoins(coins);
 	//Pixls
 	std::getline(is, line);
 	Managers::GetInstance()->GetPixlManager()->LoadFromSave(line);
