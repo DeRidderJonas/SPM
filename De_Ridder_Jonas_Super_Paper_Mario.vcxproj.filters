@@ -43,6 +43,9 @@
     <Filter Include="Game Files\GameObjects\Projectile\Derived">
       <UniqueIdentifier>{52592694-7bcf-4981-a6ad-76c8fe8b6309}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game Files\Particles">
+      <UniqueIdentifier>{fb7d502d-4a6a-43c9-890b-ac9ae4cb6786}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -165,6 +168,15 @@
     <ClCompile Include="Bomb.cpp">
       <Filter>Game Files\GameObjects\Projectile\Derived</Filter>
     </ClCompile>
+    <ClCompile Include="Coin.cpp">
+      <Filter>Game Files\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="Particle.cpp">
+      <Filter>Game Files\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleManager.cpp">
+      <Filter>Game Files\Managers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -286,6 +298,15 @@
     </ClInclude>
     <ClInclude Include="Bomb.h">
       <Filter>Game Files\GameObjects\Projectile\Derived</Filter>
+    </ClInclude>
+    <ClInclude Include="Coin.h">
+      <Filter>Game Files\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleManager.h">
+      <Filter>Game Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle.h">
+      <Filter>Game Files\Particles</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

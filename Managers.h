@@ -1,5 +1,6 @@
 #pragma once
 #include "EnemyManager.h"
+#include "ParticleManager.h"
 class Managers
 {
 public:
@@ -17,6 +18,7 @@ public:
 	ProjectileManager* GetProjectileManager();
 	ItemManager* GetItemManager();
 	PixlManager* GetPixlManager();
+	ParticleManager* GetParticleManager();
 private:
 	Managers();
 	static Managers* m_Instance;
@@ -28,5 +30,6 @@ private:
 	ProjectileManager* m_ProjectileManager;
 	ItemManager* m_ItemManager;
 	PixlManager* m_PixlManager;
+	ParticleManager* m_ParticleManager;
 };
 

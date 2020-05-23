@@ -62,11 +62,13 @@ private:
 	void UpdatePlayer(float elapsedSec);
 	void UpdateEnemies(float elapsedSec);
 	void UpdateObjects(float elapsedSec);
+	void UpdateParticles(float elapsedSec);
 	void NotifyCameraLevelChange();
 	void DrawPlayer() const;
 	void DrawEnemies() const;
 	void DrawProjectiles() const;
 	void DrawItems() const;
+	void DrawParticles() const;
 	void DrawHUD() const;
 	void DrawLevel() const;
 	void DrawMenus() const;

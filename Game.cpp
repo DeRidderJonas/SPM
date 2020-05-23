@@ -37,6 +37,8 @@ void Game::Initialize( )
 	Managers::GetInstance()->GetItemManager()->Spawn(Item::Type::RedShroomshake, Point2f{200.f, 10.f}, m_pPlayer);
 
 	NotifyCameraLevelChange();
+
+	Managers::GetInstance()->GetParticleManager()->Spawn(Point2f{ 200.f, 50.f }, 10);
 }
 
 void Game::InitPlayer()
@@ -84,6 +86,7 @@ void Game::Update( float elapsedSec )
 			UpdatePlayer(elapsedSec);
 			UpdateEnemies(elapsedSec);
 			UpdateObjects(elapsedSec);
+			UpdateParticles(elapsedSec);
 
 			DoCollisionTests();
 			m_pPlayer->SetIsPickingUp(false);
@@ -127,6 +130,11 @@ void Game::UpdateObjects(float elapsedSec)
 
 }
 
+void Game::UpdateParticles(float elapsedSec)
+{
+	Managers::GetInstance()->GetParticleManager()->UpdateAll(elapsedSec, m_pLevel);
+}
+
 void Game::NotifyCameraLevelChange()
 {
 	m_Camera.SetLevelBoundaries(m_pLevel->GetBoundaries());
@@ -143,6 +151,7 @@ void Game::Draw( ) const
 		DrawEnemies();
 		DrawProjectiles();
 		DrawItems();
+		DrawParticles();
 	glPopMatrix();
 
 	DrawHUD();
@@ -180,6 +189,11 @@ void Game::DrawItems() const
 		if(m_PickUpIsItem) Managers::GetInstance()->GetItemManager()->DrawPickUpItem(drawRect);
 		else Managers::GetInstance()->GetPixlManager()->DrawUnlockingPixl(drawRect);
 	}
+}
+
+void Game::DrawParticles() const
+{
+	Managers::GetInstance()->GetParticleManager()->DrawAll();
 }
 
 void Game::DrawHUD() const

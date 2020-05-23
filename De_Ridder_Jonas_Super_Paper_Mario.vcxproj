@@ -154,7 +154,10 @@
     <ClCompile Include="Bomb.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Coconut.cpp" />
+    <ClCompile Include="Coin.cpp" />
     <ClCompile Include="Managers.cpp" />
+    <ClCompile Include="Particle.cpp" />
+    <ClCompile Include="ParticleManager.cpp" />
     <ClCompile Include="ProjectileFactory.cpp" />
     <ClCompile Include="RedShroomshake.cpp" />
     <ClCompile Include="Core.cpp" />
@@ -201,7 +204,10 @@
     <ClInclude Include="Bomb.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Coconut.h" />
+    <ClInclude Include="Coin.h" />
     <ClInclude Include="Managers.h" />
+    <ClInclude Include="Particle.h" />
+    <ClInclude Include="ParticleManager.h" />
     <ClInclude Include="ProjectileFactory.h" />
     <ClInclude Include="RedShroomshake.h" />
     <ClInclude Include="Core.h" />
