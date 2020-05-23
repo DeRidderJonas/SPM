@@ -471,6 +471,10 @@ void Game::SpawnEnemies()
 		em->Spawn(Enemy::Type::Goomba, 2, spawnBox);
 		em->Spawn(Enemy::Type::Spiny, 1, spawnBox);
 		break;
+	case 4:
+		em->Spawn(Enemy::Type::Squiglet, 2, spawnBox);
+		em->Spawn(Enemy::Type::Goomba, 3, spawnBox);
+		break;
 	default:
 		em->Spawn(Enemy::Type::Goomba, 1, spawnBox);
 	}

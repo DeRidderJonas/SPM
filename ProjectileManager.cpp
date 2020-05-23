@@ -70,6 +70,13 @@ void ProjectileManager::HitSentients(Player* pPlayer)
 		{
 			if (proj->IsOverlapping(pPlayer))
 			{
+				if (pPlayer->CanCounterProjectiles())
+				{
+					proj->TransferOwnershipTo(pPlayer);
+					proj->SetHorizontalVelocity(-proj->GetVelocity().x);
+					break;
+				}
+
 				float playerMidX{ pPlayer->GetHitbox().left + pPlayer->GetHitbox().width / 2 };
 				float projMidX{ proj->GetHitbox().left + proj->GetHitbox().width / 2 };
 				bool projLeftFromPlayer{ playerMidX < projMidX };

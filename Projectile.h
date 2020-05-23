@@ -18,6 +18,7 @@ public:
 	virtual void Draw() const;
 	virtual bool IsOverlapping(const GameObject* other) const override;
 	bool BelongsTo(Sentient* pSentient) const;
+	void TransferOwnershipTo(Sentient* pSentient);
 protected:
 	static const float m_HorizontalSpeed;
 

@@ -37,3 +37,8 @@ bool Projectile::BelongsTo(Sentient* pSentient) const
 {
 	return pSentient == m_pOwner;
 }
+
+void Projectile::TransferOwnershipTo(Sentient* pSentient)
+{
+	m_pOwner = pSentient;
+}

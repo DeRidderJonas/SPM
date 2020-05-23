@@ -30,6 +30,7 @@ public:
 
 	virtual Rectf GetHitbox() const override;
 	Rectf GetAttackHitbox() const;
+	bool CanCounterProjectiles() const;
 
 	void AdjustAmountOfCoins(int adjustment);
 	int GetAmountOfCoins() const;
