@@ -109,7 +109,7 @@ void ItemManager::DestroyAllFloorItems()
 
 void ItemManager::SpawnRandom(const Point2f& bottomLeft, Player* pPlayer, bool& KeySpawned)
 {
-	int amountOfItems{ 2 }; //TODO: update this to actual amount of items
+	int amountOfItems{ 3 }; //TODO: update this to actual amount of items
 	int randItem{ rand() % amountOfItems };
 	Item::Type randType{ Item::Type(randItem) };
 	if (KeySpawned && randType == Item::Type::Key) return;

@@ -129,9 +129,6 @@
     <ClCompile Include="Sprite.cpp">
       <Filter>Game Files\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="Pixl.cpp">
-      <Filter>Game Files</Filter>
-    </ClCompile>
     <ClCompile Include="Item.cpp">
       <Filter>Game Files\Items</Filter>
     </ClCompile>
@@ -179,6 +176,12 @@
     </ClCompile>
     <ClCompile Include="Smoke.cpp">
       <Filter>Game Files\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="Pixl.cpp">
+      <Filter>Game Files\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="PowerBlock.cpp">
+      <Filter>Game Files\Items\Derived</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -263,9 +266,6 @@
     <ClInclude Include="PixlManager.h">
       <Filter>Game Files\Managers</Filter>
     </ClInclude>
-    <ClInclude Include="Pixl.h">
-      <Filter>Game Files</Filter>
-    </ClInclude>
     <ClInclude Include="Item.h">
       <Filter>Game Files\Items</Filter>
     </ClInclude>
@@ -313,6 +313,12 @@
     </ClInclude>
     <ClInclude Include="Smoke.h">
       <Filter>Game Files\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="Pixl.h">
+      <Filter>Game Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="PowerBlock.h">
+      <Filter>Game Files\Items\Derived</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

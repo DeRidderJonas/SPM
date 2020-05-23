@@ -10,6 +10,8 @@ public:
 		KeyDesc,
 		RedShroomshake,
 		RedShroomshakeDesc,
+		PowerBlock,
+		PowerBlockDesc,
 		Cudge,
 		CudgeDesc,
 		Barry,

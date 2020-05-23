@@ -158,6 +158,7 @@
     <ClCompile Include="Managers.cpp" />
     <ClCompile Include="Particle.cpp" />
     <ClCompile Include="ParticleManager.cpp" />
+    <ClCompile Include="PowerBlock.cpp" />
     <ClCompile Include="ProjectileFactory.cpp" />
     <ClCompile Include="RedShroomshake.cpp" />
     <ClCompile Include="Core.cpp" />
@@ -209,6 +210,7 @@
     <ClInclude Include="Managers.h" />
     <ClInclude Include="Particle.h" />
     <ClInclude Include="ParticleManager.h" />
+    <ClInclude Include="PowerBlock.h" />
     <ClInclude Include="ProjectileFactory.h" />
     <ClInclude Include="RedShroomshake.h" />
     <ClInclude Include="Core.h" />

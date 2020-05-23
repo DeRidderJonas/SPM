@@ -23,6 +23,7 @@ public:
 		PickupStar,
 		Key,
 		RedShroomshake,
+		PowerBlock,
 		NotFound
 	};
 

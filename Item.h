@@ -8,7 +8,8 @@ public:
 	enum class Type
 	{
 		Key,
-		RedShroomshake
+		RedShroomshake,
+		PowerBlock
 	};
 	Item(Type type, Texture* pTexture, Texture* pName, Texture* pDescription, const Point2f& bottomLeft, Player* pPlayer = nullptr);
 	virtual ~Item() = default;

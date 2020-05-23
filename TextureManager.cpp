@@ -19,6 +19,7 @@ TextureManager::TextureManager()
 	m_TextureMap[TextureType::PickupStar] = new Texture("Resources/HUD/Pickup_Star.png");
 	m_TextureMap[TextureType::Key] = new Texture("Resources/Items/Key.png");
 	m_TextureMap[TextureType::RedShroomshake] = new Texture("Resources/Items/RedShroomshake.png");
+	m_TextureMap[TextureType::PowerBlock] = new Texture("Resources/Items/PowerBlock.png");
 }
 
 TextureManager::~TextureManager()

@@ -3,6 +3,7 @@
 #include "Managers.h"
 #include "Key.h"
 #include "RedShroomshake.h"
+#include "PowerBlock.h"
 
 Item* ItemFactory::CreateItem(Item::Type itemType, const Point2f& bottomLeft, Player* pPlayer)
 {
@@ -20,6 +21,11 @@ Item* ItemFactory::CreateItem(Item::Type itemType, const Point2f& bottomLeft, Pl
 			Managers::GetInstance()->GetTextManager()->GetTexture(TextManager::Text::RedShroomshakeDesc), bottomLeft, pPlayer
 		);
 		break;
+	case Item::Type::PowerBlock:
+		return new PowerBlock(GetTexture(itemType),
+			Managers::GetInstance()->GetTextManager()->GetTexture(TextManager::Text::PowerBlock),
+			Managers::GetInstance()->GetTextManager()->GetTexture(TextManager::Text::PowerBlockDesc), bottomLeft);
+		break;
 	default:
 		return nullptr;
 		break;
@@ -35,6 +41,9 @@ Texture* ItemFactory::GetTexture(Item::Type itemType)
 		break;
 	case Item::Type::RedShroomshake:
 		return Managers::GetInstance()->GetTextureManager()->GetTexture(TextureManager::TextureType::RedShroomshake);
+		break;
+	case Item::Type::PowerBlock:
+		return Managers::GetInstance()->GetTextureManager()->GetTexture(TextureManager::TextureType::PowerBlock);
 		break;
 	default:
 		return Managers::GetInstance()->GetTextureManager()->GetTexture(TextureManager::TextureType::NotFound);

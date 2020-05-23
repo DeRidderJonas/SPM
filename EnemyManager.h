@@ -4,6 +4,7 @@
 #include "SpriteManager.h"
 #include "Player.h"
 #include "ItemManager.h"
+#include <algorithm>
 
 class EnemyManager
 {
@@ -28,6 +29,12 @@ public:
 	void KillAllEnemies();
 	std::vector<Enemy*> GetEnemies() const;
 
+	template<typename Function>
+	void ApplyOnEnemies(Function f)
+	{
+		std::for_each(m_Enemies.begin(), m_Enemies.end(), f);
+	}
+
 	void SetKeySpawned(bool value);
 private:
 	Player* m_pPlayer;
@@ -38,4 +45,3 @@ private:
 
 	static const int m_LootSpawnChance;
 };
-
