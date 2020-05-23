@@ -7,6 +7,7 @@ SpriteManager::SpriteManager()
 	m_SpriteMap[SpriteType::Coconut] = new Sprite("Resources/Projectiles/Coconut.png", 1, 1, 1.f);
 	m_SpriteMap[SpriteType::Bomb] = new Sprite("Resources/Projectiles/Bomb.png", 3, 1, 0.5f);
 	m_SpriteMap[SpriteType::BombExplosion] = new Sprite("Resources/Projectiles/BombExplosion.png", 3, 1, 0.25f);
+	m_SpriteMap[SpriteType::CherbilProjectile] = new Sprite("Resources/Projectiles/CherbilProjectile.png", 3, 2, 0.25f);
 	m_SpriteMap[SpriteType::Numbers] = new Sprite("Resources/HUD/Numbers.png", 10, 1, 1.f);
 	m_SpriteMap[SpriteType::Operators] = new Sprite("Resources/HUD/Operators.png", 2, 1, 1.f);
 	m_SpriteMap[SpriteType::Cudge] = new Sprite("Resources/Pixls/Cudge.png", 1, 1, 1.f);

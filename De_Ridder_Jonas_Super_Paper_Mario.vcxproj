@@ -153,6 +153,8 @@
   <ItemGroup>
     <ClCompile Include="Bomb.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Cherbil.cpp" />
+    <ClCompile Include="CherbilProjectile.cpp" />
     <ClCompile Include="Coconut.cpp" />
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="IceStorm.cpp" />
@@ -206,6 +208,8 @@
   <ItemGroup>
     <ClInclude Include="Bomb.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Cherbil.h" />
+    <ClInclude Include="CherbilProjectile.h" />
     <ClInclude Include="Coconut.h" />
     <ClInclude Include="Coin.h" />
     <ClInclude Include="IceStorm.h" />

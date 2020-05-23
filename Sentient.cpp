@@ -45,6 +45,12 @@ void Sentient::Update(float elapsedSec, const Level* level)
 void Sentient::Freeze()
 {
 	m_RemainingFrozenSec = m_FreezeDuration;
+	SetHorizontalVelocity(0.f);
+}
+
+bool Sentient::IsFrozen() const
+{
+	return m_RemainingFrozenSec > 0.f;
 }
 
 Rectf Sentient::GetHitbox() const

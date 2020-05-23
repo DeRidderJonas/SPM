@@ -4,10 +4,11 @@
 
 const float Projectile::m_HorizontalSpeed{ 300.f };
 
-Projectile::Projectile(const Sentient* pOwner, Sprite* pSprite, bool verticalSpeedConst)
+Projectile::Projectile(const Sentient* pOwner, Sprite* pSprite, Projectile::ProjectileType type, bool verticalSpeedConst)
 	: GameObject(Point2f{pOwner->GetHitbox().left, pOwner->GetHitbox().bottom}, true, verticalSpeedConst)
 	, m_pOwner{pOwner}
 	, m_pSprite{pSprite}
+	, m_Type{type}
 {
 	SetHorizontalVelocity(m_HorizontalSpeed);
 	m_Hitbox.width = m_pSprite->GetFrameWidth();
@@ -41,4 +42,9 @@ bool Projectile::BelongsTo(Sentient* pSentient) const
 void Projectile::TransferOwnershipTo(Sentient* pSentient)
 {
 	m_pOwner = pSentient;
+}
+
+Projectile::ProjectileType Projectile::GetType() const
+{
+	return m_Type;
 }

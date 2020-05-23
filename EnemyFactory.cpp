@@ -4,6 +4,7 @@
 #include "Goomba.h"
 #include "Spiny.h"
 #include "Squiglet.h"
+#include "Cherbil.h"
 
 Enemy* EnemyFactory::CreateEnemy(Enemy::Type type, const Rectf& spawnBox)
 {
@@ -22,6 +23,8 @@ Enemy* EnemyFactory::CreateEnemy(Enemy::Type type, const Rectf& spawnBox)
 	case Enemy::Type::Squiglet:
 		return new Squiglet(randPos);
 		break;
+	case Enemy::Type::Cherbil:
+		return new Cherbil(randPos);
 	}
 	return nullptr;
 }

@@ -1,12 +1,12 @@
 #include "pch.h"
-#include "Coconut.h"
+#include "CherbilProjectile.h"
 
-Coconut::Coconut(const Sentient* pOwner, Sprite* pSprite)
-	: Projectile(pOwner, pSprite, ProjectileType::Coconut)
+CherbilProjectile::CherbilProjectile(const Sentient* pOwner, Sprite* pSprite)
+	: Projectile(pOwner, pSprite, ProjectileType::CherbilProjectile)
 {
 }
 
-bool Coconut::Update(const Level* pLevel, float elapsedSec)
+bool CherbilProjectile::Update(const Level* pLevel, float elapsedSec)
 {
 	float border{ 5.f };
 	bool hitLevelBoundaries{ m_Hitbox.left < pLevel->GetBoundaries().left + border || m_Hitbox.left + m_Hitbox.width > pLevel->GetBoundaries().left + pLevel->GetBoundaries().width - border };

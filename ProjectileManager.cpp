@@ -70,6 +70,13 @@ void ProjectileManager::HitSentients(Player* pPlayer)
 		{
 			if (proj->IsOverlapping(pPlayer))
 			{
+				if (proj->GetType() == Projectile::ProjectileType::CherbilProjectile)
+				{
+					pPlayer->Freeze();
+					Destroy(proj);
+					break;
+				}
+
 				if (pPlayer->CanCounterProjectiles())
 				{
 					proj->TransferOwnershipTo(pPlayer);

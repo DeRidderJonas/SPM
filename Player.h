@@ -51,6 +51,8 @@ private:
 	Pixl m_ActivePixl;
 	Rectf m_AttackingHitbox;
 
+	SDL_Scancode m_LastPressed;
+
 	void OnInput(float elapsedSec);
 	virtual void Attack() override;
 	virtual void AttackEnded() override;

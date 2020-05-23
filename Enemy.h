@@ -7,7 +7,7 @@ class Enemy : public Sentient
 public:
 	enum class Type
 	{
-		Goomba, Spiny, Squiglet
+		Goomba, Spiny, Squiglet, Cherbil
 	};
 
 	Enemy(Sprite* pSprite, const Point2f& bottomLeft, float horSpeed = 200.f, float attackDuration = 1.f, float attackCooldown = 5.f);

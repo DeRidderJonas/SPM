@@ -10,6 +10,7 @@ public:
 		Coconut,
 		Bomb,
 		BombExplosion,
+		CherbilProjectile,
 		Numbers,
 		Operators,
 		Cudge,

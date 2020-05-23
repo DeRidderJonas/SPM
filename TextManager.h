@@ -20,6 +20,7 @@ public:
 		BarryDesc,
 		Boomer,
 		BoomerDesc,
+		FrozenInstructions,
 		NotFound
 	};
 

@@ -186,6 +186,12 @@
     <ClCompile Include="IceStorm.cpp">
       <Filter>Game Files\Items\Derived</Filter>
     </ClCompile>
+    <ClCompile Include="Cherbil.cpp">
+      <Filter>Game Files\GameObjects\Sentient\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="CherbilProjectile.cpp">
+      <Filter>Game Files\GameObjects\Projectile\Derived</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -325,6 +331,12 @@
     </ClInclude>
     <ClInclude Include="IceStorm.h">
       <Filter>Game Files\Items\Derived</Filter>
+    </ClInclude>
+    <ClInclude Include="Cherbil.h">
+      <Filter>Game Files\GameObjects\Sentient\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="CherbilProjectile.h">
+      <Filter>Game Files\GameObjects\Projectile\Derived</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

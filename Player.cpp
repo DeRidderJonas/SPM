@@ -19,6 +19,7 @@ Player::Player(const Point2f& bottomLeft)
 	, m_AttackingHitbox{}
 	, m_IsPickingUp{false}
 	, m_AmountOfCoins{0}
+	, m_LastPressed{SDL_SCANCODE_0}
 {
 	m_Hitbox.width = m_pActiveSprite->GetFrameWidth();
 	m_Hitbox.height = m_pActiveSprite->GetFrameHeight();
@@ -74,6 +75,11 @@ void Player::Draw() const
 	if (IsInvincible())
 	{
 		m_pInvincibleBubble->Draw(GetHitbox());
+	}
+
+	if (m_RemainingFrozenSec > 0.f)
+	{
+		Managers::GetInstance()->GetTextureManager()->GetTexture(TextureManager::TextureType::Frozen)->Draw(GetHitbox());
 	}
 
 	const float margin{ 5.f };
@@ -190,7 +196,7 @@ void Player::OnInput(float elapsedSec)
 {
 	bool inputReceived{ false };
 	bool MarioMidAir{ m_GameState == GameState::Falling };
-	bool canMove{ m_GameState != GameState::Attacked && m_GameState != GameState::Attacking && !m_IsPickingUp };
+	bool canMove{ m_GameState != GameState::Attacked && m_GameState != GameState::Attacking && !m_IsPickingUp && m_RemainingFrozenSec < 0.f};
 
 	const Uint8* pKeysStates = SDL_GetKeyboardState(nullptr);
 	//Go Left
@@ -200,6 +206,7 @@ void Player::OnInput(float elapsedSec)
 		inputReceived = true;
 		m_FacingLeft = true;
 		if (m_GameState != GameState::Falling) SetActiveSprite(SpriteManager::SpriteType::MarioRun);;
+		m_LastPressed = SDL_SCANCODE_A;
 	}
 	//Go Right
 	if (pKeysStates[SDL_SCANCODE_D] && canMove)
@@ -208,6 +215,7 @@ void Player::OnInput(float elapsedSec)
 		inputReceived = true;
 		m_FacingLeft = false;
 		if (m_GameState != GameState::Falling) SetActiveSprite(SpriteManager::SpriteType::MarioRun);
+		m_LastPressed = SDL_SCANCODE_D;
 	}
 	//Jump
 	if (pKeysStates[SDL_SCANCODE_SPACE] && !MarioMidAir && canMove)
@@ -215,10 +223,12 @@ void Player::OnInput(float elapsedSec)
 		AddVelocity(Vector2f{ 0.f, m_JumpSpeed });
 		inputReceived = true;
 		SetActiveSprite(SpriteManager::SpriteType::MarioJump);
+		m_LastPressed = SDL_SCANCODE_SPACE;
 	}
 	//Attack
 	if (pKeysStates[SDL_SCANCODE_F] && canMove)
 	{
+		m_LastPressed = SDL_SCANCODE_F;
 		Attack();
 		if (m_GameState != GameState::Attacking) SetActiveSprite(SpriteManager::SpriteType::MarioIdle);
 		return;
@@ -229,6 +239,21 @@ void Player::OnInput(float elapsedSec)
 	{
 		SetHorizontalVelocity(0.f);
 		SetActiveSprite(SpriteManager::SpriteType::MarioIdle);
+	}
+
+	//Thaw out
+	if (m_RemainingFrozenSec > 0.f)
+	{
+		if (pKeysStates[SDL_SCANCODE_A] && m_LastPressed != SDL_SCANCODE_A)
+		{
+			m_RemainingFrozenSec -= 0.5f;
+			m_LastPressed = SDL_SCANCODE_A;
+		}
+		if (pKeysStates[SDL_SCANCODE_D] && m_LastPressed != SDL_SCANCODE_D)
+		{
+			m_RemainingAttackSec -= 0.5f;
+			m_LastPressed = SDL_SCANCODE_D;
+		}
 	}
 }
 

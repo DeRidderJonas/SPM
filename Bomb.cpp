@@ -6,7 +6,7 @@ const float Bomb::m_SecTillExplode{ 4.f };
 const float Bomb::m_SecExploding{ 2.f };
 
 Bomb::Bomb(const Sentient* pOwner, Sprite* pSpriteNormal, Sprite* pSpriteExploding)
-	: Projectile(pOwner, pSpriteNormal, false)
+	: Projectile(pOwner, pSpriteNormal, ProjectileType::Bomb, false)
 	, m_pExploding{pSpriteExploding}
 	, m_AccSec{0.f}
 	, m_IsExploding{false}

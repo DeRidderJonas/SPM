@@ -12,6 +12,7 @@ public:
 	virtual void Update(float elapsedSec, const Level* level) override;
 
 	void Freeze();
+	bool IsFrozen() const;
 
 	virtual Rectf GetHitbox() const override;
 protected:

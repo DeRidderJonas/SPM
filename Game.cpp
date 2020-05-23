@@ -4,6 +4,7 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
+#include "utils.h"
 
 Game::Game( const Window& window ) 
 	: m_Window{ window }
@@ -252,6 +253,23 @@ void Game::DrawHUD() const
 	pNumbers->SetFrame(digit);
 	pNumbers->Draw(bottomLeft);
 
+
+	//Instructions
+	if (m_pPlayer->IsFrozen())
+	{
+		Texture* pInstruction{ Managers::GetInstance()->GetTextManager()->GetTexture(TextManager::Text::FrozenInstructions) };
+		float topMargin{ 200.f }, padding{ 10.f };
+		Rectf instructionRect{ m_Window.width / 2 - pInstruction->GetWidth()/2, m_Window.height - topMargin, pInstruction->GetWidth() + 2 * padding, pInstruction->GetHeight() + 2 * padding };
+		glColor3f(1.f, 1.f, 1.f);
+		utils::FillRect(instructionRect);
+		glColor3f(0.f, 0.f, 0.f);
+		utils::DrawRect(instructionRect);
+		instructionRect.left += padding;
+		instructionRect.bottom += padding;
+		instructionRect.width -= 2*padding;
+		instructionRect.height -= 2*padding;
+		pInstruction->Draw(instructionRect);
+	}
 }
 
 void Game::DrawLevel() const
@@ -351,7 +369,6 @@ void Game::ProcessKeyUpEvent( const SDL_KeyboardEvent& e )
 			break;
 		case SDLK_o:
 			//Put debug code here
-			Managers::GetInstance()->GetParticleManager()->Spawn(Point2f{ 200.f, 20.f }, Particle::ParticleType::Coin, 10);
 			break;
 		}
 	}
@@ -466,6 +483,7 @@ void Game::SpawnEnemies()
 	case 1:
 		em->Spawn(Enemy::Type::Goomba, 2, spawnBox);
 		em->Spawn(Enemy::Type::Spiny, 1, spawnBox);
+		em->Spawn(Enemy::Type::Cherbil, 1, spawnBox);
 		break;
 	case 2:
 		em->Spawn(Enemy::Type::Squiglet, 1, spawnBox);
@@ -474,7 +492,7 @@ void Game::SpawnEnemies()
 		break;
 	case 4:
 		em->Spawn(Enemy::Type::Squiglet, 2, spawnBox);
-		em->Spawn(Enemy::Type::Goomba, 3, spawnBox);
+		em->Spawn(Enemy::Type::Goomba, 2, spawnBox);
 		break;
 	default:
 		em->Spawn(Enemy::Type::Goomba, 1, spawnBox);
