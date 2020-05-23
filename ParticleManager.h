@@ -13,7 +13,7 @@ public:
 	ParticleManager(ParticleManager&& other) = delete;
 	ParticleManager& operator=(ParticleManager&& other) = delete;
 
-	void Spawn(Point2f bottomLeft, int amountOfParticles);
+	void Spawn(Point2f bottomLeft, Particle::ParticleType type, int amountOfParticles);
 	void UpdateAll(float elapsedSec, Level* pLevel);
 	void DrawAll() const;
 

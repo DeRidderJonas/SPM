@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "ParticleManager.h"
 #include "Coin.h"
+#include "Smoke.h"
 
 ParticleManager::ParticleManager()
 {
@@ -14,11 +15,22 @@ ParticleManager::~ParticleManager()
 	}
 }
 
-void ParticleManager::Spawn(Point2f bottomLeft, int amountOfParticles)
+void ParticleManager::Spawn(Point2f bottomLeft, Particle::ParticleType type, int amountOfParticles)
 {
-	for (size_t i = 0; i < amountOfParticles; i++)
+	switch (type)
 	{
-		m_Particles.push_back(new Coin(bottomLeft));
+	case Particle::ParticleType::Coin:
+		for (size_t i = 0; i < amountOfParticles; i++)
+		{
+			m_Particles.push_back(new Coin(bottomLeft));
+		}
+		break;
+	case Particle::ParticleType::Smoke:
+		for (size_t i = 0; i < amountOfParticles; i++)
+		{
+			m_Particles.push_back(new Smoke(bottomLeft));
+		}
+		break;
 	}
 }
 

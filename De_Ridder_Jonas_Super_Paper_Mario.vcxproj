@@ -186,6 +186,7 @@
     <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="ProjectileManager.cpp" />
     <ClCompile Include="Sentient.cpp" />
+    <ClCompile Include="Smoke.cpp" />
     <ClCompile Include="SoundEffect.cpp" />
     <ClCompile Include="SoundStream.cpp" />
     <ClCompile Include="Spiny.cpp" />
@@ -231,6 +232,7 @@
     <ClInclude Include="ProjectileManager.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Sentient.h" />
+    <ClInclude Include="Smoke.h" />
     <ClInclude Include="SoundEffect.h" />
     <ClInclude Include="SoundStream.h" />
     <ClInclude Include="Spiny.h" />

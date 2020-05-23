@@ -37,8 +37,6 @@ void Game::Initialize( )
 	Managers::GetInstance()->GetItemManager()->Spawn(Item::Type::RedShroomshake, Point2f{200.f, 10.f}, m_pPlayer);
 
 	NotifyCameraLevelChange();
-
-	Managers::GetInstance()->GetParticleManager()->Spawn(Point2f{ 200.f, 50.f }, 10);
 }
 
 void Game::InitPlayer()
@@ -324,6 +322,9 @@ void Game::ProcessKeyUpEvent( const SDL_KeyboardEvent& e )
 			break;
 		case SDLK_p:
 			SaveGame();
+			break;
+		case SDLK_o:
+			//Put debug code here
 			break;
 		}
 	}
