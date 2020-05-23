@@ -126,6 +126,8 @@ bool ItemManager::InventoryHasType(Item::Type itemType)
 
 void ItemManager::Scroll(bool up)
 {
+	if (m_Inventory.size() < 1) return;
+
 	if (up)
 	{
 		m_ActiveItem--;

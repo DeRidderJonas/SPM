@@ -368,7 +368,7 @@ void Game::PrintControlsInfo() const
 	std::cout << "Move right: D" << '\n';
 	std::cout << "Jump: SPACEBAR" << '\n';
 	std::cout << "Attack (with currently activated Pixl): F" << '\n';
-	std::cout << "Go through door: W" << '\n';
+	std::cout << "Interact: W" << '\n';
 	std::cout << "Open Menu: ESCAPE" << '\n';
 	std::cout << "----Menu controls----" << '\n';
 	std::cout << "Go up: W" << '\n';
@@ -421,13 +421,13 @@ void Game::SpawnEnemies()
 	switch (m_Level)
 	{
 	case 1:
-		//em->Spawn(Enemy::Type::Goomba, 2, spawnBox);
-		em->Spawn(Enemy::Type::Squiglet, 1, spawnBox);
+		em->Spawn(Enemy::Type::Goomba, 2, spawnBox);
+		em->Spawn(Enemy::Type::Spiny, 1, spawnBox);
 		break;
 	case 2:
 		em->Spawn(Enemy::Type::Squiglet, 1, spawnBox);
-		//em->Spawn(Enemy::Type::Goomba, 2, spawnBox);
-		//em->Spawn(Enemy::Type::Spiny, 1, spawnBox);
+		em->Spawn(Enemy::Type::Goomba, 2, spawnBox);
+		em->Spawn(Enemy::Type::Spiny, 1, spawnBox);
 		break;
 	default:
 		em->Spawn(Enemy::Type::Goomba, 1, spawnBox);

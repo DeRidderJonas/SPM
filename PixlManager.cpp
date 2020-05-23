@@ -75,9 +75,9 @@ void PixlManager::DrawPixlsMenu(const Point2f& topLeft, bool isActive, const Rec
 	Pixl drawPixl{ Pixl::Type::Cudge };
 	for (const std::pair<const Pixl::Type, bool>& pair : m_UnlockedPixls)
 	{
+		drawPixl.SetType(pair.first);
 		if (pair.first == m_SelectedPixl) activePointer->Draw(Point2f{ pixlRect.left - activePointer->GetWidth(), pixlRect.bottom + activePointer->GetHeight() / 2 });
 		if (pair.second) drawPixl.DrawInMenu(pixlRect, pair.first == m_SelectedPixl, descRect);
-		drawPixl.SetType(GetNextPixlType(drawPixl.GetType(), false));
 		pixlRect.bottom -= pixlMargin + pixlHeight;
 	}
 }
