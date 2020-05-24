@@ -17,9 +17,10 @@ public:
 	void Spawn(Item::Type itemType, const Point2f& bottomLeft, Player* pPlayer = nullptr);
 
 	void DrawAllFloorItems() const;
-	void DrawInventoryItems(const Point2f& topLeft, bool isActive, const Rectf& descriptionRect) const;
+	void DrawInventoryItems(const Point2f& topLeft, bool isActive, const Rectf& descriptionRect, bool showCursor = true) const;
 	void DrawPickUpItem(const Rectf& itemRect) const;
 	void DestroyAllFloorItems();
+	void AddItemToInventory(Item* item);
 
 	void SpawnRandom(const Point2f& bottomLeft, Player* pPlayer, bool& KeySpawned);
 	bool InventoryHasType(Item::Type itemType);

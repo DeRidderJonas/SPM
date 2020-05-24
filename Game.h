@@ -8,6 +8,7 @@
 #include "ProjectileManager.h"
 #include "ItemManager.h"
 #include "TextManager.h"
+#include "Merchant.h"
 
 class Game
 {
@@ -46,6 +47,7 @@ private:
 	Level* m_pLevel;
 	int m_Level;
 	bool m_InRestArea;
+	Merchant* m_pMerchant;
 
 	bool m_IsPlayerInMenu;
 	InGameMenuSelection m_InGameMenuSelection;
@@ -83,6 +85,7 @@ private:
 	void DrawLevel() const;
 	void DrawTitleScreen() const;
 	void DrawMenus() const;
+	void DrawShop() const;
 	void DoCollisionTests();
 	void NavigateTitleScreen(const SDL_KeyboardEvent& e);
 	void ClearBackground( ) const;

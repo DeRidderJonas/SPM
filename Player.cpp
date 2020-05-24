@@ -102,6 +102,8 @@ void Player::WasHit(bool fromLeft)
 	SetActiveSprite(SpriteManager::SpriteType::MarioDamaged);
 
 	m_AttackingHitbox = Rectf{};
+
+	Managers::GetInstance()->GetSoundManager()->PlaySoundEffect(SoundManager::Soundfx::Damage);
 }
 
 bool Player::IsInvincible() const

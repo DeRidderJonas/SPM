@@ -13,7 +13,10 @@ public:
 
 	enum class Soundfx
 	{
-		GameOver
+		GameOver, 
+		ItemPickup,
+		PixlUnlock,
+		Damage
 	};
 
 	SoundManager();

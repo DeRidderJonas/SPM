@@ -3,7 +3,7 @@
 #include "Managers.h"
 
 IceStorm::IceStorm(Texture* pTexture, Texture* pName, Texture* pDescription, const Point2f& bottomLeft)
-	: Item(Item::Type::PowerBlock, pTexture, pName, pDescription, bottomLeft)
+	: Item(Item::Type::PowerBlock, 100, pTexture, pName, pDescription, bottomLeft)
 {
 }
 

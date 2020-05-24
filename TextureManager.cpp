@@ -17,6 +17,7 @@ TextureManager::TextureManager()
 	m_TextureMap[TextureType::Coinbar] = new Texture("Resources/HUD/Coinbar.png");
 	m_TextureMap[TextureType::Pointer] = new Texture("Resources/HUD/Pointer.png");
 	m_TextureMap[TextureType::ItemsBar] = new Texture("Resources/HUD/Items.png");
+	m_TextureMap[TextureType::ShopBar] = new Texture("Resources/HUD/Shop.png");
 	m_TextureMap[TextureType::PixlsBar] = new Texture("Resources/HUD/Pixls.png");
 	m_TextureMap[TextureType::Settingsbar] = new Texture("Resources/HUD/Settings.png");
 	m_TextureMap[TextureType::SettingFull] = new Texture("Resources/HUD/SettingFull.png");

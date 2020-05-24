@@ -4,7 +4,7 @@
 #include <iostream>
 
 PowerBlock::PowerBlock(Texture* pTexture, Texture* pName, Texture* pDescription, const Point2f& bottomLeft)
-	: Item(Item::Type::PowerBlock, pTexture, pName, pDescription, bottomLeft)
+	: Item(Item::Type::PowerBlock, 150, pTexture, pName, pDescription, bottomLeft)
 {
 }
 

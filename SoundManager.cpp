@@ -8,16 +8,19 @@ const int SoundManager::m_MaxVolume{ 10 };
 SoundManager::SoundManager()
 	: m_SettingSelection{SettingSelection::MusicVolume}
 	, m_IsSoundOn{true}
-	, m_MusicVolume{5}
-	, m_SfxVolume{5}
+	, m_MusicVolume{0}
+	, m_SfxVolume{0}
 	, m_IsAdjustingSetting{false}
 {
 	m_Songs[Song::TitleScreen] = new SoundStream("Resources/Sound/TitleScreen.mp3");
 	m_Songs[Song::MainTheme] = new SoundStream("Resources/Sound/MainTheme.mp3");
 
 	m_SoundEffects[Soundfx::GameOver] = new Sfx("Resources/Sound/GameOver.mp3");
+	m_SoundEffects[Soundfx::ItemPickup] = new Sfx("Resources/Sound/ItemPickup.mp3");
+	m_SoundEffects[Soundfx::PixlUnlock] = new Sfx("Resources/Sound/PixlUnlock.mp3");
+	m_SoundEffects[Soundfx::Damage] = new Sfx("Resources/Sound/damage.wav");
 
-	SetMusicVolume(5);
+	SetMusicVolume(2);
 	SetSfxVolume(5);
 }
 

@@ -18,6 +18,7 @@ void PixlManager::Unlock(const Pixl::Type& pixlType)
 {
 	m_UnlockedPixls[pixlType] = true;
 	m_SelectedPixl = pixlType;
+	Managers::GetInstance()->GetSoundManager()->PlaySoundEffect(SoundManager::Soundfx::PixlUnlock);
 }
 
 bool PixlManager::IsUnlocked(const Pixl::Type& pixlType) const

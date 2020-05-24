@@ -53,6 +53,7 @@ void Game::Cleanup( )
 	DestroyPlayer();
 	DestroyManagers();
 	DestroyLevel();
+	delete m_pMerchant;
 }
 
 void Game::DestroyPlayer()
@@ -72,7 +73,7 @@ void Game::DestroyLevel()
 
 void Game::Update( float elapsedSec )
 {
-	if (m_InTitleScreen || m_IsPlayerInMenu)
+	if (m_InTitleScreen || m_IsPlayerInMenu || m_pMerchant->IsPlayerInShop())
 	{
 		return;
 	}
@@ -110,6 +111,7 @@ void Game::UpdateObjects(float elapsedSec)
 	{
 		Sprite* pChest{ Managers::GetInstance()->GetSpriteManager()->GetSprite(SpriteManager::SpriteType::Chest) };
 		pChest->Update(elapsedSec);
+		m_pMerchant->Update(elapsedSec);
 
 		if (pChest->HasEnded() && !m_ChestOpened)
 		{
@@ -157,6 +159,7 @@ void Game::Draw( ) const
 	glPopMatrix();
 
 	DrawHUD();
+	DrawShop();
 
 	if (m_IsPlayerInMenu)
 	{
@@ -277,6 +280,8 @@ void Game::DrawHUD() const
 void Game::DrawLevel() const
 {
 	m_pLevel->Draw();
+
+	if (m_InRestArea) m_pMerchant->Draw();
 }
 
 void Game::DrawTitleScreen() const
@@ -325,6 +330,18 @@ void Game::DrawMenus() const
 
 	topLeft.x += 2 * m_Window.width / 7;
 	Managers::GetInstance()->GetSoundManager()->DrawSettingsMenu(topLeft, m_InGameMenuSelection == InGameMenuSelection::Settings, m_InGameMenuSelection == InGameMenuSelection::Settings);
+}
+
+void Game::DrawShop() const
+{
+	if (!m_pMerchant || !m_pMerchant->IsPlayerInShop()) return;
+
+	Point2f topLeft{ m_Window.width / 4, 4 * m_Window.height / 5 };
+	Rectf descriptionRect{ m_Window.width / 5, 20.f, 2 * m_Window.width / 3, 50.f };
+
+	Managers::GetInstance()->GetItemManager()->DrawInventoryItems(topLeft, true, Rectf{}, false);
+	topLeft.x += m_Window.width / 3;
+	m_pMerchant->DrawShop(topLeft, descriptionRect);
 }
 
 void Game::DoCollisionTests()
@@ -410,7 +427,11 @@ void Game::ProcessKeyUpEvent( const SDL_KeyboardEvent& e )
 		return;
 	}
 
-	if(e.keysym.sym == SDLK_ESCAPE)	m_IsPlayerInMenu = !m_IsPlayerInMenu;
+	if (e.keysym.sym == SDLK_ESCAPE)
+	{
+		if (m_pMerchant && m_pMerchant->IsPlayerInShop()) m_pMerchant->ExitShop();
+		else m_IsPlayerInMenu = !m_IsPlayerInMenu;
+	}
 
 	if (m_IsPlayerInMenu)
 	{
@@ -477,6 +498,12 @@ void Game::ProcessKeyUpEvent( const SDL_KeyboardEvent& e )
 		case SDLK_i:
 			PrintControlsInfo();
 			break;
+		case SDLK_SPACE:
+			if (m_pMerchant->IsPlayerInShop()) m_pMerchant->Buy(m_pPlayer);
+			break;
+		case SDLK_s:
+			if (m_pMerchant->IsPlayerInShop()) m_pMerchant->Scroll(false);
+			break;
 		case SDLK_w:
 			if (m_InRestArea)
 			{
@@ -487,6 +514,9 @@ void Game::ProcessKeyUpEvent( const SDL_KeyboardEvent& e )
 					Managers::GetInstance()->GetSpriteManager()->GetSprite(SpriteManager::SpriteType::Chest)->Loop(1);
 					break;
 				}
+				if (m_pMerchant->IsPlayerInShop()) m_pMerchant->Scroll(true);
+
+				if (m_pMerchant->EnterShop(m_pPlayer->GetHitbox())) break;
 				if (!m_pPlayer->IsOverlapping(m_pLevel->GetDoor())) break;
 			}
 			else
@@ -579,6 +609,11 @@ void Game::AdvanceToNextLevel()
 	Managers::GetInstance()->GetEnemyManager()->KillAllEnemies();
 	Managers::GetInstance()->GetProjectileManager()->DestroyAll();
 	Managers::GetInstance()->GetParticleManager()->DestroyAll();
+	if (m_pMerchant)
+	{
+		delete m_pMerchant;
+		m_pMerchant = nullptr;
+	}
 
 	if (!m_ContinuingFromSave)
 	{
@@ -588,7 +623,7 @@ void Game::AdvanceToNextLevel()
 	}
 	else m_ContinuingFromSave = false;
 	m_pPlayer->SetPosition(Point2f{10.f, 50.f});
-	m_InRestArea = m_Level % 3 == 0;
+	m_InRestArea = m_Level % 1 == 0;
 	if (!m_InRestArea)
 	{
 		delete m_pLevel;
@@ -599,6 +634,8 @@ void Game::AdvanceToNextLevel()
 	{
 		delete m_pLevel;
 		m_pLevel = new Level(Managers::GetInstance()->GetTextureManager()->GetTexture(TextureManager::TextureType::RestArea), true);
+		Sprite* pMerchant{ Managers::GetInstance()->GetSpriteManager()->GetSprite(SpriteManager::SpriteType::Flamm) };
+		m_pMerchant = new Merchant(Point2f{ m_pLevel->GetBoundaries().width - pMerchant->GetFrameWidth() - 20.f, m_pLevel->GetBoundaries().bottom + 20.f }, pMerchant, m_pPlayer);
 	}
 
 	m_Camera.SetLevelBoundaries(m_pLevel->GetBoundaries());

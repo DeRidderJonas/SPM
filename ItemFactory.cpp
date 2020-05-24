@@ -38,6 +38,16 @@ Item* ItemFactory::CreateItem(Item::Type itemType, const Point2f& bottomLeft, Pl
 	}
 }
 
+Item* ItemFactory::CreateRandom(const Point2f& bottomLeft, Player* pPlayer, bool keyAllowed)
+{
+	int amountOfItems{ 4 }; //Update this when item is added
+	int randId{ rand() % amountOfItems };
+	while(!keyAllowed && randId == int(Item::Type::Key)) randId = rand() % amountOfItems;
+	Item::Type randType{ Item::Type(randId) };
+
+	return ItemFactory::CreateItem(randType, bottomLeft, pPlayer);
+}
+
 Texture* ItemFactory::GetTexture(Item::Type itemType)
 {
 	switch (itemType)

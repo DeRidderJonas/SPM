@@ -21,6 +21,7 @@ public:
 		Coinbar,
 		Pointer,
 		ItemsBar,
+		ShopBar,
 		PixlsBar,
 		Settingsbar,
 		SettingFull,

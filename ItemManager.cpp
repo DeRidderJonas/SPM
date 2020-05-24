@@ -53,7 +53,7 @@ void ItemManager::DrawAllFloorItems() const
 	}
 }
 
-void ItemManager::DrawInventoryItems(const Point2f& topLeft, bool isActive, const Rectf& descriptionRect) const
+void ItemManager::DrawInventoryItems(const Point2f& topLeft, bool isActive, const Rectf& descriptionRect, bool showCursor) const
 {
 	const float MenuWidth{ 250.f };
 	const float MenuMargin{ 20.f };
@@ -88,7 +88,7 @@ void ItemManager::DrawInventoryItems(const Point2f& topLeft, bool isActive, cons
 	Texture* activePointer{ Managers::GetInstance()->GetTextureManager()->GetTexture(TextureManager::TextureType::Pointer) };
 	for (size_t i = 0; i < m_Inventory.size(); i++)
 	{
-		if (i == m_ActiveItem) activePointer->Draw(Point2f{ itemRect.left - activePointer->GetWidth(), itemRect.bottom + activePointer->GetHeight() / 2 });
+		if (showCursor && i == m_ActiveItem) activePointer->Draw(Point2f{ itemRect.left - activePointer->GetWidth(), itemRect.bottom + activePointer->GetHeight() / 2 });
 		m_Inventory[i]->DrawInInventory(itemRect, i == m_ActiveItem, descRect);
 		itemRect.bottom -= itemMargin + itemHeight;
 	}
@@ -107,16 +107,19 @@ void ItemManager::DestroyAllFloorItems()
 	m_FloorItems.clear();
 }
 
+void ItemManager::AddItemToInventory(Item* item)
+{
+	m_Inventory.push_back(item);
+}
+
 void ItemManager::SpawnRandom(const Point2f& bottomLeft, Player* pPlayer, bool& KeySpawned)
 {
-	int amountOfItems{ 4 }; //TODO: update this to actual amount of items
-	int randItem{ rand() % amountOfItems };
-	Item::Type randType{ Item::Type(randItem) };
-	if (KeySpawned && randType == Item::Type::Key) return;
+	Item* randItem{ ItemFactory::CreateRandom(bottomLeft, pPlayer, !KeySpawned) };
+	if (randItem == nullptr) return;
 
-	m_FloorItems.push_back(ItemFactory::CreateItem(randType, bottomLeft, pPlayer));
+	m_FloorItems.push_back(randItem);
 
-	if (randType == Item::Type::Key) KeySpawned = true;
+	if (randItem->GetType() == Item::Type::Key) KeySpawned = true;
 }
 
 bool ItemManager::InventoryHasType(Item::Type itemType)
@@ -191,4 +194,6 @@ void ItemManager::Pickup(Item* item)
 	m_FloorItems.erase(m_FloorItems.begin() + index);
 
 	m_Inventory.push_back(toTransfer);
+
+	Managers::GetInstance()->GetSoundManager()->PlaySoundEffect(SoundManager::Soundfx::ItemPickup);
 }

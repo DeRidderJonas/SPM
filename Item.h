@@ -12,16 +12,17 @@ public:
 		PowerBlock,
 		IceStorm
 	};
-	Item(Type type, Texture* pTexture, Texture* pName, Texture* pDescription, const Point2f& bottomLeft, Player* pPlayer = nullptr);
+	Item(Type type, int cost, Texture* pTexture, Texture* pName, Texture* pDescription, const Point2f& bottomLeft, Player* pPlayer = nullptr);
 	virtual ~Item() = default;
 
 	void Draw() const;
-	void DrawInInventory(const Rectf& inventoryRect, bool drawDescription, const Rectf& descriptionRect) const;
+	void DrawInInventory(const Rectf& inventoryRect, bool drawDescription, const Rectf& descriptionRect, bool showCost = false) const;
 	void DrawAtPos(const Point2f& center) const;
 	virtual void Use() const = 0;
 
 	Rectf GetHitbox() const;
 	Type GetType() const;
+	int GetCost() const;
 protected:
 	Type m_type;
 
@@ -31,5 +32,7 @@ protected:
 
 	Rectf m_Hitbox;
 	Player* m_pPlayer;
+
+	int m_Cost;
 };
 

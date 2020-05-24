@@ -45,7 +45,10 @@ void Level::Draw() const
 {
 	m_pBackgroundTexture->Draw();
 	m_pDoor->Draw(m_Door);
-	if (m_IsRestArea) m_pChest->Draw(m_Chest);
+	if (m_IsRestArea)
+	{
+		m_pChest->Draw(m_Chest);
+	}
 	DrawPlatforms();
 }
 

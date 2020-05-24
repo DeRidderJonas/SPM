@@ -13,6 +13,7 @@ SpriteManager::SpriteManager()
 	m_SpriteMap[SpriteType::Cudge] = new Sprite("Resources/Pixls/Cudge.png", 1, 1, 1.f);
 	m_SpriteMap[SpriteType::Barry] = new Sprite("Resources/Pixls/Barry.png", 1, 1, 1.f);
 	m_SpriteMap[SpriteType::Boomer] = new Sprite("Resources/Pixls/Boomer.png", 1, 1, 1.f);
+	m_SpriteMap[SpriteType::Flamm] = new Sprite("Resources/Characters/Flamm.png", 3, 1, 0.3f);
 	m_SpriteMap[SpriteType::MarioIdle] = new Sprite("Resources/Mario/Mario_Idle.png", 1, 1, 0.075f);
 	m_SpriteMap[SpriteType::MarioRun] = new Sprite("Resources/Mario/Mario.png", 4, 2, 0.075f);
 	m_SpriteMap[SpriteType::MarioJump] = new Sprite("Resources/Mario/Mario_Jump.png", 1, 1, 1.f);

@@ -16,6 +16,7 @@ public:
 		Cudge,
 		Barry,
 		Boomer,
+		Flamm,
 		MarioIdle,
 		MarioRun,
 		MarioJump,
