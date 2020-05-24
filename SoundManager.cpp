@@ -12,11 +12,13 @@ SoundManager::SoundManager()
 	, m_SfxVolume{5}
 	, m_IsAdjustingSetting{false}
 {
-	SetMusicVolume(5);
-	SetSfxVolume(5);
-
 	m_Songs[Song::TitleScreen] = new SoundStream("Resources/Sound/TitleScreen.mp3");
 	m_Songs[Song::MainTheme] = new SoundStream("Resources/Sound/MainTheme.mp3");
+
+	m_SoundEffects[Soundfx::GameOver] = new Sfx("Resources/Sound/GameOver.mp3");
+
+	SetMusicVolume(5);
+	SetSfxVolume(5);
 }
 
 SoundManager::~SoundManager()
@@ -40,7 +42,7 @@ void SoundManager::PlayBackgroundMusic(Song song)
 
 void SoundManager::PlaySoundEffect(Soundfx sfx)
 {
-	m_SoundEffects[sfx]->Play(1);
+	m_SoundEffects[sfx]->Play(0);
 }
 
 void SoundManager::DrawSettingsMenu(const Point2f& topLeft, bool isActive, bool showCursor) const

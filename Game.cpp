@@ -85,6 +85,8 @@ void Game::Update( float elapsedSec )
 		UpdateParticles(elapsedSec);
 			DoCollisionTests();
 		m_pPlayer->SetIsPickingUp(false);
+
+		if (m_pPlayer->GetCurrentHealth() <= 0) GameOver();
 	}
 	else m_PickUpRem -= elapsedSec;
 }
@@ -309,24 +311,6 @@ void Game::DrawTitleScreen() const
 	}
 
 	if (showCursor) Managers::GetInstance()->GetTextureManager()->GetTexture(TextureManager::TextureType::Pointer)->Draw(cursorBottomLeft);
-
-	/*switch (m_TitleScreenSelection)
-	{
-	case Game::TitleScreenSelection::TitleScreen:
-		std::cout << "Titlescreen" << '\n';
-		break;
-	case Game::TitleScreenSelection::EraseData:
-		std::cout << "EraseData" << '\n';
-		break;
-	case Game::TitleScreenSelection::Play:
-		std::cout << "Play" << '\n';
-		break;
-	case Game::TitleScreenSelection::Sound:
-		std::cout << "Sound" << '\n';
-		break;
-	default:
-		break;
-	}*/
 }
 
 void Game::DrawMenus() const
@@ -663,6 +647,18 @@ void Game::StartGame()
 	//Managers::GetInstance()->GetItemManager()->Spawn(Item::Type::IceStorm, Point2f{200.f, 10.f}, m_pPlayer);
 
 	NotifyCameraLevelChange();
+}
+
+void Game::GameOver()
+{
+	Managers::GetInstance()->GetSoundManager()->PlaySoundEffect(SoundManager::Soundfx::GameOver);
+	GoBackToTitleScreen();
+}
+
+void Game::GoBackToTitleScreen()
+{
+	m_InTitleScreen = true;
+	Managers::GetInstance()->GetSoundManager()->PlayBackgroundMusic(SoundManager::Song::TitleScreen);
 }
 
 void Game::SaveGame() const

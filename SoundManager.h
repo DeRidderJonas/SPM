@@ -13,7 +13,7 @@ public:
 
 	enum class Soundfx
 	{
-
+		GameOver
 	};
 
 	SoundManager();

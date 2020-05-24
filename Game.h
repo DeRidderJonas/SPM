@@ -92,6 +92,8 @@ private:
 	void SpawnEnemies();
 
 	void StartGame();
+	void GameOver();
+	void GoBackToTitleScreen();
 	void SaveGame() const;
 	void LoadGame();
 };
