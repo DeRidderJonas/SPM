@@ -2,7 +2,7 @@
 #include <iostream>
 #include "SoundEffect.h"
 
-SoundEffect::SoundEffect( const std::string& path )
+Sfx::Sfx( const std::string& path )
 	:m_pMixChunk{ Mix_LoadWAV( path.c_str( ) ) }
 {
 	if ( m_pMixChunk == nullptr )
@@ -11,18 +11,18 @@ SoundEffect::SoundEffect( const std::string& path )
 		std::cerr << errorMsg;
 	}
 }
-SoundEffect::~SoundEffect( )
+Sfx::~Sfx( )
 {
 	Mix_FreeChunk( m_pMixChunk );
 	m_pMixChunk = nullptr;
 }
 
-bool SoundEffect::IsLoaded( ) const
+bool Sfx::IsLoaded( ) const
 {
 	return m_pMixChunk != nullptr;
 }
 
-bool SoundEffect::Play( int loops ) const
+bool Sfx::Play( int loops ) const
 {
 	// Don't save the channel as a data member, 
 	// because when it stops playing the channel becomes free
@@ -38,7 +38,7 @@ bool SoundEffect::Play( int loops ) const
 	}
 }
 
-void SoundEffect::SetVolume( int value )
+void Sfx::SetVolume( int value )
 {
 	if ( m_pMixChunk != nullptr )
 	{
@@ -46,7 +46,7 @@ void SoundEffect::SetVolume( int value )
 	}
 }
 
-int SoundEffect::GetVolume( ) const
+int Sfx::GetVolume( ) const
 {
 	if ( m_pMixChunk != nullptr )
 	{
@@ -58,16 +58,16 @@ int SoundEffect::GetVolume( ) const
 	}
 }
 
-void SoundEffect::StopAll( )
+void Sfx::StopAll( )
 {
 	Mix_HaltChannel(-1 );
 }
 
-void SoundEffect::PauseAll( )
+void Sfx::PauseAll( )
 {
 	Mix_Pause( -1 );
 }
-void SoundEffect::ResumeAll( )
+void Sfx::ResumeAll( )
 {
 	Mix_Resume( -1 );
 }

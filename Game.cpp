@@ -4,6 +4,7 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
+#include <stdio.h>
 #include "utils.h"
 
 Game::Game( const Window& window ) 
@@ -13,10 +14,12 @@ Game::Game( const Window& window )
 	, m_PickUpDuration{1.f}
 	, m_PickUpDurationPixl{2.5f}
 	, m_PickUpRem{0.f}
-	, m_IsInventoryActive{true}
+	, m_InGameMenuSelection{InGameMenuSelection::Inventory}
 	, m_Level{0}
 	, m_SaveFileName{"SaveFile.txt"}
 	, m_ContinuingFromSave{false}
+	, m_InTitleScreen{true}
+	, m_TitleScreenSelection{TitleScreenSelection::TitleScreen}
 {
 	Initialize( );
 }
@@ -29,15 +32,8 @@ Game::~Game( )
 void Game::Initialize( )
 {
 	InitManagers();
-	InitPlayer();
 
-	LoadGame();
-
-	AdvanceToNextLevel();
-
-	Managers::GetInstance()->GetItemManager()->Spawn(Item::Type::IceStorm, Point2f{200.f, 10.f}, m_pPlayer);
-
-	NotifyCameraLevelChange();
+	Managers::GetInstance()->GetSoundManager()->PlayBackgroundMusic(SoundManager::Song::TitleScreen);
 }
 
 void Game::InitPlayer()
@@ -76,23 +72,21 @@ void Game::DestroyLevel()
 
 void Game::Update( float elapsedSec )
 {
-	if (m_IsPlayerInMenu)
+	if (m_InTitleScreen || m_IsPlayerInMenu)
 	{
+		return;
 	}
-	else
-	{
-		if (m_PickUpRem < 0.f)
-		{
-			UpdatePlayer(elapsedSec);
-			UpdateEnemies(elapsedSec);
-			UpdateObjects(elapsedSec);
-			UpdateParticles(elapsedSec);
 
+	if (m_PickUpRem < 0.f)
+	{
+		UpdatePlayer(elapsedSec);
+		UpdateEnemies(elapsedSec);
+		UpdateObjects(elapsedSec);
+		UpdateParticles(elapsedSec);
 			DoCollisionTests();
-			m_pPlayer->SetIsPickingUp(false);
-		}
-		else m_PickUpRem -= elapsedSec;
+		m_pPlayer->SetIsPickingUp(false);
 	}
+	else m_PickUpRem -= elapsedSec;
 }
 
 void Game::UpdatePlayer(float elapsedSec)
@@ -143,6 +137,12 @@ void Game::NotifyCameraLevelChange()
 void Game::Draw( ) const
 {
 	ClearBackground( );
+
+	if (m_InTitleScreen)
+	{
+		DrawTitleScreen();
+		return;
+	}
 
 	glPushMatrix();
 		m_Camera.Transform(m_pPlayer->GetHitbox());
@@ -277,15 +277,70 @@ void Game::DrawLevel() const
 	m_pLevel->Draw();
 }
 
+void Game::DrawTitleScreen() const
+{
+	bool showCursor{ false };
+	Point2f cursorBottomLeft{};
+	switch (m_TitleScreenSelection)
+	{
+	case Game::TitleScreenSelection::TitleScreen:
+		Managers::GetInstance()->GetTextureManager()->GetTexture(TextureManager::TextureType::TitleScreen)->Draw(Rectf{ 0.f,0.f,m_Window.width,m_Window.height });
+		break;
+	case Game::TitleScreenSelection::EraseData:
+		showCursor = true;
+		cursorBottomLeft = Point2f{m_Window.width / 6, m_Window.height / 2 - 50.f};
+	case Game::TitleScreenSelection::Play:
+		if (!showCursor)
+		{
+			showCursor = true;
+			cursorBottomLeft = Point2f{ m_Window.width / 3, m_Window.height / 2 - 50.f };
+		}
+	case Game::TitleScreenSelection::Sound:
+		glColor3f(255.f/255.f, 211.f/255.f, 8.f/255.f);
+		utils::FillRect(Rectf{ 0.f,0.f,m_Window.width, m_Window.height });
+
+		{
+			Texture* pSaveFile{ Managers::GetInstance()->GetTextureManager()->GetTexture(TextureManager::TextureType::SaveFile) };
+			pSaveFile->Draw(Rectf{ m_Window.width / 3 - pSaveFile->GetWidth() / 2, m_Window.height / 2 - pSaveFile->GetHeight() / 2, pSaveFile->GetWidth(), pSaveFile->GetHeight() });
+			Managers::GetInstance()->GetSoundManager()
+				->DrawSettingsMenu(Point2f{ 2 * m_Window.width / 3, 2 * m_Window.height / 3 }, true, m_TitleScreenSelection == TitleScreenSelection::Sound);
+		}
+		break;
+	}
+
+	if (showCursor) Managers::GetInstance()->GetTextureManager()->GetTexture(TextureManager::TextureType::Pointer)->Draw(cursorBottomLeft);
+
+	/*switch (m_TitleScreenSelection)
+	{
+	case Game::TitleScreenSelection::TitleScreen:
+		std::cout << "Titlescreen" << '\n';
+		break;
+	case Game::TitleScreenSelection::EraseData:
+		std::cout << "EraseData" << '\n';
+		break;
+	case Game::TitleScreenSelection::Play:
+		std::cout << "Play" << '\n';
+		break;
+	case Game::TitleScreenSelection::Sound:
+		std::cout << "Sound" << '\n';
+		break;
+	default:
+		break;
+	}*/
+}
+
 void Game::DrawMenus() const
 {
-	Point2f topLeft{ 2 * m_Window.width / 7, 4 * m_Window.height / 5 };
+	Point2f topLeft{ m_Window.width / 9, 4 * m_Window.height / 5 };
 	Rectf descriptionRect{ m_Window.width / 5, 20.f, 2 * m_Window.width / 3, 50.f};
 	
-	Managers::GetInstance()->GetPixlManager()->DrawPixlsMenu(topLeft, !m_IsInventoryActive, descriptionRect);
+	Managers::GetInstance()->GetPixlManager()->DrawPixlsMenu(topLeft, m_InGameMenuSelection == InGameMenuSelection::Pixl, descriptionRect);
 	topLeft.x += 2 * m_Window.width / 7;
 	
-	Managers::GetInstance()->GetItemManager()->DrawInventoryItems(topLeft, m_IsInventoryActive, descriptionRect);
+	Managers::GetInstance()->GetItemManager()->DrawInventoryItems(topLeft, m_InGameMenuSelection == InGameMenuSelection::Inventory, descriptionRect);
+
+	topLeft.x += 2 * m_Window.width / 7;
+	Managers::GetInstance()->GetSoundManager()->DrawSettingsMenu(topLeft, m_InGameMenuSelection == InGameMenuSelection::Settings, m_InGameMenuSelection == InGameMenuSelection::Settings);
 }
 
 void Game::DoCollisionTests()
@@ -300,6 +355,63 @@ void Game::DoCollisionTests()
 	}
 }
 
+void Game::NavigateTitleScreen(const SDL_KeyboardEvent& e)
+{
+	switch (e.keysym.sym)
+	{
+	case SDLK_ESCAPE:
+		m_TitleScreenSelection = TitleScreenSelection::TitleScreen;
+		break;
+	case SDLK_SPACE:
+		switch (m_TitleScreenSelection)
+		{
+		case TitleScreenSelection::TitleScreen:
+			m_TitleScreenSelection = TitleScreenSelection::Play;
+			break;
+		case TitleScreenSelection::Play:
+			StartGame();
+			break;
+		case TitleScreenSelection::EraseData:
+			remove(m_SaveFileName.c_str());
+			break;
+		case TitleScreenSelection::Sound:
+			Managers::GetInstance()->GetSoundManager()->Confirm();
+			break;
+		}
+		break;
+	case SDLK_a:
+		if(!Managers::GetInstance()->GetSoundManager()->IsAdjustingSetting()) switch (m_TitleScreenSelection)
+		{
+		case Game::TitleScreenSelection::Play:
+			m_TitleScreenSelection = TitleScreenSelection::EraseData;
+			break;
+		case Game::TitleScreenSelection::Sound:
+			m_TitleScreenSelection = TitleScreenSelection::Play;
+			break;
+		}
+		break;
+	case SDLK_d:
+		if (!Managers::GetInstance()->GetSoundManager()->IsAdjustingSetting()) switch (m_TitleScreenSelection)
+		{
+		case Game::TitleScreenSelection::EraseData:
+			m_TitleScreenSelection = TitleScreenSelection::Play;
+			break;
+		case Game::TitleScreenSelection::Play:
+			m_TitleScreenSelection = TitleScreenSelection::Sound;
+			break;
+		}
+		break;
+	case SDLK_w:
+	case SDLK_s:
+		{
+			bool up{ e.keysym.sym == SDLK_w || e.keysym.sym == SDLK_UP };
+			Managers::GetInstance()->GetSoundManager()->Scroll(up);
+		}
+		break;
+	}
+
+}
+
 void Game::ProcessKeyDownEvent( const SDL_KeyboardEvent & e )
 {
 	//std::cout << "KEYDOWN event: " << e.keysym.sym << std::endl;
@@ -308,6 +420,12 @@ void Game::ProcessKeyDownEvent( const SDL_KeyboardEvent & e )
 void Game::ProcessKeyUpEvent( const SDL_KeyboardEvent& e )
 {
 	//std::cout << "KEYUP event: " << e.keysym.sym << std::endl;
+	if (m_InTitleScreen)
+	{
+		NavigateTitleScreen(e);
+		return;
+	}
+
 	if(e.keysym.sym == SDLK_ESCAPE)	m_IsPlayerInMenu = !m_IsPlayerInMenu;
 
 	if (m_IsPlayerInMenu)
@@ -315,25 +433,56 @@ void Game::ProcessKeyUpEvent( const SDL_KeyboardEvent& e )
 		switch (e.keysym.sym)
 		{
 		case SDLK_w:
-		case SDLK_UP:
-			if (m_IsInventoryActive) Managers::GetInstance()->GetItemManager()->Scroll(true);
-			else Managers::GetInstance()->GetPixlManager()->Scroll(true);
-			break;
 		case SDLK_s:
-		case SDLK_DOWN:
-			if (m_IsInventoryActive) Managers::GetInstance()->GetItemManager()->Scroll(false);
-			else Managers::GetInstance()->GetPixlManager()->Scroll(false);
+			{
+				bool up{e.keysym.sym == SDLK_w || e.keysym.sym == SDLK_UP};
+				switch (m_InGameMenuSelection)
+				{
+				case Game::InGameMenuSelection::Pixl:
+					Managers::GetInstance()->GetPixlManager()->Scroll(up);
+					break;
+				case Game::InGameMenuSelection::Inventory:
+					Managers::GetInstance()->GetItemManager()->Scroll(up);
+					break;
+				case Game::InGameMenuSelection::Settings:
+					Managers::GetInstance()->GetSoundManager()->Scroll(up);
+					break;
+				}
+			}
 			break;
 		case SDLK_a:
 		case SDLK_LEFT:
+			if(!Managers::GetInstance()->GetSoundManager()->IsAdjustingSetting())
+			{
+				int newSelectionId{ int(m_InGameMenuSelection) - 1 };
+				if (newSelectionId < 0) newSelectionId = int(InGameMenuSelection::Settings);
+				m_InGameMenuSelection = InGameMenuSelection(newSelectionId);
+			}
+			break;
 		case SDLK_d:
 		case SDLK_RIGHT:
-			m_IsInventoryActive = !m_IsInventoryActive;
+			if (!Managers::GetInstance()->GetSoundManager()->IsAdjustingSetting())
+			{
+				int newSelectionId{ int(m_InGameMenuSelection) + 1 };
+				newSelectionId %= int(InGameMenuSelection::Settings) + 1;
+				m_InGameMenuSelection = InGameMenuSelection(newSelectionId);
+			}
 			break;
 		case SDLK_SPACE:
-			if (m_IsInventoryActive)	Managers::GetInstance()->GetItemManager()->UseActiveItem();
-			else Managers::GetInstance()->GetPixlManager()->ActivateSelectedPixl(m_pPlayer);
-			m_IsPlayerInMenu = false;
+			switch (m_InGameMenuSelection)
+			{
+			case Game::InGameMenuSelection::Pixl:
+				Managers::GetInstance()->GetPixlManager()->ActivateSelectedPixl(m_pPlayer);
+				m_IsPlayerInMenu = false;
+				break;
+			case Game::InGameMenuSelection::Inventory:
+				Managers::GetInstance()->GetItemManager()->UseActiveItem();
+				m_IsPlayerInMenu = false;
+				break;
+			case Game::InGameMenuSelection::Settings:
+				Managers::GetInstance()->GetSoundManager()->Confirm();
+				break;
+			}
 			break;
 		}
 	}
@@ -432,9 +581,10 @@ void Game::PrintControlsInfo() const
 	std::cout << "----Menu controls----" << '\n';
 	std::cout << "Go up: W" << '\n';
 	std::cout << "Go down: S" << '\n';
-	std::cout << "Go to menu to the left: A" << '\n';
-	std::cout << "Go to menu to the right: D" << '\n';
-	std::cout << "Use/Select: SPACEBAR" << '\n';
+	std::cout << "Go to the left: A" << '\n';
+	std::cout << "Go to the right: D" << '\n';
+	std::cout << "Use/Select/Confirm: SPACEBAR" << '\n';
+	std::cout << "Close Menu: ESCAPE" << '\n';
 }
 
 void Game::AdvanceToNextLevel()
@@ -497,6 +647,22 @@ void Game::SpawnEnemies()
 	default:
 		em->Spawn(Enemy::Type::Goomba, 1, spawnBox);
 	}
+}
+
+void Game::StartGame()
+{
+	m_InTitleScreen = false;
+	Managers::GetInstance()->GetSoundManager()->PlayBackgroundMusic(SoundManager::Song::MainTheme);
+
+	InitPlayer();
+
+	LoadGame();
+
+	AdvanceToNextLevel();
+
+	//Managers::GetInstance()->GetItemManager()->Spawn(Item::Type::IceStorm, Point2f{200.f, 10.f}, m_pPlayer);
+
+	NotifyCameraLevelChange();
 }
 
 void Game::SaveGame() const

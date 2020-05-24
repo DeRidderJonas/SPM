@@ -20,6 +20,7 @@ Managers::~Managers()
 	delete m_ItemManager;
 	delete m_PixlManager;
 	delete m_ParticleManager;
+	delete m_SoundManager;
 }
 
 TextureManager* Managers::GetTextureManager()
@@ -62,6 +63,11 @@ ParticleManager* Managers::GetParticleManager()
 	return m_ParticleManager;
 }
 
+SoundManager* Managers::GetSoundManager()
+{
+	return m_SoundManager;
+}
+
 Managers::Managers()
 	: m_TextureManager{new TextureManager()}
 	, m_SpriteManager{new SpriteManager()}
@@ -71,5 +77,6 @@ Managers::Managers()
 	, m_ItemManager{new ItemManager()}
 	, m_PixlManager{new PixlManager()}
 	, m_ParticleManager{new ParticleManager()}
+	, m_SoundManager{new SoundManager()}
 {
 }

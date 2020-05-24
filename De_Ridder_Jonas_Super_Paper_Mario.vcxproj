@@ -192,6 +192,7 @@
     <ClCompile Include="Sentient.cpp" />
     <ClCompile Include="Smoke.cpp" />
     <ClCompile Include="SoundEffect.cpp" />
+    <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="SoundStream.cpp" />
     <ClCompile Include="Spiny.cpp" />
     <ClCompile Include="Sprite.cpp" />
@@ -242,6 +243,7 @@
     <ClInclude Include="Sentient.h" />
     <ClInclude Include="Smoke.h" />
     <ClInclude Include="SoundEffect.h" />
+    <ClInclude Include="SoundManager.h" />
     <ClInclude Include="SoundStream.h" />
     <ClInclude Include="Spiny.h" />
     <ClInclude Include="Sprite.h" />

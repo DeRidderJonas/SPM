@@ -21,6 +21,11 @@ TextManager::TextManager()
 	m_TextMap[Text::Boomer] = new Texture("Boomer", "Resources/HUD/DIN-Light.otf", nameFontSize, black);
 	m_TextMap[Text::BoomerDesc] = new Texture("Use Boomers power to blow up foes", "Resources/HUD/DIN-Light.otf", descFontSize, black);
 	m_TextMap[Text::FrozenInstructions] = new Texture("Mash A and D to thaw out faster", "Resources/HUD/DIN-Light.otf", nameFontSize, black);
+	m_TextMap[Text::MusicVolume] = new Texture("Music Volume", "Resources/HUD/DIN-Light.otf", nameFontSize, black);
+	m_TextMap[Text::SfxVolume] = new Texture("Soundeffects Volume", "Resources/HUD/DIN-Light.otf", nameFontSize, black);
+	m_TextMap[Text::Sound] = new Texture("Sound", "Resources/HUD/DIN-Light.otf", nameFontSize, black);
+	m_TextMap[Text::On] = new Texture("On", "Resources/HUD/DIN-Light.otf", 15, black);
+	m_TextMap[Text::Off] = new Texture("Off", "Resources/HUD/DIN-Light.otf", 15, black);
 	m_TextMap[Text::NotFound] = new Texture(" ", "Resources/HUD/DIN-Light.otf", descFontSize, black);
 }
 

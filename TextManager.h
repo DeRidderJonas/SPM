@@ -21,6 +21,11 @@ public:
 		Boomer,
 		BoomerDesc,
 		FrozenInstructions,
+		MusicVolume,
+		SfxVolume,
+		Sound,
+		On,
+		Off,
 		NotFound
 	};
 

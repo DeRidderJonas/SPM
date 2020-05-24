@@ -1,15 +1,15 @@
 #pragma once
 #include <string>
 
-class SoundEffect
+class Sfx
 {
 public:
-	explicit SoundEffect( const std::string& path );
-	~SoundEffect( );
-	SoundEffect(const SoundEffect& other) = delete;
-	SoundEffect& operator=(const SoundEffect& rhs) = delete;
-	SoundEffect( SoundEffect&& other) = delete;
-	SoundEffect& operator=( SoundEffect&& rhs) = delete;
+	explicit Sfx( const std::string& path );
+	~Sfx( );
+	Sfx(const Sfx& other) = delete;
+	Sfx& operator=(const Sfx& rhs) = delete;
+	Sfx( Sfx&& other) = delete;
+	Sfx& operator=( Sfx&& rhs) = delete;
 
 	bool IsLoaded( ) const;
 	bool Play( int loops ) const;

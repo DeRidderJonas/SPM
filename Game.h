@@ -29,6 +29,14 @@ public:
 	void ProcessMouseDownEvent( const SDL_MouseButtonEvent& e );
 	void ProcessMouseUpEvent( const SDL_MouseButtonEvent& e );
 
+	enum class TitleScreenSelection
+	{
+		TitleScreen, EraseData, Play, Sound
+	};
+	enum class InGameMenuSelection
+	{
+		Pixl, Inventory, Settings
+	};
 private:
 	// DATA MEMBERS
 	const Window m_Window;
@@ -40,7 +48,7 @@ private:
 	bool m_InRestArea;
 
 	bool m_IsPlayerInMenu;
-	int m_IsInventoryActive;
+	InGameMenuSelection m_InGameMenuSelection;
 	float m_PickUpDuration;
 	float m_PickUpDurationPixl;
 	float m_PickUpRem;
@@ -49,6 +57,8 @@ private:
 
 	std::string m_SaveFileName;
 	bool m_ContinuingFromSave;
+	bool m_InTitleScreen;
+	TitleScreenSelection m_TitleScreenSelection;
 
 	// FUNCTIONS
 	void Initialize( );
@@ -71,14 +81,17 @@ private:
 	void DrawParticles() const;
 	void DrawHUD() const;
 	void DrawLevel() const;
+	void DrawTitleScreen() const;
 	void DrawMenus() const;
 	void DoCollisionTests();
+	void NavigateTitleScreen(const SDL_KeyboardEvent& e);
 	void ClearBackground( ) const;
 
 	void PrintControlsInfo() const;
 	void AdvanceToNextLevel();
 	void SpawnEnemies();
 
+	void StartGame();
 	void SaveGame() const;
 	void LoadGame();
 };

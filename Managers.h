@@ -1,6 +1,7 @@
 #pragma once
 #include "EnemyManager.h"
 #include "ParticleManager.h"
+#include "SoundManager.h"
 class Managers
 {
 public:
@@ -19,6 +20,7 @@ public:
 	ItemManager* GetItemManager();
 	PixlManager* GetPixlManager();
 	ParticleManager* GetParticleManager();
+	SoundManager* GetSoundManager();
 private:
 	Managers();
 	static Managers* m_Instance;
@@ -31,5 +33,6 @@ private:
 	ItemManager* m_ItemManager;
 	PixlManager* m_PixlManager;
 	ParticleManager* m_ParticleManager;
+	SoundManager* m_SoundManager;
 };
 
