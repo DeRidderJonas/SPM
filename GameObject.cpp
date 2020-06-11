@@ -23,8 +23,8 @@ void GameObject::Update(float elapsedSec, const Level* level)
 		m_Hitbox.left = level->GetBoundaries().left + level->GetBoundaries().width - m_Hitbox.width;
 
 
-	//GameObject cant move when attacking
-	if (m_GameState == GameState::Attacking) {
+	//GameObject cant move when attacking or dying
+	if (m_GameState == GameState::Attacking || m_GameState == GameState::Dying) {
 		return;
 	}
 

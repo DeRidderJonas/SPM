@@ -4,7 +4,7 @@
 #include <iostream>
 
 Squiglet::Squiglet(const Point2f& bottomLeft)
-	: Enemy(new Sprite("Resources/Enemies/Squiglet.png", 4, 1, .075f), bottomLeft, 200.f, 0.5f)
+	: Enemy(new Sprite("Resources/Enemies/Squiglet.png", 4, 1, .075f), new Sprite("Resources/Enemies/Squiglet_Death.png", 3, 1, 0.3f), bottomLeft, 200.f, 0.5f)
 {
 }
 

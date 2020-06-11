@@ -74,5 +74,5 @@ void Sprite::Loop(int amountOfLoops)
 
 bool Sprite::HasEnded() const
 {
-	return m_ActFrame == m_Rows * m_Cols - 1;
+	return m_ActFrame == m_Rows * m_Cols - 1 && m_AccuSec >= m_FrameSec - m_FrameSec/4;
 }

@@ -3,7 +3,7 @@
 #include "Level.h"
 enum class GameState
 {
-	Idle, MovingLeft, MovingRight, Falling, Attacked, Attacking
+	Idle, MovingLeft, MovingRight, Falling, Attacked, Attacking, Dying
 };
 
 class GameObject

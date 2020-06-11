@@ -20,6 +20,9 @@ public:
 	void WasHit(bool fromLeft);
 	bool IsInvincible() const;
 
+	virtual void Die() override;
+	virtual bool IsDead() const override;
+
 	int GetMaxHealth() const;
 	int GetCurrentHealth() const;
 	void RestoreHealth(int amount);

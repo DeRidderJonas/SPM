@@ -20,6 +20,7 @@ Game::Game( const Window& window )
 	, m_ContinuingFromSave{false}
 	, m_InTitleScreen{true}
 	, m_TitleScreenSelection{TitleScreenSelection::TitleScreen}
+	, m_LevelsPerRestArea{3}
 {
 	Initialize( );
 }
@@ -73,7 +74,7 @@ void Game::DestroyLevel()
 
 void Game::Update( float elapsedSec )
 {
-	if (m_InTitleScreen || m_IsPlayerInMenu || m_pMerchant->IsPlayerInShop())
+	if (m_InTitleScreen || m_IsPlayerInMenu || (m_pMerchant && m_pMerchant->IsPlayerInShop()))
 	{
 		return;
 	}
@@ -87,7 +88,7 @@ void Game::Update( float elapsedSec )
 			DoCollisionTests();
 		m_pPlayer->SetIsPickingUp(false);
 
-		if (m_pPlayer->GetCurrentHealth() <= 0) GameOver();
+		if (m_pPlayer->IsDead()) GameOver();
 	}
 	else m_PickUpRem -= elapsedSec;
 }
@@ -499,10 +500,10 @@ void Game::ProcessKeyUpEvent( const SDL_KeyboardEvent& e )
 			PrintControlsInfo();
 			break;
 		case SDLK_SPACE:
-			if (m_pMerchant->IsPlayerInShop()) m_pMerchant->Buy(m_pPlayer);
+			if (m_InRestArea && m_pMerchant->IsPlayerInShop()) m_pMerchant->Buy(m_pPlayer);
 			break;
 		case SDLK_s:
-			if (m_pMerchant->IsPlayerInShop()) m_pMerchant->Scroll(false);
+			if (m_InRestArea && m_pMerchant->IsPlayerInShop()) m_pMerchant->Scroll(false);
 			break;
 		case SDLK_w:
 			if (m_InRestArea)
@@ -623,7 +624,7 @@ void Game::AdvanceToNextLevel()
 	}
 	else m_ContinuingFromSave = false;
 	m_pPlayer->SetPosition(Point2f{10.f, 50.f});
-	m_InRestArea = m_Level % 1 == 0;
+	m_InRestArea = m_Level % m_LevelsPerRestArea == 0;
 	if (!m_InRestArea)
 	{
 		delete m_pLevel;
@@ -688,7 +689,6 @@ void Game::StartGame()
 
 void Game::GameOver()
 {
-	Managers::GetInstance()->GetSoundManager()->PlaySoundEffect(SoundManager::Soundfx::GameOver);
 	GoBackToTitleScreen();
 }
 
@@ -696,6 +696,12 @@ void Game::GoBackToTitleScreen()
 {
 	m_InTitleScreen = true;
 	Managers::GetInstance()->GetSoundManager()->PlayBackgroundMusic(SoundManager::Song::TitleScreen);
+
+	delete m_pPlayer;
+	m_pPlayer = nullptr;
+	m_Level = 0;
+	Managers::GetInstance()->GetSpriteManager()->GetSprite(SpriteManager::SpriteType::MarioDeath)->SetFrame(0);
+
 }
 
 void Game::SaveGame() const

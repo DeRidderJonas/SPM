@@ -32,14 +32,18 @@ void EnemyManager::UpdateAll(float elapsedSec, const Level* level)
 {
 	for (Enemy* enemy: m_Enemies)
 	{
-		enemy->Update(elapsedSec, level);
-		for (Enemy* other : m_Enemies)
+		if (enemy->IsDead()) Kill(enemy);
+		else
 		{
-			if (enemy != other && enemy->CanBeFlipped() && enemy->IsOverlapping(other))
+			enemy->Update(elapsedSec, level);
+			for (Enemy* other : m_Enemies)
 			{
-				enemy->FlipHorizontalVelocity();
-				bool enemyGoingLeft{ enemy->GetVelocity().x < 0 };
-				other->SetHorizontalVelocity((enemyGoingLeft ? abs(other->GetVelocity().x) : -abs(other->GetVelocity().x)));
+				if (enemy != other && enemy->CanBeFlipped() && enemy->IsOverlapping(other))
+				{
+					enemy->FlipHorizontalVelocity();
+					bool enemyGoingLeft{ enemy->GetVelocity().x < 0 };
+					other->SetHorizontalVelocity((enemyGoingLeft ? abs(other->GetVelocity().x) : -abs(other->GetVelocity().x)));
+				}
 			}
 		}
 	}
@@ -67,7 +71,7 @@ void EnemyManager::AttackAll(const Rectf& attackHitbox)
 	{
 		if (enemy->IsOverlapping(attackHitbox))
 		{
-			Kill(enemy);
+			enemy->Die();
 		}
 	}
 }
@@ -83,7 +87,7 @@ bool EnemyManager::HitPlayer()
 
 	for (Enemy* enemy : m_Enemies)
 	{
-		if (enemy->IsOverlapping(m_pPlayer))
+		if (enemy->IsOverlapping(m_pPlayer) && !enemy->IsDying())
 		{
 			float playerMidX{ m_pPlayer->GetHitbox().left + m_pPlayer->GetHitbox().width / 2 };
 			float enemyMidX{ enemy->GetHitbox().left + enemy->GetHitbox().width / 2 };
@@ -95,7 +99,7 @@ bool EnemyManager::HitPlayer()
 				bool enemyShouldDie{ enemy->JumpedOnByPlayer() };
 				if (enemyShouldDie)
 				{
-					Kill(enemy);
+					enemy->Die();
 					m_pPlayer->SetVerticalVelocity(300.f);
 				}
 				else m_pPlayer->WasHit(playerLeftOfEnemy);

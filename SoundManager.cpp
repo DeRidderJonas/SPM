@@ -20,8 +20,8 @@ SoundManager::SoundManager()
 	m_SoundEffects[Soundfx::PixlUnlock] = new Sfx("Resources/Sound/PixlUnlock.mp3");
 	m_SoundEffects[Soundfx::Damage] = new Sfx("Resources/Sound/damage.wav");
 
-	SetMusicVolume(2);
-	SetSfxVolume(5);
+	SetMusicVolume(5);
+	SetSfxVolume(8);
 }
 
 SoundManager::~SoundManager()

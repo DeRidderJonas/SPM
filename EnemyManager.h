@@ -30,10 +30,7 @@ public:
 	std::vector<Enemy*> GetEnemies() const;
 
 	template<typename Function>
-	void ApplyOnEnemies(Function f)
-	{
-		std::for_each(m_Enemies.begin(), m_Enemies.end(), f);
-	}
+	void ApplyOnEnemies(Function f);
 
 	void SetKeySpawned(bool value);
 private:
@@ -45,3 +42,9 @@ private:
 
 	static const int m_LootSpawnChance;
 };
+
+template<typename Function>
+void EnemyManager::ApplyOnEnemies(Function f)
+{
+	std::for_each(m_Enemies.begin(), m_Enemies.end(), f);
+}

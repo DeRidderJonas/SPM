@@ -19,6 +19,7 @@ SpriteManager::SpriteManager()
 	m_SpriteMap[SpriteType::MarioJump] = new Sprite("Resources/Mario/Mario_Jump.png", 1, 1, 1.f);
 	m_SpriteMap[SpriteType::MarioDamaged] = new Sprite("Resources/Mario/Damaged.png", 1, 1, 1.f);
 	m_SpriteMap[SpriteType::MarioPickup] = new Sprite("Resources/Mario/Mario_Pickup.png", 1, 1, 1.f);
+	m_SpriteMap[SpriteType::MarioDeath] = new Sprite("Resources/Mario/Mario_Death.png", 7, 1, 0.25f);
 	m_SpriteMap[SpriteType::InvincibleBubble] = new Sprite("Resources/Mario/Bubble.png", 2, 1, .05f);
 	m_SpriteMap[SpriteType::MarioAttackCudge] = new Sprite("Resources/Mario/Cudge_Attack.png", 4, 1, .075f);
 	m_SpriteMap[SpriteType::MarioAttackBarry] = new Sprite("Resources/Mario/Barry_Attack.png", 6, 2, .075f);

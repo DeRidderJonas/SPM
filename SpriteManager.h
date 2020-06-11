@@ -22,6 +22,7 @@ public:
 		MarioJump,
 		MarioDamaged,
 		MarioPickup,
+		MarioDeath,
 		InvincibleBubble,
 		MarioAttackCudge,
 		MarioAttackBarry,

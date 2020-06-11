@@ -103,12 +103,26 @@ void Player::WasHit(bool fromLeft)
 
 	m_AttackingHitbox = Rectf{};
 
-	Managers::GetInstance()->GetSoundManager()->PlaySoundEffect(SoundManager::Soundfx::Damage);
+	if (m_CurrentHealth <= 0) Die();
+
+	else Managers::GetInstance()->GetSoundManager()->PlaySoundEffect(SoundManager::Soundfx::Damage);
 }
 
 bool Player::IsInvincible() const
 {
 	return m_RemainingInvincibleSec > 0.f;
+}
+
+void Player::Die()
+{
+	SetActiveSprite(SpriteManager::SpriteType::MarioDeath);
+	m_GameState = GameState::Dying;
+	Managers::GetInstance()->GetSoundManager()->PlaySoundEffect(SoundManager::Soundfx::GameOver);
+}
+
+bool Player::IsDead() const
+{
+	return Managers::GetInstance()->GetSpriteManager()->GetSprite(SpriteManager::SpriteType::MarioDeath)->HasEnded();
 }
 
 int Player::GetMaxHealth() const
@@ -198,7 +212,7 @@ void Player::OnInput(float elapsedSec)
 {
 	bool inputReceived{ false };
 	bool MarioMidAir{ m_GameState == GameState::Falling };
-	bool canMove{ m_GameState != GameState::Attacked && m_GameState != GameState::Attacking && !m_IsPickingUp && m_RemainingFrozenSec < 0.f};
+	bool canMove{ m_GameState != GameState::Attacked && m_GameState != GameState::Attacking && !m_IsPickingUp && m_RemainingFrozenSec < 0.f && m_GameState != GameState::Dying};
 
 	const Uint8* pKeysStates = SDL_GetKeyboardState(nullptr);
 	//Go Left

@@ -48,6 +48,7 @@ private:
 	int m_Level;
 	bool m_InRestArea;
 	Merchant* m_pMerchant;
+	const int m_LevelsPerRestArea;
 
 	bool m_IsPlayerInMenu;
 	InGameMenuSelection m_InGameMenuSelection;

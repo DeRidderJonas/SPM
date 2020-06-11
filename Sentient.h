@@ -14,6 +14,9 @@ public:
 	void Freeze();
 	bool IsFrozen() const;
 
+	virtual void Die() = 0;
+	virtual bool IsDead() const = 0;
+
 	virtual Rectf GetHitbox() const override;
 protected:
 	float m_AttackDuration;
