@@ -33,6 +33,11 @@ void Pixl::DrawInMenu(const Rectf& menuRect, bool drawDesc, const Rectf& descRec
 	m_pDescriptionTexture->Draw(descRect);
 }
 
+void Pixl::DrawInTitleScreen(const Rectf& drawRect)
+{
+	m_pSprite->Draw(drawRect);
+}
+
 void Pixl::SetType(Type newType)
 {
 	m_Type = newType;

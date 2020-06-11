@@ -23,15 +23,18 @@ public:
 	Rectf GetBoundaries() const;
 	Rectf GetDoor() const;
 	Rectf GetChest() const;
+	Rectf GetPipe() const;
 private:
 	std::vector<std::vector<Point2f>> m_Platforms;
 	const Texture* m_pBackgroundTexture;
 	const Texture* m_pBrick;
 	const Texture* m_pDoor;
+	const Texture* m_pPipe;
 	Sprite* m_pChest;
 	Rectf m_Boundaries;
 	Rectf m_Door;
 	Rectf m_Chest;
+	Rectf m_Pipe;
 
 	bool m_IsRestArea;
 

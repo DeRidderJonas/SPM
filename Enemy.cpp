@@ -90,7 +90,7 @@ bool Enemy::IsDying() const
 
 void Enemy::FlipHorizontalVelocity()
 {
-	if (m_RemainingFlipCooldown > 0.f) return;
+	if (!CanBeFlipped()) return;
 	SetHorizontalVelocity(-m_Velocity.x);
 	m_RemainingFlipCooldown = m_MaxFlipCooldown;
 	m_GameState = m_Velocity.x > 0.f ? GameState::MovingRight : GameState::MovingLeft;
@@ -98,7 +98,7 @@ void Enemy::FlipHorizontalVelocity()
 
 bool Enemy::CanBeFlipped() const
 {
-	return m_RemainingFlipCooldown < 0.f;
+	return m_RemainingFlipCooldown < 0.f && m_GameState != GameState::Dying;
 }
 
 bool Enemy::canMove(bool toLeft, const Level* plevel) const

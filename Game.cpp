@@ -35,6 +35,8 @@ void Game::Initialize( )
 	InitManagers();
 
 	Managers::GetInstance()->GetSoundManager()->PlayBackgroundMusic(SoundManager::Song::TitleScreen);
+
+	LoadGame();
 }
 
 void Game::InitPlayer()
@@ -309,9 +311,22 @@ void Game::DrawTitleScreen() const
 
 		{
 			Texture* pSaveFile{ Managers::GetInstance()->GetTextureManager()->GetTexture(TextureManager::TextureType::SaveFile) };
-			pSaveFile->Draw(Rectf{ m_Window.width / 3 - pSaveFile->GetWidth() / 2, m_Window.height / 2 - pSaveFile->GetHeight() / 2, pSaveFile->GetWidth(), pSaveFile->GetHeight() });
+			Rectf saveFileRect{ m_Window.width / 3 - pSaveFile->GetWidth() / 2, m_Window.height / 2 - pSaveFile->GetHeight() / 2, pSaveFile->GetWidth(), pSaveFile->GetHeight() };
+			pSaveFile->Draw(saveFileRect);
+			Sprite* pNumbers{ Managers::GetInstance()->GetSpriteManager()->GetSprite(SpriteManager::SpriteType::Numbers) };
+			int tens{ m_Level / 10 }, digit{ m_Level % 10 };
+			Point2f bottomLeftNumber{saveFileRect.left + pSaveFile->GetWidth()/4, saveFileRect.bottom + pSaveFile->GetHeight() / 2};
+			pNumbers->SetFrame(tens);
+			pNumbers->Draw(bottomLeftNumber);
+			bottomLeftNumber.x += pNumbers->GetFrameWidth();
+			pNumbers->SetFrame(digit);
+			pNumbers->Draw(bottomLeftNumber);
+
+			Managers::GetInstance()->GetPixlManager()->DrawUnlockedPixls(Rectf{saveFileRect.left + 25.f, saveFileRect.bottom + saveFileRect.height/3, 0.f, 20.f});
+
 			Managers::GetInstance()->GetSoundManager()
 				->DrawSettingsMenu(Point2f{ 2 * m_Window.width / 3, 2 * m_Window.height / 3 }, true, m_TitleScreenSelection == TitleScreenSelection::Sound);
+
 		}
 		break;
 	}
@@ -375,6 +390,11 @@ void Game::NavigateTitleScreen(const SDL_KeyboardEvent& e)
 			break;
 		case TitleScreenSelection::EraseData:
 			remove(m_SaveFileName.c_str());
+			delete m_pPlayer;
+			m_Level = 0;
+			Managers::GetInstance()->GetPixlManager()->Reset();
+			Managers::GetInstance()->GetItemManager()->Reset();
+			m_ContinuingFromSave = false;
 			break;
 		case TitleScreenSelection::Sound:
 			Managers::GetInstance()->GetSoundManager()->Confirm();
@@ -517,6 +537,15 @@ void Game::ProcessKeyUpEvent( const SDL_KeyboardEvent& e )
 				}
 				if (m_pMerchant->IsPlayerInShop()) m_pMerchant->Scroll(true);
 
+				Rectf pipe{ m_pLevel->GetPipe() };
+				pipe.width += 10.f;
+				if (m_pPlayer->IsOverlapping(pipe))
+				{
+					SaveGame();
+					GoBackToTitleScreen();
+					break;
+				}
+
 				if (m_pMerchant->EnterShop(m_pPlayer->GetHitbox())) break;
 				if (!m_pPlayer->IsOverlapping(m_pLevel->GetDoor())) break;
 			}
@@ -528,11 +557,8 @@ void Game::ProcessKeyUpEvent( const SDL_KeyboardEvent& e )
 
 			AdvanceToNextLevel();
 			break;
-		case SDLK_p:
-			SaveGame();
-			break;
 		case SDLK_o:
-			//Put debug code here
+			//TODO: Put debug code here
 			break;
 		}
 	}
@@ -610,6 +636,7 @@ void Game::AdvanceToNextLevel()
 	Managers::GetInstance()->GetEnemyManager()->KillAllEnemies();
 	Managers::GetInstance()->GetProjectileManager()->DestroyAll();
 	Managers::GetInstance()->GetParticleManager()->DestroyAll();
+
 	if (m_pMerchant)
 	{
 		delete m_pMerchant;
@@ -623,13 +650,14 @@ void Game::AdvanceToNextLevel()
 		Managers::GetInstance()->GetSpriteManager()->GetSprite(SpriteManager::SpriteType::Chest)->SetFrame(0);
 	}
 	else m_ContinuingFromSave = false;
-	m_pPlayer->SetPosition(Point2f{10.f, 50.f});
+	
 	m_InRestArea = m_Level % m_LevelsPerRestArea == 0;
 	if (!m_InRestArea)
 	{
 		delete m_pLevel;
 		m_pLevel = new Level(Managers::GetInstance()->GetTextureManager()->GetRandomBackground(), false);
 		SpawnEnemies();
+		m_pPlayer->SetPosition(Point2f{10.f, 50.f});
 	}
 	else
 	{
@@ -637,6 +665,7 @@ void Game::AdvanceToNextLevel()
 		m_pLevel = new Level(Managers::GetInstance()->GetTextureManager()->GetTexture(TextureManager::TextureType::RestArea), true);
 		Sprite* pMerchant{ Managers::GetInstance()->GetSpriteManager()->GetSprite(SpriteManager::SpriteType::Flamm) };
 		m_pMerchant = new Merchant(Point2f{ m_pLevel->GetBoundaries().width - pMerchant->GetFrameWidth() - 20.f, m_pLevel->GetBoundaries().bottom + 20.f }, pMerchant, m_pPlayer);
+		m_pPlayer->SetPosition(Point2f{ 250.f, 50.f });
 	}
 
 	m_Camera.SetLevelBoundaries(m_pLevel->GetBoundaries());
@@ -676,9 +705,7 @@ void Game::StartGame()
 	m_InTitleScreen = false;
 	Managers::GetInstance()->GetSoundManager()->PlayBackgroundMusic(SoundManager::Song::MainTheme);
 
-	InitPlayer();
-
-	LoadGame();
+	if(!m_pPlayer) InitPlayer();
 
 	AdvanceToNextLevel();
 
@@ -699,8 +726,8 @@ void Game::GoBackToTitleScreen()
 
 	delete m_pPlayer;
 	m_pPlayer = nullptr;
-	m_Level = 0;
 	Managers::GetInstance()->GetSpriteManager()->GetSprite(SpriteManager::SpriteType::MarioDeath)->SetFrame(0);
+	m_ContinuingFromSave = true;
 
 }
 
@@ -717,6 +744,8 @@ void Game::SaveGame() const
 
 void Game::LoadGame()
 {
+	if(!m_pPlayer) InitPlayer();
+
 	std::ifstream is{ m_SaveFileName };
 	if (!is) return;
 

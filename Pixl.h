@@ -12,6 +12,7 @@ public:
 	void Update(float elapsedSec);
 	void Draw(const Point2f& bottomLeft) const;
 	void DrawInMenu(const Rectf& menuRect, bool drawDesc, const Rectf& descRect) const;
+	void DrawInTitleScreen(const Rectf& drawRect);
 	void SetType(Type newType);
 	Type GetType() const;
 	float GetWidth() const;

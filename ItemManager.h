@@ -29,6 +29,8 @@ public:
 	void UseActiveItem();
 	void RemoveKey();
 
+	void Reset();
+
 	std::string ToSaveFormat() const;
 	void LoadFromSave(const std::string& saveLine, Player* pPlayer);
 private:

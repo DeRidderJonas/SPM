@@ -12,9 +12,11 @@ public:
 	void Unlock(const Pixl::Type& pixlType);
 	bool IsUnlocked(const Pixl::Type& pixlType) const;
 	void SetPixl(const Pixl::Type& pixlType, Pixl* pixl);
+	void Reset();
 
 	void DrawPixlsMenu(const Point2f& topLeft, bool isActive, const Rectf& descriptionRect) const;
 	void DrawUnlockingPixl(const Rectf& drawRect) const;
+	void DrawUnlockedPixls(const Rectf& destRect);
 	void Scroll(bool up);
 	void ActivateSelectedPixl(Player* pPlayer);
 	Pixl::Type GetNextUnlockablePixl() const;

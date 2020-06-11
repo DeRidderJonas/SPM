@@ -12,6 +12,7 @@ Level::Level(const Texture* pBackground, bool isRestArea)
 	, m_pBrick{Managers::GetInstance()->GetTextureManager()->GetTexture(TextureManager::TextureType::Brick)}
 	, m_pDoor{Managers::GetInstance()->GetTextureManager()->GetTexture(TextureManager::TextureType::Door)}
 	, m_pChest{Managers::GetInstance()->GetSpriteManager()->GetSprite(SpriteManager::SpriteType::Chest)}
+	, m_pPipe{Managers::GetInstance()->GetTextureManager()->GetTexture(TextureManager::TextureType::Pipe)}
 	, m_Boundaries{0.f,0.f, pBackground->GetWidth(), pBackground->GetHeight()}
 	, m_IsRestArea{isRestArea}
 {
@@ -23,6 +24,7 @@ Level::Level(const Texture* pBackground, bool isRestArea)
 		SVGParser::GetVerticesFromSvgFile("Resources/Level/restArea.svg", m_Platforms);
 		m_Door = Rectf{ boundaries.left + boundaries.width - m_pDoor->GetWidth() - 300.f, boundaries.bottom + 18.f, m_pDoor->GetWidth(), m_pDoor->GetHeight() };
 		m_Chest = Rectf{ boundaries.left + boundaries.width / 2, boundaries.bottom + 45.f, m_pChest->GetFrameWidth(), m_pChest->GetFrameHeight() };
+		m_Pipe = Rectf{ boundaries.left + m_pBrick->GetWidth(), boundaries.bottom + m_pBrick->GetHeight(), m_pPipe->GetWidth(), m_pPipe->GetHeight() };
 	}
 	else
 	{
@@ -48,6 +50,7 @@ void Level::Draw() const
 	if (m_IsRestArea)
 	{
 		m_pChest->Draw(m_Chest);
+		m_pPipe->Draw(m_Pipe);
 	}
 	DrawPlatforms();
 }
@@ -198,6 +201,11 @@ Rectf Level::GetDoor() const
 Rectf Level::GetChest() const
 {
 	return m_Chest;
+}
+
+Rectf Level::GetPipe() const
+{
+	return m_Pipe;
 }
 
 void Level::DrawPlatforms() const

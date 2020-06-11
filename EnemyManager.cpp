@@ -38,7 +38,7 @@ void EnemyManager::UpdateAll(float elapsedSec, const Level* level)
 			enemy->Update(elapsedSec, level);
 			for (Enemy* other : m_Enemies)
 			{
-				if (enemy != other && enemy->CanBeFlipped() && enemy->IsOverlapping(other))
+				if (enemy != other && enemy->CanBeFlipped() && other->CanBeFlipped() && enemy->IsOverlapping(other))
 				{
 					enemy->FlipHorizontalVelocity();
 					bool enemyGoingLeft{ enemy->GetVelocity().x < 0 };

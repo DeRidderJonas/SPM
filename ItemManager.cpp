@@ -162,6 +162,19 @@ void ItemManager::RemoveKey()
 	m_Inventory.erase(m_Inventory.begin() + index);
 }
 
+void ItemManager::Reset()
+{
+	for (Item* item : m_FloorItems)
+	{
+		delete item;
+	}
+
+	for (Item* item : m_Inventory)
+	{
+		delete item;
+	}
+}
+
 std::string ItemManager::ToSaveFormat() const
 {
 	std::stringstream ss{};

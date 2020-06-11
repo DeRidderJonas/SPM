@@ -39,6 +39,15 @@ void PixlManager::SetPixl(const Pixl::Type& pixlType, Pixl* pixl)
 	}
 }
 
+void PixlManager::Reset()
+{
+	for (std::pair<const Pixl::Type, bool>& pair : m_UnlockedPixls)
+	{
+		if (pair.first == Pixl::Type::Cudge) pair.second = true;
+		else pair.second = false;
+	}
+}
+
 void PixlManager::DrawPixlsMenu(const Point2f& topLeft, bool isActive, const Rectf& descriptionRect) const
 {
 	const float menuWidth{ 250.f };
@@ -122,6 +131,24 @@ void PixlManager::DrawUnlockingPixl(const Rectf& drawRect) const
 	glColor3f(0.f, 0.f, 0.f);
 	utils::DrawRect(nameRectBg);
 	pPixlName->Draw(nameRect);
+}
+
+void PixlManager::DrawUnlockedPixls(const Rectf& destRect)
+{
+	//draw miniature of unlocked pixls in title screen
+	Rectf pixlRect{ destRect.left, destRect.bottom, destRect.height, destRect.height };
+	const float margin{ 5.f };
+
+	Pixl drawPixl{ Pixl::Type::Cudge };
+	for (const std::pair<Pixl::Type, bool>& pair : m_UnlockedPixls)
+	{
+		drawPixl.SetType(pair.first);
+		if (pair.second)
+		{
+			drawPixl.DrawInTitleScreen(pixlRect);
+			pixlRect.left += pixlRect.width + margin;
+		}
+	}
 }
 
 void PixlManager::Scroll(bool up)

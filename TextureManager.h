@@ -15,6 +15,7 @@ public:
 		DoorShadow,
 		RestArea,
 		Brick,
+		Pipe,
 		TitleScreen,
 		SaveFile,
 		Healthbar,
