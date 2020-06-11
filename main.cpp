@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Core.h"
 #include <ctime>
+#include <iostream>
 
 void StartHeapControl();
 void DumpMemoryLeaks();
@@ -11,8 +12,23 @@ int main( int argc, char *argv[] )
 	{
 		StartHeapControl();
 
-		Core core{ Window{ "Super Paper Mario - De Ridder, Jonas - 1DAE18", 1000.0f, 750.0f } };
-		core.Run();
+		try
+		{
+			Core core{ Window{ "Super Paper Mario - De Ridder, Jonas - 1DAE18", 1000.0f, 750.0f } };
+			core.Run();
+		}
+		catch (const std::exception& e)
+		{
+			std::cout << e.what() << '\n';
+			std::cout << "Press ENTER to finish the application" << '\n';
+			std::cin.get();
+		}
+		catch (...)
+		{
+			std::cout << "An unrecognizable error occured\n Press ENTER to finish the application" << '\n';
+			std::cin.get();
+		}
+		
 	}
 	DumpMemoryLeaks();
 	return 0;
