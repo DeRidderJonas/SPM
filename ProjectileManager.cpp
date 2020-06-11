@@ -81,6 +81,7 @@ void ProjectileManager::HitSentients(Player* pPlayer)
 				{
 					proj->TransferOwnershipTo(pPlayer);
 					proj->SetHorizontalVelocity(-proj->GetVelocity().x);
+					Managers::GetInstance()->GetSoundManager()->PlaySoundEffect(SoundManager::Soundfx::ProjectileBounce);
 					break;
 				}
 

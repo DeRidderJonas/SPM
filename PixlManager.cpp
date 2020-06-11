@@ -104,6 +104,9 @@ void PixlManager::DrawUnlockingPixl(const Rectf& drawRect) const
 	case Pixl::Type::Barry:
 		pPixl = Managers::GetInstance()->GetSpriteManager()->GetSprite(SpriteManager::SpriteType::Barry);
 		break;
+	case Pixl::Type::Boomer:
+		pPixl = Managers::GetInstance()->GetSpriteManager()->GetSprite(SpriteManager::SpriteType::Boomer);
+		break;
 	}
 
 	pStar->Draw(drawRect);
@@ -117,6 +120,9 @@ void PixlManager::DrawUnlockingPixl(const Rectf& drawRect) const
 		break;
 	case Pixl::Type::Barry:
 		pPixlName = Managers::GetInstance()->GetTextManager()->GetTexture(TextManager::Text::Barry);
+		break;
+	case Pixl::Type::Boomer:
+		pPixlName = Managers::GetInstance()->GetTextManager()->GetTexture(TextManager::Text::Boomer);
 		break;
 	default:
 		pPixlName = Managers::GetInstance()->GetTextManager()->GetTexture(TextManager::Text::NotFound);
@@ -170,7 +176,7 @@ Pixl::Type PixlManager::GetNextUnlockablePixl() const
 {
 	std::map<Pixl::Type, bool>::const_reverse_iterator currLastUnlocked{ std::find_if(m_UnlockedPixls.rbegin(), m_UnlockedPixls.rend(), 
 		[](const std::pair<const Pixl::Type, bool>& pair) {return pair.second; }) };
-	return GetNextPixlType(currLastUnlocked->first, true);
+	return GetNextPixlType(currLastUnlocked->first, false);
 }
 
 std::string PixlManager::ToSaveFormat() const
@@ -197,8 +203,8 @@ void PixlManager::LoadFromSave(const std::string& saveLine)
 Pixl::Type PixlManager::GetNextPixlType(Pixl::Type type, bool up) const
 {
 	int index{ int(type) };
-	if (up) index++;
-	else index--;
+	if (up) index--;
+	else index++;
 
 	if (index < 0) return Pixl::Type::Boomer;
 	if (index > int(Pixl::Type::Boomer)) return Pixl::Type::Cudge;

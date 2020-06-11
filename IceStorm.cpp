@@ -17,4 +17,5 @@ void IceStorm::Use() const
 	};
 
 	em->ApplyOnEnemies(randomFreeze);
+	Managers::GetInstance()->GetSoundManager()->PlaySoundEffect(SoundManager::Soundfx::IceStorm);
 }

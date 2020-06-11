@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Sentient.h"
 #include <iostream>
+#include "Managers.h"
 
 Sentient::Sentient(const Point2f& bottomLeft, bool IsHorizontalSpeedConstant, float attackDuration, float attackCooldown)
 	: GameObject(bottomLeft, IsHorizontalSpeedConstant)
@@ -46,6 +47,7 @@ void Sentient::Freeze()
 {
 	m_RemainingFrozenSec = m_FreezeDuration;
 	SetHorizontalVelocity(0.f);
+	Managers::GetInstance()->GetSoundManager()->PlaySoundEffect(SoundManager::Soundfx::Frozen);
 }
 
 bool Sentient::IsFrozen() const

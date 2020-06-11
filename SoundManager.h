@@ -16,7 +16,23 @@ public:
 		GameOver, 
 		ItemPickup,
 		PixlUnlock,
-		Damage
+		Damage,
+		Jump,
+		Frozen,
+		CudgeAttack,
+		BarryAttack,
+		BoomerAttack,
+		BoomerFuse,
+		BoomerExplode,
+		EnemyDeath,
+		CherbilDeath,
+		SpinyDeath,
+		CherbilAttack,
+		SquigletAttack,
+		Pow,
+		Shroomshake,
+		IceStorm,
+		ProjectileBounce
 	};
 
 	SoundManager();

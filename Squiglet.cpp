@@ -8,6 +8,11 @@ Squiglet::Squiglet(const Point2f& bottomLeft)
 {
 }
 
+Squiglet::~Squiglet()
+{
+	Managers::GetInstance()->GetSoundManager()->PlaySoundEffect(SoundManager::Soundfx::EnemyDeath);
+}
+
 void Squiglet::Attack()
 {
 	bool canAttack{ m_RemainingCooldownSec <= 0.f && m_RemainingFrozenSec <= 0.f && (m_GameState == GameState::MovingLeft || m_GameState == GameState::MovingRight) };
@@ -17,6 +22,7 @@ void Squiglet::Attack()
 		m_RemainingCooldownSec = m_AttackCooldown;
 		m_RemainingAttackSec = m_AttackDuration;
 		Managers::GetInstance()->GetProjectileManager()->Spawn(this, m_FacingLeft);
+		Managers::GetInstance()->GetSoundManager()->PlaySoundEffect(SoundManager::Soundfx::SquigletAttack);
 	}
 }
 

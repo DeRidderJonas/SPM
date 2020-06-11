@@ -19,6 +19,22 @@ SoundManager::SoundManager()
 	m_SoundEffects[Soundfx::ItemPickup] = new Sfx("Resources/Sound/ItemPickup.mp3");
 	m_SoundEffects[Soundfx::PixlUnlock] = new Sfx("Resources/Sound/PixlUnlock.mp3");
 	m_SoundEffects[Soundfx::Damage] = new Sfx("Resources/Sound/damage.wav");
+	m_SoundEffects[Soundfx::Jump] = new Sfx("Resources/Sound/Jump.oga");
+	m_SoundEffects[Soundfx::Frozen] = new Sfx("Resources/Sound/MarioFrozen.wav");
+	m_SoundEffects[Soundfx::CudgeAttack] = new Sfx("Resources/Sound/cudgeAttack.oga");
+	m_SoundEffects[Soundfx::BarryAttack] = new Sfx("Resources/Sound/BarryAttack.oga");
+	m_SoundEffects[Soundfx::BoomerAttack] = new Sfx("Resources/Sound/BoomerAttack.ogg");
+	m_SoundEffects[Soundfx::BoomerFuse] = new Sfx("Resources/Sound/BoomerFuse.wav");
+	m_SoundEffects[Soundfx::BoomerExplode] = new Sfx("Resources/Sound/BoomerExplode.wav");
+	m_SoundEffects[Soundfx::EnemyDeath] = new Sfx("Resources/Sound/EnemyDeath.oga");
+	m_SoundEffects[Soundfx::CherbilDeath] = new Sfx("Resources/Sound/CherbilDeath.wav");
+	m_SoundEffects[Soundfx::SpinyDeath] = new Sfx("Resources/Sound/spinyDeath.wav");
+	m_SoundEffects[Soundfx::CherbilAttack] = new Sfx("Resources/Sound/CherbilAttack.ogg");
+	m_SoundEffects[Soundfx::SquigletAttack] = new Sfx("Resources/Sound/SquigletAttack.ogg");
+	m_SoundEffects[Soundfx::Pow] = new Sfx("Resources/Sound/Pow.oga");
+	m_SoundEffects[Soundfx::Shroomshake] = new Sfx("Resources/Sound/ShroomShake.oga");
+	m_SoundEffects[Soundfx::IceStorm] = new Sfx("Resources/Sound/IceStorm.flac");
+	m_SoundEffects[Soundfx::ProjectileBounce] = new Sfx("Resources/Sound/ProjectileBounce.wav");
 
 	SetMusicVolume(5);
 	SetSfxVolume(8);

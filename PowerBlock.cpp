@@ -17,4 +17,5 @@ void PowerBlock::Use() const
 		if (chanceToKill >= randomChance) em->Kill(pEnemy);
 	};
 	em->ApplyOnEnemies(killRandom);
+	Managers::GetInstance()->GetSoundManager()->PlaySoundEffect(SoundManager::Soundfx::Pow);
 }

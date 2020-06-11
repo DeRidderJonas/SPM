@@ -240,6 +240,7 @@ void Player::OnInput(float elapsedSec)
 		inputReceived = true;
 		SetActiveSprite(SpriteManager::SpriteType::MarioJump);
 		m_LastPressed = SDL_SCANCODE_SPACE;
+		Managers::GetInstance()->GetSoundManager()->PlaySoundEffect(SoundManager::Soundfx::Jump);
 	}
 	//Attack
 	if (pKeysStates[SDL_SCANCODE_F] && canMove)
@@ -287,17 +288,20 @@ void Player::Attack()
 		SetActiveSprite(SpriteManager::SpriteType::MarioAttackCudge);
 		m_AttackingHitbox = Rectf{m_Hitbox.left + m_pActiveSprite->GetFrameWidth()/2, m_Hitbox.bottom, m_pActiveSprite->GetFrameWidth() / 2, m_pActiveSprite->GetFrameHeight()};
 		if (m_FacingLeft) m_AttackingHitbox.left = m_Hitbox.left - m_pActiveSprite->GetFrameWidth() / 2;
+		Managers::GetInstance()->GetSoundManager()->PlaySoundEffect(SoundManager::Soundfx::CudgeAttack);
 		break;
 	case Pixl::Type::Barry:
 		SetActiveSprite(SpriteManager::SpriteType::MarioAttackBarry);
 		m_AttackingHitbox = Rectf{ m_Hitbox.left - m_pActiveSprite->GetFrameWidth()/4, m_Hitbox.bottom
 			, m_pActiveSprite->GetFrameWidth(), m_pActiveSprite->GetFrameHeight() };
 		m_RemainingAttackSec = 1.f;
+		Managers::GetInstance()->GetSoundManager()->PlaySoundEffect(SoundManager::Soundfx::BarryAttack);
 		break;
 	case Pixl::Type::Boomer:
 		SetActiveSprite(SpriteManager::SpriteType::MarioAttackBoomer);
 		m_RemainingAttackSec = 0.5f;
 		m_RemainingCooldownSec = 6.f;
+		Managers::GetInstance()->GetSoundManager()->PlaySoundEffect(SoundManager::Soundfx::BoomerAttack);
 		break;
 	default:
 		//No active pixl, revert to falling

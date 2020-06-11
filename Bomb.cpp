@@ -1,8 +1,9 @@
 #include "pch.h"
 #include "Bomb.h"
 #include "utils.h"
+#include "Managers.h"
 
-const float Bomb::m_SecTillExplode{ 4.f };
+const float Bomb::m_SecTillExplode{ 2.f };
 const float Bomb::m_SecExploding{ 2.f };
 
 Bomb::Bomb(const Sentient* pOwner, Sprite* pSpriteNormal, Sprite* pSpriteExploding)
@@ -13,6 +14,7 @@ Bomb::Bomb(const Sentient* pOwner, Sprite* pSpriteNormal, Sprite* pSpriteExplodi
 {
 	m_Hitbox.width = pSpriteExploding->GetFrameWidth();
 	m_Hitbox.height = pSpriteExploding->GetFrameHeight();
+	Managers::GetInstance()->GetSoundManager()->PlaySoundEffect(SoundManager::Soundfx::BoomerFuse);
 }
 
 bool Bomb::Update(const Level* pLevel, float elapsedSec)
@@ -24,6 +26,7 @@ bool Bomb::Update(const Level* pLevel, float elapsedSec)
 		m_IsExploding = true;
 		m_AccSec = m_SecExploding;
 		m_pExploding->Loop(1);
+		Managers::GetInstance()->GetSoundManager()->PlaySoundEffect(SoundManager::Soundfx::BoomerExplode);
 	}
 
 	if (m_IsExploding) m_pExploding->Update(elapsedSec);

@@ -4,7 +4,7 @@ class Spiny : public Enemy
 {
 public:
 	Spiny(const Point2f& bottomLeft);
-	virtual ~Spiny() = default;
+	virtual ~Spiny();
 
 	virtual bool JumpedOnByPlayer() const override;
 };

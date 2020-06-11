@@ -4,7 +4,7 @@ class Squiglet : public Enemy
 {
 public:
 	Squiglet(const Point2f& bottomLeft);
-	virtual ~Squiglet() = default;
+	virtual ~Squiglet();
 
 	virtual void Attack() override;
 

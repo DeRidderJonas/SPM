@@ -5,7 +5,7 @@ class Cherbil : public Enemy
 {
 public:
 	Cherbil(const Point2f& bottomLeft);
-	virtual ~Cherbil() = default;
+	virtual ~Cherbil();
 
 	virtual void Attack() override;
 
