@@ -42,7 +42,5 @@ private:
 
 	void DrawPlatforms() const;
 	Rectf GetRectfForVertices(std::vector<Point2f> vertices) const;
-	float min(float* pNumbers, int size) const;
-	float max(float* pNumbers, int size) const;
 };
 

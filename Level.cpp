@@ -28,18 +28,25 @@ Level::Level(const Texture* pBackground, bool isRestArea)
 	}
 	else
 	{
-		SVGParser::GetVerticesFromSvgFile("Resources/Level/level1.svg", m_Platforms);
+		const int amountOfLevels{ 5 }; //edit this when new levels are added
+		int randLevel{ rand() % amountOfLevels };
+		SVGParser::GetVerticesFromSvgFile("Resources/Level/level_" + std::to_string(randLevel + 1) + ".svg", m_Platforms);
 
-		std::vector<Point2f> p{};
-		p.push_back(Point2f{ 0.f, 450.f });
-		p.push_back(Point2f{ 0.f, 470.f });
-		p.push_back(Point2f{ 300.f, 470.f });
-		p.push_back(Point2f{ 300.f, 450.f });
-		m_Platforms.push_back(p);
-
-		m_Door = Rectf{ 530.f, 245.f,0.f,0.f };
-		m_Door.width = m_pDoor->GetWidth();
 		m_Door.height = m_pDoor->GetHeight();
+		m_Door.width = m_pDoor->GetWidth();
+
+		int randPlatform{ rand() % int(m_Platforms.size()) };
+		Rectf platformRect{ GetRectfForVertices(m_Platforms[randPlatform]) };
+		bool isWall{ platformRect.height > m_MinWallHeight };
+		while (isWall)
+		{
+			randPlatform = rand() % int(m_Platforms.size());
+			platformRect = GetRectfForVertices(m_Platforms[randPlatform]);
+			isWall = platformRect.height > m_MinWallHeight;
+		}
+
+		m_Door.bottom = platformRect.bottom + platformRect.height;
+		m_Door.left = platformRect.left + platformRect.width / 2 - m_Door.width;
 	}
 }
 
@@ -231,38 +238,14 @@ void Level::DrawPlatforms() const
 
 Rectf Level::GetRectfForVertices(std::vector<Point2f> vertices) const
 {
-	float xValues[4]{ vertices[0].x, vertices[1].x, vertices[2].x, vertices[3].x };
-	float left{ min(xValues, 4) };
+	std::vector<float> xValues{ vertices[0].x, vertices[1].x, vertices[2].x, vertices[3].x };
+	float left{ *std::min_element(xValues.begin(), xValues.end()) };
 
-	float yValues[4]{vertices[0].y, vertices[1].y, vertices[2].y, vertices[3].y};
-	float bottom{min(yValues, 4)};
+	std::vector<float> yValues{vertices[0].y, vertices[1].y, vertices[2].y, vertices[3].y};
+	float bottom{*std::min_element(yValues.begin(), yValues.end())};
 	
-	float width{ max(xValues, 4) - left };
-	float height{ max(yValues, 4) - bottom };
+	float width{ *std::max_element(xValues.begin(), xValues.end()) - left };
+	float height{ *std::max_element(yValues.begin(), yValues.end()) - bottom };
 
 	return Rectf{ left, bottom, width, height };
-}
-
-float Level::min(float* pNumbers, int size) const
-{
-	float min{pNumbers[0]};
-
-	for (size_t i = 1; i < size; i++)
-	{
-		if (pNumbers[i] < min) min = pNumbers[i];
-	}
-
-	return min;
-}
-
-float Level::max(float* pNumbers, int size) const
-{
-	float max{ pNumbers[0] };
-
-	for (size_t i = 1; i < size; i++)
-	{
-		if (pNumbers[i] > max) max = pNumbers[i];
-	}
-
-	return max;
 }
