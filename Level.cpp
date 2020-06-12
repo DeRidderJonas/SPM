@@ -6,6 +6,7 @@
 #include "Managers.h"
 
 const float Level::m_MinWallHeight{ 100.f };
+const float Level::m_ParalaxFactor{ 0.2f };
 
 Level::Level(const Texture* pBackground, bool isRestArea)
 	: m_pBackgroundTexture{pBackground}
@@ -50,9 +51,13 @@ Level::Level(const Texture* pBackground, bool isRestArea)
 	}
 }
 
-void Level::Draw() const
+void Level::Draw(const Point2f& cameraTransform) const
 {
-	m_pBackgroundTexture->Draw();
+	glPushMatrix();
+		glScalef(1.f + m_ParalaxFactor, 1.f + m_ParalaxFactor, 1.f);
+		glTranslatef(m_ParalaxFactor * cameraTransform.x, m_ParalaxFactor * cameraTransform.y, 0.f);
+		m_pBackgroundTexture->Draw();
+	glPopMatrix();
 	m_pDoor->Draw(m_Door);
 	if (m_IsRestArea)
 	{

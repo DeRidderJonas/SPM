@@ -282,7 +282,7 @@ void Game::DrawHUD() const
 
 void Game::DrawLevel() const
 {
-	m_pLevel->Draw();
+	m_pLevel->Draw(m_Camera.GetTranslation(m_pPlayer->GetHitbox()));
 
 	if (m_InRestArea) m_pMerchant->Draw();
 }

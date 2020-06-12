@@ -16,13 +16,20 @@ void Camera::SetLevelBoundaries(const Rectf& levelBoundaries)
 
 void Camera::Transform(const Rectf& target) const
 {
+	Point2f cameraBottomLeft{ GetTranslation(target) };
+
+	glTranslatef(cameraBottomLeft.x, cameraBottomLeft.y, 0);
+}
+
+Point2f Camera::GetTranslation(const Rectf& target) const
+{
 	Point2f cameraCenter{ Track(target) };
 	Clamp(cameraCenter);
-	
-	Point2f cameraBottomLeft{ cameraCenter.x - m_Width / 2, cameraCenter.y - m_Height / 2 };
 
-	glTranslatef(-cameraBottomLeft.x, -cameraBottomLeft.y, 0);
+	Point2f cameraBottomLeft{ cameraCenter.x - m_Width / 2, cameraCenter.y - m_Height / 2 };
+	return Point2f{-cameraBottomLeft.x, -cameraBottomLeft.y};
 }
+
 
 Point2f Camera::Track(const Rectf& target) const
 {

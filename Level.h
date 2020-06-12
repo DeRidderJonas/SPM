@@ -13,7 +13,7 @@ public:
 	Level(Level&& other) = delete;
 	Level& operator=(Level&& other) = delete;
 
-	void Draw() const;
+	void Draw(const Point2f& cameraTransform) const;
 
 	void HandleCollision(Rectf& actorShape, Vector2f& actorVelocity) const;
 	void HandleWallCollision(Rectf& actorShape, Vector2f& actorVelocity) const;
@@ -39,6 +39,8 @@ private:
 	bool m_IsRestArea;
 
 	static const float m_MinWallHeight;
+
+	static const float m_ParalaxFactor;
 
 	void DrawPlatforms() const;
 	Rectf GetRectfForVertices(std::vector<Point2f> vertices) const;

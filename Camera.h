@@ -6,6 +6,8 @@ public:
 	Camera(float width, float height);
 	void SetLevelBoundaries(const Rectf& levelBoundaries);
 	void Transform(const Rectf& target) const;
+
+	Point2f GetTranslation(const Rectf& target) const;
 private:
 	float m_Width;
 	float m_Height;
