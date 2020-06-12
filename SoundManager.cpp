@@ -35,6 +35,8 @@ SoundManager::SoundManager()
 	m_SoundEffects[Soundfx::Shroomshake] = new Sfx("Resources/Sound/ShroomShake.oga");
 	m_SoundEffects[Soundfx::IceStorm] = new Sfx("Resources/Sound/IceStorm.flac");
 	m_SoundEffects[Soundfx::ProjectileBounce] = new Sfx("Resources/Sound/ProjectileBounce.wav");
+	m_SoundEffects[Soundfx::MenuChange] = new Sfx("Resources/Sound/MenuChange.wav");
+	m_SoundEffects[Soundfx::MenuConfirm] = new Sfx("Resources/Sound/MenuConfirm.wav");
 
 	SetMusicVolume(5);
 	SetSfxVolume(8);
@@ -154,7 +156,7 @@ void SoundManager::Scroll(bool up)
 			else if (!up && m_MusicVolume - 1 >= 0) SetMusicVolume(m_MusicVolume - 1);
 			break;
 		case SoundManager::SettingSelection::SfxVolume:
-			if(up && m_SfxVolume + 1 <= m_MaxVolume) SetSfxVolume(m_SfxVolume + 1);
+			if(up && m_SfxVolume + 1 <= m_MaxVolume + 1) SetSfxVolume(m_SfxVolume + 1);
 			if(!up && m_SfxVolume - 1 >= 0) SetSfxVolume(m_SfxVolume - 1);
 			break;
 		case SoundManager::SettingSelection::Muted:

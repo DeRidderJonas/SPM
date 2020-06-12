@@ -374,10 +374,12 @@ void Game::DoCollisionTests()
 
 void Game::NavigateTitleScreen(const SDL_KeyboardEvent& e)
 {
+	SoundManager* pSm{ Managers::GetInstance()->GetSoundManager() };
 	switch (e.keysym.sym)
 	{
 	case SDLK_ESCAPE:
 		m_TitleScreenSelection = TitleScreenSelection::TitleScreen;
+		pSm->PlaySoundEffect(SoundManager::Soundfx::MenuConfirm);
 		break;
 	case SDLK_SPACE:
 		switch (m_TitleScreenSelection)
@@ -400,6 +402,7 @@ void Game::NavigateTitleScreen(const SDL_KeyboardEvent& e)
 			Managers::GetInstance()->GetSoundManager()->Confirm();
 			break;
 		}
+		pSm->PlaySoundEffect(SoundManager::Soundfx::MenuConfirm);
 		break;
 	case SDLK_a:
 		if(!Managers::GetInstance()->GetSoundManager()->IsAdjustingSetting()) switch (m_TitleScreenSelection)
@@ -411,6 +414,7 @@ void Game::NavigateTitleScreen(const SDL_KeyboardEvent& e)
 			m_TitleScreenSelection = TitleScreenSelection::Play;
 			break;
 		}
+		pSm->PlaySoundEffect(SoundManager::Soundfx::MenuChange);
 		break;
 	case SDLK_d:
 		if (!Managers::GetInstance()->GetSoundManager()->IsAdjustingSetting()) switch (m_TitleScreenSelection)
@@ -422,6 +426,7 @@ void Game::NavigateTitleScreen(const SDL_KeyboardEvent& e)
 			m_TitleScreenSelection = TitleScreenSelection::Sound;
 			break;
 		}
+		pSm->PlaySoundEffect(SoundManager::Soundfx::MenuChange);
 		break;
 	case SDLK_w:
 	case SDLK_s:
@@ -429,6 +434,7 @@ void Game::NavigateTitleScreen(const SDL_KeyboardEvent& e)
 			bool up{ e.keysym.sym == SDLK_w || e.keysym.sym == SDLK_UP };
 			Managers::GetInstance()->GetSoundManager()->Scroll(up);
 		}
+		pSm->PlaySoundEffect(SoundManager::Soundfx::MenuChange);
 		break;
 	}
 
@@ -442,6 +448,7 @@ void Game::ProcessKeyDownEvent( const SDL_KeyboardEvent & e )
 void Game::ProcessKeyUpEvent( const SDL_KeyboardEvent& e )
 {
 	//std::cout << "KEYUP event: " << e.keysym.sym << std::endl;
+	SoundManager* pSm{ Managers::GetInstance()->GetSoundManager() };
 	if (m_InTitleScreen)
 	{
 		NavigateTitleScreen(e);
@@ -452,6 +459,7 @@ void Game::ProcessKeyUpEvent( const SDL_KeyboardEvent& e )
 	{
 		if (m_pMerchant && m_pMerchant->IsPlayerInShop()) m_pMerchant->ExitShop();
 		else m_IsPlayerInMenu = !m_IsPlayerInMenu;
+		pSm->PlaySoundEffect(SoundManager::Soundfx::MenuConfirm);
 	}
 
 	if (m_IsPlayerInMenu)
@@ -475,6 +483,7 @@ void Game::ProcessKeyUpEvent( const SDL_KeyboardEvent& e )
 					break;
 				}
 			}
+			pSm->PlaySoundEffect(SoundManager::Soundfx::MenuChange);
 			break;
 		case SDLK_a:
 		case SDLK_LEFT:
@@ -484,6 +493,7 @@ void Game::ProcessKeyUpEvent( const SDL_KeyboardEvent& e )
 				if (newSelectionId < 0) newSelectionId = int(InGameMenuSelection::Settings);
 				m_InGameMenuSelection = InGameMenuSelection(newSelectionId);
 			}
+			pSm->PlaySoundEffect(SoundManager::Soundfx::MenuChange);
 			break;
 		case SDLK_d:
 		case SDLK_RIGHT:
@@ -493,6 +503,7 @@ void Game::ProcessKeyUpEvent( const SDL_KeyboardEvent& e )
 				newSelectionId %= int(InGameMenuSelection::Settings) + 1;
 				m_InGameMenuSelection = InGameMenuSelection(newSelectionId);
 			}
+			pSm->PlaySoundEffect(SoundManager::Soundfx::MenuChange);
 			break;
 		case SDLK_SPACE:
 			switch (m_InGameMenuSelection)
@@ -509,6 +520,7 @@ void Game::ProcessKeyUpEvent( const SDL_KeyboardEvent& e )
 				Managers::GetInstance()->GetSoundManager()->Confirm();
 				break;
 			}
+			pSm->PlaySoundEffect(SoundManager::Soundfx::MenuConfirm);
 			break;
 		}
 	}

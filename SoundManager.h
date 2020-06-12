@@ -32,7 +32,9 @@ public:
 		Pow,
 		Shroomshake,
 		IceStorm,
-		ProjectileBounce
+		ProjectileBounce,
+		MenuChange,
+		MenuConfirm
 	};
 
 	SoundManager();
