@@ -12,7 +12,6 @@ public:
 		Background3,
 		Background4,
 		Door,
-		DoorShadow,
 		RestArea,
 		Brick,
 		Pipe,
