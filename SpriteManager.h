@@ -11,6 +11,11 @@ public:
 		Bomb,
 		BombExplosion,
 		CherbilProjectile,
+		CounteredCherbilProjectile,
+		BurningHeart,
+		StoneHeart,
+		VulnerableHeart,
+		BrokenHeart,
 		Numbers,
 		Operators,
 		Cudge,
@@ -27,6 +32,10 @@ public:
 		MarioAttackCudge,
 		MarioAttackBarry,
 		MarioAttackBoomer,
+		Dimentio,
+		DimentioAttack,
+		DimentioAttacked,
+		DimentioDeath,
 		Chest,
 		NotFound
 	};

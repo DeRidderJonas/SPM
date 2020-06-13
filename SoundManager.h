@@ -8,7 +8,10 @@ public:
 	enum class Song
 	{
 		TitleScreen,
-		MainTheme
+		MainTheme,
+		BossFight,
+		AfterBossFight,
+		EndScreen
 	};
 
 	enum class Soundfx
@@ -29,6 +32,7 @@ public:
 		SpinyDeath,
 		CherbilAttack,
 		SquigletAttack,
+		DimentioAttacked,
 		Pow,
 		Shroomshake,
 		IceStorm,

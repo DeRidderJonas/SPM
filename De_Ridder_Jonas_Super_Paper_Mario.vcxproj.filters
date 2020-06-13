@@ -198,6 +198,12 @@
     <ClCompile Include="Merchant.cpp">
       <Filter>Game Files\Utils</Filter>
     </ClCompile>
+    <ClCompile Include="Dimentio.cpp">
+      <Filter>Game Files\GameObjects\Sentient</Filter>
+    </ClCompile>
+    <ClCompile Include="Heart.cpp">
+      <Filter>Game Files\Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -348,6 +354,12 @@
       <Filter>Game Files\Managers</Filter>
     </ClInclude>
     <ClInclude Include="Merchant.h">
+      <Filter>Game Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Dimentio.h">
+      <Filter>Game Files\GameObjects\Sentient</Filter>
+    </ClInclude>
+    <ClInclude Include="Heart.h">
       <Filter>Game Files\Utils</Filter>
     </ClInclude>
   </ItemGroup>

@@ -11,6 +11,7 @@ Game::Game( const Window& window )
 	: m_Window{ window }
 	, m_Camera{window.width, window.height}
 	, m_IsPlayerInMenu{false}
+	, m_PlayerHasWon{false}
 	, m_PickUpDuration{1.f}
 	, m_PickUpDurationPixl{2.5f}
 	, m_PickUpRem{0.f}
@@ -21,6 +22,8 @@ Game::Game( const Window& window )
 	, m_InTitleScreen{true}
 	, m_TitleScreenSelection{TitleScreenSelection::TitleScreen}
 	, m_LevelsPerRestArea{3}
+	, m_BossLevel{1}
+	, m_AmountOfHearts{3}
 {
 	Initialize( );
 }
@@ -57,6 +60,15 @@ void Game::Cleanup( )
 	DestroyManagers();
 	DestroyLevel();
 	delete m_pMerchant;
+
+	if (m_Level == m_BossLevel)
+	{
+		delete m_pBoss;
+		for (Heart* heart : m_Hearts)
+		{
+			delete heart;
+		}
+	}
 }
 
 void Game::DestroyPlayer()
@@ -104,6 +116,23 @@ void Game::UpdateEnemies(float elapsedSec)
 {
 	Managers::GetInstance()->GetEnemyManager()->UpdateAll(elapsedSec, m_pLevel);
 	Managers::GetInstance()->GetEnemyManager()->AllAttack();
+
+	if (m_Level == m_BossLevel)
+	{
+		if (m_pBoss) m_pBoss->Update(elapsedSec, m_pLevel);
+
+		for (Heart* heart : m_Hearts)
+		{
+			heart->Update(elapsedSec);
+		}
+
+		if (m_pBoss && m_pBoss->IsDead())
+		{
+			delete m_pBoss;
+			m_pBoss = nullptr;
+			Managers::GetInstance()->GetSoundManager()->PlayBackgroundMusic(SoundManager::Song::AfterBossFight);
+		}
+	}
 }
 
 void Game::UpdateObjects(float elapsedSec)
@@ -127,8 +156,6 @@ void Game::UpdateObjects(float elapsedSec)
 			m_pPlayer->SetIsPickingUp(true);
 		}
 	}
-
-
 }
 
 void Game::UpdateParticles(float elapsedSec)
@@ -178,6 +205,15 @@ void Game::DrawPlayer() const
 void Game::DrawEnemies() const
 {
 	Managers::GetInstance()->GetEnemyManager()->DrawAll();
+
+	if (m_Level == m_BossLevel)
+	{
+		if (m_pBoss) m_pBoss->Draw();
+		for (Heart* heart : m_Hearts)
+		{
+			heart->Draw();
+		}
+	}
 }
 
 void Game::DrawProjectiles() const
@@ -289,6 +325,12 @@ void Game::DrawLevel() const
 
 void Game::DrawTitleScreen() const
 {
+	if (m_PlayerHasWon)
+	{
+		Managers::GetInstance()->GetTextureManager()->GetTexture(TextureManager::TextureType::EndScreen)->Draw(Rectf{ 0.f,0.f, m_Window.width, m_Window.height });
+		return;
+	}
+
 	bool showCursor{ false };
 	Point2f cursorBottomLeft{};
 	switch (m_TitleScreenSelection)
@@ -364,7 +406,15 @@ void Game::DoCollisionTests()
 {
 	Managers::GetInstance()->GetEnemyManager()->HitPlayer();
 	Managers::GetInstance()->GetEnemyManager()->AttackAll(m_pPlayer->GetAttackHitbox());
+
 	Managers::GetInstance()->GetProjectileManager()->HitSentients(m_pPlayer);
+	if (Managers::GetInstance()->GetProjectileManager()->HitHearts(m_Hearts, m_pPlayer)) m_pBoss->Attacked();
+
+	for (Heart* heart : m_Hearts)
+	{
+		if (heart->WasHit(m_pPlayer->GetAttackHitbox(), m_pPlayer->CanHitHeart() ? Heart::AttackType::Hammer : Heart::AttackType::Unaffected)) m_pBoss->Attacked();
+	}
+
 	if (Managers::GetInstance()->GetItemManager()->IsOverlapping(m_pPlayer))
 	{
 		m_PickUpRem = m_PickUpDuration;
@@ -649,6 +699,12 @@ void Game::AdvanceToNextLevel()
 	Managers::GetInstance()->GetProjectileManager()->DestroyAll();
 	Managers::GetInstance()->GetParticleManager()->DestroyAll();
 
+	if (m_Level == m_BossLevel)
+	{
+		WinGame();
+		return;
+	}
+
 	if (m_pMerchant)
 	{
 		delete m_pMerchant;
@@ -667,14 +723,19 @@ void Game::AdvanceToNextLevel()
 	if (!m_InRestArea)
 	{
 		delete m_pLevel;
-		m_pLevel = new Level(Managers::GetInstance()->GetTextureManager()->GetRandomBackground(), false);
+		m_pLevel = new Level(Managers::GetInstance()->GetTextureManager()->GetRandomBackground(), false, m_Level == m_BossLevel);
 		SpawnEnemies();
 		m_pPlayer->SetPosition(Point2f{10.f, 50.f});
+		if (m_Level == m_BossLevel)
+		{
+			Managers::GetInstance()->GetEnemyManager()->SetKeySpawned(true);
+			Managers::GetInstance()->GetSoundManager()->PlayBackgroundMusic(SoundManager::Song::BossFight);
+		}
 	}
 	else
 	{
 		delete m_pLevel;
-		m_pLevel = new Level(Managers::GetInstance()->GetTextureManager()->GetTexture(TextureManager::TextureType::RestArea), true);
+		m_pLevel = new Level(Managers::GetInstance()->GetTextureManager()->GetTexture(TextureManager::TextureType::RestArea), true, false);
 		Sprite* pMerchant{ Managers::GetInstance()->GetSpriteManager()->GetSprite(SpriteManager::SpriteType::Flamm) };
 		m_pMerchant = new Merchant(Point2f{ m_pLevel->GetBoundaries().width - pMerchant->GetFrameWidth() - 20.f, m_pLevel->GetBoundaries().bottom + 20.f }, pMerchant, m_pPlayer);
 		m_pPlayer->SetPosition(Point2f{ 250.f, 50.f });
@@ -685,6 +746,25 @@ void Game::AdvanceToNextLevel()
 
 void Game::SpawnEnemies()
 {
+	if (m_Level == m_BossLevel)
+	{
+		float margin{ 50.f };
+		Rectf containmentfield{ m_pLevel->GetBoundaries() };
+		containmentfield.left += margin;
+		containmentfield.bottom += margin;
+		containmentfield.width -= 2 * margin;
+		containmentfield.height -= 2 * margin;
+
+		m_pBoss = new Dimentio(Point2f{ m_Window.width / 2,m_Window.height / 2 }, m_pPlayer, containmentfield);
+		Point2f bottomLeft{ m_pLevel->GetBoundaries().width / 4, 25.f };
+		for (size_t i = 0; i < m_AmountOfHearts; i++)
+		{
+			m_Hearts.push_back(new Heart(bottomLeft));
+			bottomLeft.x += m_pLevel->GetBoundaries().width / 4;
+		}
+		return;
+	}
+
 	EnemyManager* em{ Managers::GetInstance()->GetEnemyManager() };
 
 	Rectf spawnBox{ m_pLevel->GetBoundaries() };
@@ -728,7 +808,17 @@ void Game::StartGame()
 
 void Game::GameOver()
 {
+	m_Level = 0;
+	Managers::GetInstance()->GetPixlManager()->Reset();
+	Managers::GetInstance()->GetItemManager()->Reset();
 	GoBackToTitleScreen();
+}
+
+void Game::WinGame()
+{
+	m_PlayerHasWon = true;
+	GoBackToTitleScreen();
+	Managers::GetInstance()->GetSoundManager()->PlayBackgroundMusic(SoundManager::Song::EndScreen);
 }
 
 void Game::GoBackToTitleScreen()

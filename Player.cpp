@@ -198,6 +198,11 @@ bool Player::CanCounterProjectiles() const
 	return m_ActivePixl.GetType() == Pixl::Type::Barry && m_GameState == GameState::Attacking;
 }
 
+bool Player::CanHitHeart() const
+{
+	return m_GameState == GameState::Attacking && m_ActivePixl.GetType() == Pixl::Type::Cudge;
+}
+
 void Player::AdjustAmountOfCoins(int adjustment)
 {
 	m_AmountOfCoins += adjustment;

@@ -34,6 +34,11 @@ bool Projectile::IsOverlapping(const GameObject* other) const
 	return GameObject::IsOverlapping(other);
 }
 
+void Projectile::SetIsVerticalSpeedConst(bool value)
+{
+	m_IsVerticalSpeedConstant = value;
+}
+
 bool Projectile::BelongsTo(Sentient* pSentient) const
 {
 	return pSentient == m_pOwner;
@@ -44,7 +49,17 @@ void Projectile::TransferOwnershipTo(Sentient* pSentient)
 	m_pOwner = pSentient;
 }
 
+bool Projectile::IsActive() const
+{
+	return true;
+}
+
 Projectile::ProjectileType Projectile::GetType() const
 {
 	return m_Type;
+}
+
+const Sentient* Projectile::GetOwner() const
+{
+	return m_pOwner;
 }

@@ -3,6 +3,7 @@
 #include "Projectile.h"
 #include "SpriteManager.h"
 #include "Level.h"
+#include "Heart.h"
 
 class Player;
 class EnemyManager;
@@ -22,6 +23,7 @@ public:
 	void UpdateAll(float elapsedSec, const Level* level);
 	void DrawAll() const;
 	void HitSentients(Player* pPlayer);
+	bool HitHearts(std::vector<Heart*> hearts, Player* pPlayer);
 
 	void Destroy(Projectile* pProjectile);
 	void DestroyAll();

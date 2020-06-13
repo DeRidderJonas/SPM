@@ -53,4 +53,8 @@ bool Bomb::IsOverlapping(const GameObject* other) const
 	return utils::IsOverlapping(other->GetHitbox(), m_Hitbox);
 }
 
+bool Bomb::IsActive() const
+{
+	return m_IsExploding;
+}
 

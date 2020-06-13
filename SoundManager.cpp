@@ -14,6 +14,9 @@ SoundManager::SoundManager()
 {
 	m_Songs[Song::TitleScreen] = new SoundStream("Resources/Sound/TitleScreen.mp3");
 	m_Songs[Song::MainTheme] = new SoundStream("Resources/Sound/MainTheme.mp3");
+	m_Songs[Song::BossFight] = new SoundStream("Resources/Sound/BossFight.mp3");
+	m_Songs[Song::AfterBossFight] = new SoundStream("Resources/Sound/AfterBossFight.mp3");
+	m_Songs[Song::EndScreen] = new SoundStream("Resources/Sound/EndScreen.mp3");
 
 	m_SoundEffects[Soundfx::GameOver] = new Sfx("Resources/Sound/GameOver.mp3");
 	m_SoundEffects[Soundfx::ItemPickup] = new Sfx("Resources/Sound/ItemPickup.mp3");
@@ -31,6 +34,7 @@ SoundManager::SoundManager()
 	m_SoundEffects[Soundfx::SpinyDeath] = new Sfx("Resources/Sound/spinyDeath.wav");
 	m_SoundEffects[Soundfx::CherbilAttack] = new Sfx("Resources/Sound/CherbilAttack.ogg");
 	m_SoundEffects[Soundfx::SquigletAttack] = new Sfx("Resources/Sound/SquigletAttack.ogg");
+	m_SoundEffects[Soundfx::DimentioAttacked] = new Sfx("Resources/Sound/oof.mp3");
 	m_SoundEffects[Soundfx::Pow] = new Sfx("Resources/Sound/Pow.oga");
 	m_SoundEffects[Soundfx::Shroomshake] = new Sfx("Resources/Sound/ShroomShake.oga");
 	m_SoundEffects[Soundfx::IceStorm] = new Sfx("Resources/Sound/IceStorm.flac");

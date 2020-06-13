@@ -17,11 +17,13 @@ public:
 	virtual bool Update(const Level* pLevel, float elapsedSec);
 	virtual void Draw() const;
 	virtual bool IsOverlapping(const GameObject* other) const override;
-	
+	void SetIsVerticalSpeedConst(bool value);
 	bool BelongsTo(Sentient* pSentient) const;
-	void TransferOwnershipTo(Sentient* pSentient);
+	virtual void TransferOwnershipTo(Sentient* pSentient);
+	virtual bool IsActive() const;
 
 	ProjectileType GetType() const;
+	const Sentient* GetOwner() const;
 protected:
 	static const float m_HorizontalSpeed;
 

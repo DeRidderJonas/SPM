@@ -102,11 +102,11 @@ bool EnemyManager::HitPlayer()
 					enemy->Die();
 					m_pPlayer->SetVerticalVelocity(300.f);
 				}
-				else m_pPlayer->WasHit(playerLeftOfEnemy);
+				else if(!enemy->IsFrozen()) m_pPlayer->WasHit(playerLeftOfEnemy);
 				return true;
 			}
 
-			m_pPlayer->WasHit(playerLeftOfEnemy);
+			if(!enemy->IsFrozen()) m_pPlayer->WasHit(playerLeftOfEnemy);
 			return true;
 		}
 	}

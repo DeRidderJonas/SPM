@@ -16,6 +16,7 @@ public:
 		Brick,
 		Pipe,
 		TitleScreen,
+		EndScreen,
 		SaveFile,
 		Healthbar,
 		Coinbar,

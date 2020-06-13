@@ -157,6 +157,8 @@
     <ClCompile Include="CherbilProjectile.cpp" />
     <ClCompile Include="Coconut.cpp" />
     <ClCompile Include="Coin.cpp" />
+    <ClCompile Include="Dimentio.cpp" />
+    <ClCompile Include="Heart.cpp" />
     <ClCompile Include="IceStorm.cpp" />
     <ClCompile Include="Managers.cpp" />
     <ClCompile Include="Merchant.cpp" />
@@ -214,6 +216,8 @@
     <ClInclude Include="CherbilProjectile.h" />
     <ClInclude Include="Coconut.h" />
     <ClInclude Include="Coin.h" />
+    <ClInclude Include="Dimentio.h" />
+    <ClInclude Include="Heart.h" />
     <ClInclude Include="IceStorm.h" />
     <ClInclude Include="Managers.h" />
     <ClInclude Include="Merchant.h" />

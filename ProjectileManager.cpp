@@ -60,6 +60,13 @@ void ProjectileManager::HitSentients(Player* pPlayer)
 			{
 				if (proj->IsOverlapping(enemy))
 				{
+					if (proj->GetType() == Projectile::ProjectileType::CherbilProjectile)
+					{
+						enemy->Freeze();
+						Destroy(proj);
+						break;
+					}
+
 					Managers::GetInstance()->GetEnemyManager()->Kill(enemy);
 					Destroy(proj);
 					break;
@@ -70,18 +77,19 @@ void ProjectileManager::HitSentients(Player* pPlayer)
 		{
 			if (proj->IsOverlapping(pPlayer))
 			{
-				if (proj->GetType() == Projectile::ProjectileType::CherbilProjectile)
-				{
-					pPlayer->Freeze();
-					Destroy(proj);
-					break;
-				}
 
 				if (pPlayer->CanCounterProjectiles())
 				{
 					proj->TransferOwnershipTo(pPlayer);
 					proj->SetHorizontalVelocity(-proj->GetVelocity().x);
 					Managers::GetInstance()->GetSoundManager()->PlaySoundEffect(SoundManager::Soundfx::ProjectileBounce);
+					break;
+				}
+				
+				if (proj->GetType() == Projectile::ProjectileType::CherbilProjectile)
+				{
+					pPlayer->Freeze();
+					Destroy(proj);
 					break;
 				}
 
@@ -95,6 +103,27 @@ void ProjectileManager::HitSentients(Player* pPlayer)
 		}
 		
 	}
+}
+
+bool ProjectileManager::HitHearts(std::vector<Heart*> hearts, Player* pPlayer)
+{
+	for (Heart* heart : hearts)
+	{
+		for (Projectile* proj : m_Projectiles)
+		{
+			Heart::AttackType attackTye{Heart::AttackType::Unaffected};
+			if (proj->GetType() == Projectile::ProjectileType::CherbilProjectile && proj->GetOwner() == pPlayer) attackTye = Heart::AttackType::Frozen;
+			if (proj->GetType() == Projectile::ProjectileType::Bomb && proj->IsActive()) attackTye = Heart::AttackType::Bomb;
+			if (heart->WasHit(proj->GetHitbox(), attackTye))
+			{
+				Destroy(proj);
+				return true;
+			}
+			
+		}
+	}
+
+	return false;
 }
 
 void ProjectileManager::Destroy(Projectile* pProjectile)

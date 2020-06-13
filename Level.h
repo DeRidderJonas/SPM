@@ -6,7 +6,7 @@
 class Level
 {
 public:
-	Level(const Texture* pBackground, bool isRestArea);
+	Level(const Texture* pBackground, bool isRestArea, bool isBossLevel);
 	
 	Level(const Level& other) = delete;
 	Level& operator=(const Level& other) = delete;
@@ -37,6 +37,7 @@ private:
 	Rectf m_Pipe;
 
 	bool m_IsRestArea;
+	bool m_IsBossLevel;
 
 	static const float m_MinWallHeight;
 

@@ -10,8 +10,8 @@ PixlManager::PixlManager()
 	: m_SelectedPixl{Pixl::Type::Cudge}
 {
 	m_UnlockedPixls[Pixl::Type::Cudge] = true;
-	m_UnlockedPixls[Pixl::Type::Barry] = false;
-	m_UnlockedPixls[Pixl::Type::Boomer] = false;
+	m_UnlockedPixls[Pixl::Type::Barry] = true;
+	m_UnlockedPixls[Pixl::Type::Boomer] = true;
 }
 
 void PixlManager::Unlock(const Pixl::Type& pixlType)

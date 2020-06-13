@@ -8,7 +8,7 @@
 const float Level::m_MinWallHeight{ 100.f };
 const float Level::m_ParalaxFactor{ 0.2f };
 
-Level::Level(const Texture* pBackground, bool isRestArea)
+Level::Level(const Texture* pBackground, bool isRestArea, bool isBossLevel)
 	: m_pBackgroundTexture{pBackground}
 	, m_pBrick{Managers::GetInstance()->GetTextureManager()->GetTexture(TextureManager::TextureType::Brick)}
 	, m_pDoor{Managers::GetInstance()->GetTextureManager()->GetTexture(TextureManager::TextureType::Door)}
@@ -16,6 +16,7 @@ Level::Level(const Texture* pBackground, bool isRestArea)
 	, m_pPipe{Managers::GetInstance()->GetTextureManager()->GetTexture(TextureManager::TextureType::Pipe)}
 	, m_Boundaries{0.f,0.f, pBackground->GetWidth(), pBackground->GetHeight()}
 	, m_IsRestArea{isRestArea}
+	, m_IsBossLevel{isBossLevel}
 {
 	Rectf boundaries{ 0.f,0.f, pBackground->GetWidth(), pBackground->GetHeight() };
 	float wallSize{ 10.f };
@@ -26,6 +27,11 @@ Level::Level(const Texture* pBackground, bool isRestArea)
 		m_Door = Rectf{ boundaries.left + boundaries.width - m_pDoor->GetWidth() - 300.f, boundaries.bottom + 18.f, m_pDoor->GetWidth(), m_pDoor->GetHeight() };
 		m_Chest = Rectf{ boundaries.left + boundaries.width / 2, boundaries.bottom + 45.f, m_pChest->GetFrameWidth(), m_pChest->GetFrameHeight() };
 		m_Pipe = Rectf{ boundaries.left + m_pBrick->GetWidth(), boundaries.bottom + m_pBrick->GetHeight(), m_pPipe->GetWidth(), m_pPipe->GetHeight() };
+	}
+	else if (isBossLevel)
+	{
+		SVGParser::GetVerticesFromSvgFile("Resources/Level/level_boss.svg", m_Platforms);
+		m_Door = Rectf{ boundaries.left + boundaries.width - m_pDoor->GetWidth() - 150.f, boundaries.left + 10.f, m_pDoor->GetWidth(), m_pDoor->GetHeight() };
 	}
 	else
 	{

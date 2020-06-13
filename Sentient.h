@@ -9,9 +9,9 @@ public:
 	virtual ~Sentient() = default;
 	virtual void Attack();
 	virtual void AttackEnded();
-	virtual void Update(float elapsedSec, const Level* level) override;
+	virtual void Update(float elapsedSec, const Level* plevel) override;
 
-	void Freeze();
+	virtual void Freeze();
 	bool IsFrozen() const;
 
 	virtual void Die() = 0;

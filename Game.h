@@ -9,6 +9,8 @@
 #include "ItemManager.h"
 #include "TextManager.h"
 #include "Merchant.h"
+#include "Dimentio.h"
+#include "Heart.h"
 
 class Game
 {
@@ -50,7 +52,13 @@ private:
 	Merchant* m_pMerchant;
 	const int m_LevelsPerRestArea;
 
+	const int m_BossLevel;
+	Dimentio* m_pBoss;
+	const int m_AmountOfHearts;
+	std::vector<Heart*> m_Hearts;
+
 	bool m_IsPlayerInMenu;
+	bool m_PlayerHasWon;
 	InGameMenuSelection m_InGameMenuSelection;
 	float m_PickUpDuration;
 	float m_PickUpDurationPixl;
@@ -97,6 +105,7 @@ private:
 
 	void StartGame();
 	void GameOver();
+	void WinGame();
 	void GoBackToTitleScreen();
 	void SaveGame() const;
 	void LoadGame();

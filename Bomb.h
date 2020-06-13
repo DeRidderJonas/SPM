@@ -9,6 +9,7 @@ public:
 	virtual bool Update(const Level* pLevel, float elapsedSec) override;
 	virtual void Draw() const override;
 	virtual bool IsOverlapping(const GameObject* other) const override;
+	virtual bool IsActive() const override;
 private:
 	static const float m_SecTillExplode;
 	static const float m_SecExploding;

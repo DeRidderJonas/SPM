@@ -35,6 +35,8 @@ public:
 	Rectf GetAttackHitbox() const;
 	bool CanCounterProjectiles() const;
 
+	bool CanHitHeart() const;
+
 	void AdjustAmountOfCoins(int adjustment);
 	int GetAmountOfCoins() const;
 private:

@@ -12,6 +12,7 @@ TextureManager::TextureManager()
 	m_TextureMap[TextureType::Brick] = new Texture("Resources/Backgrounds/bricks.png");
 	m_TextureMap[TextureType::Pipe] = new Texture("Resources/Backgrounds/pipe.png");
 	m_TextureMap[TextureType::TitleScreen] = new Texture("Resources/Menu/TitleScreen.png");
+	m_TextureMap[TextureType::EndScreen] = new Texture("Resources/Menu/TheEnd.png");
 	m_TextureMap[TextureType::SaveFile] = new Texture("Resources/Menu/SaveFile.png");
 	m_TextureMap[TextureType::Healthbar] = new Texture("Resources/HUD/Healthbar.png");
 	m_TextureMap[TextureType::Coinbar] = new Texture("Resources/HUD/Coinbar.png");
