@@ -9,6 +9,7 @@ Sprite::Sprite(const std::string& filename, int nrCols, int nrRows, float frameS
 	, m_AccuSec{0.f}
 	, m_ActFrame{0}
 	, m_AmountOfLoopsRemaining{-1}
+	, m_ReachedEnd{false}
 {
 }
 
@@ -26,9 +27,19 @@ void Sprite::Update(float elapsedSec)
 		if (m_ActFrame + 1 == m_Rows * m_Cols)
 		{
 			m_AmountOfLoopsRemaining--;
-			if (m_AmountOfLoopsRemaining == 0) return;
+			if (m_AmountOfLoopsRemaining == 0)
+			{
+				m_ReachedEnd = true;
+				return;
+			}
 		}
-		++m_ActFrame %= (m_Rows * m_Cols);
+		m_ActFrame++;
+		if (m_ActFrame >= (m_Rows * m_Cols))
+		{
+			m_ActFrame = 0;
+			m_ReachedEnd = true;
+		}
+		
 		m_AccuSec = 0.f;
 	}
 }
@@ -59,20 +70,23 @@ float Sprite::GetFrameHeight()
 void Sprite::SetFrame(int frameNr)
 {
 	m_ActFrame = frameNr;
+	m_ReachedEnd = false;
 }
 
 void Sprite::Randomize()
 {
 	m_ActFrame = rand() % (m_Rows * m_Cols - 1);
+	m_ReachedEnd = false;
 }
 
 //Set to -1 for infinite loops
 void Sprite::Loop(int amountOfLoops)
 {
 	m_AmountOfLoopsRemaining = amountOfLoops;
+	m_ReachedEnd = false;
 }
 
 bool Sprite::HasEnded() const
 {
-	return m_ActFrame == m_Rows * m_Cols - 1 && m_AccuSec >= m_FrameSec - m_FrameSec/4;
+	return m_ReachedEnd;
 }

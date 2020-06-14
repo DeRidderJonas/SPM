@@ -41,6 +41,7 @@ SoundManager::SoundManager()
 	m_SoundEffects[Soundfx::ProjectileBounce] = new Sfx("Resources/Sound/ProjectileBounce.wav");
 	m_SoundEffects[Soundfx::MenuChange] = new Sfx("Resources/Sound/MenuChange.wav");
 	m_SoundEffects[Soundfx::MenuConfirm] = new Sfx("Resources/Sound/MenuConfirm.wav");
+	m_SoundEffects[Soundfx::Buy] = new Sfx("Resources/Sound/buy.wav");
 
 	SetMusicVolume(5);
 	SetSfxVolume(8);

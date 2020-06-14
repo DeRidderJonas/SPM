@@ -30,9 +30,10 @@ void EnemyManager::Spawn(Enemy::Type type, size_t amount, Rectf spawnBox)
 
 void EnemyManager::UpdateAll(float elapsedSec, const Level* level)
 {
+	std::vector<Enemy*> enemiesToKill{};
 	for (Enemy* enemy: m_Enemies)
 	{
-		if (enemy->IsDead()) Kill(enemy);
+		if (enemy->IsDead()) enemiesToKill.push_back(enemy);
 		else
 		{
 			enemy->Update(elapsedSec, level);
@@ -46,6 +47,12 @@ void EnemyManager::UpdateAll(float elapsedSec, const Level* level)
 				}
 			}
 		}
+	}
+
+	//Different loop to avoid crashes
+	for (Enemy* enemy : enemiesToKill)
+	{
+		Kill(enemy);
 	}
 }
 
@@ -123,7 +130,7 @@ void EnemyManager::Kill(Enemy* enemy)
 		
 		m_Enemies.erase(m_Enemies.begin() + index);
 		SpawnLoot(Point2f{enemy->GetHitbox().left + enemy->GetHitbox().width/2, enemy->GetHitbox().bottom});
-		Managers::GetInstance()->GetParticleManager()->Spawn(Point2f{ enemy->GetHitbox().left, enemy->GetHitbox().bottom }, Particle::ParticleType::Coin, rand() % 5 + 5);
+		Managers::GetInstance()->GetParticleManager()->Spawn(Point2f{ enemy->GetHitbox().left, enemy->GetHitbox().bottom }, Particle::ParticleType::Coin, rand() % 5 + 15);
 		Managers::GetInstance()->GetParticleManager()->Spawn(Point2f{ enemy->GetHitbox().left, enemy->GetHitbox().bottom }, Particle::ParticleType::Smoke, rand() % 2 + 1);
 
 		delete enemy;

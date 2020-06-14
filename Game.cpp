@@ -22,7 +22,7 @@ Game::Game( const Window& window )
 	, m_InTitleScreen{true}
 	, m_TitleScreenSelection{TitleScreenSelection::TitleScreen}
 	, m_LevelsPerRestArea{3}
-	, m_BossLevel{1}
+	, m_BossLevel{9}
 	, m_AmountOfHearts{3}
 {
 	Initialize( );
@@ -497,6 +497,7 @@ void Game::ProcessKeyDownEvent( const SDL_KeyboardEvent & e )
 
 void Game::ProcessKeyUpEvent( const SDL_KeyboardEvent& e )
 {
+	if (e.keysym.sym == SDLK_i) PrintControlsInfo();
 	//std::cout << "KEYUP event: " << e.keysym.sym << std::endl;
 	SoundManager* pSm{ Managers::GetInstance()->GetSoundManager() };
 	if (m_InTitleScreen)
@@ -578,9 +579,6 @@ void Game::ProcessKeyUpEvent( const SDL_KeyboardEvent& e )
 	{
 		switch (e.keysym.sym)
 		{
-		case SDLK_i:
-			PrintControlsInfo();
-			break;
 		case SDLK_SPACE:
 			if (m_InRestArea && m_pMerchant->IsPlayerInShop()) m_pMerchant->Buy(m_pPlayer);
 			break;
@@ -699,12 +697,6 @@ void Game::AdvanceToNextLevel()
 	Managers::GetInstance()->GetProjectileManager()->DestroyAll();
 	Managers::GetInstance()->GetParticleManager()->DestroyAll();
 
-	if (m_Level == m_BossLevel)
-	{
-		WinGame();
-		return;
-	}
-
 	if (m_pMerchant)
 	{
 		delete m_pMerchant;
@@ -718,8 +710,14 @@ void Game::AdvanceToNextLevel()
 		Managers::GetInstance()->GetSpriteManager()->GetSprite(SpriteManager::SpriteType::Chest)->SetFrame(0);
 	}
 	else m_ContinuingFromSave = false;
+
+	if (m_Level > m_BossLevel)
+	{
+		WinGame();
+		return;
+	}
 	
-	m_InRestArea = m_Level % m_LevelsPerRestArea == 0;
+	m_InRestArea = m_Level % m_LevelsPerRestArea == 0 && m_Level != m_BossLevel;
 	if (!m_InRestArea)
 	{
 		delete m_pLevel;
@@ -776,14 +774,26 @@ void Game::SpawnEnemies()
 	case 1:
 		em->Spawn(Enemy::Type::Goomba, 2, spawnBox);
 		em->Spawn(Enemy::Type::Spiny, 1, spawnBox);
-		em->Spawn(Enemy::Type::Cherbil, 1, spawnBox);
 		break;
 	case 2:
-		em->Spawn(Enemy::Type::Squiglet, 1, spawnBox);
-		em->Spawn(Enemy::Type::Goomba, 2, spawnBox);
+		em->Spawn(Enemy::Type::Squiglet, 2, spawnBox);
+		em->Spawn(Enemy::Type::Goomba, 1, spawnBox);
 		em->Spawn(Enemy::Type::Spiny, 1, spawnBox);
 		break;
 	case 4:
+		em->Spawn(Enemy::Type::Goomba, 2, spawnBox);
+		em->Spawn(Enemy::Type::Cherbil, 2, spawnBox);
+		break;
+	case 5:
+		em->Spawn(Enemy::Type::Cherbil, 2, spawnBox);
+		em->Spawn(Enemy::Type::Squiglet, 2, spawnBox);
+		break;
+	case 7:
+		em->Spawn(Enemy::Type::Spiny, 5, spawnBox);
+		em->Spawn(Enemy::Type::Cherbil, 1, spawnBox);
+		break;
+	case 8:
+		em->Spawn(Enemy::Type::Cherbil, 2, spawnBox);
 		em->Spawn(Enemy::Type::Squiglet, 2, spawnBox);
 		em->Spawn(Enemy::Type::Goomba, 2, spawnBox);
 		break;
@@ -800,8 +810,6 @@ void Game::StartGame()
 	if(!m_pPlayer) InitPlayer();
 
 	AdvanceToNextLevel();
-
-	Managers::GetInstance()->GetItemManager()->Spawn(Item::Type::IceStorm, Point2f{200.f, 10.f}, m_pPlayer);
 
 	NotifyCameraLevelChange();
 }

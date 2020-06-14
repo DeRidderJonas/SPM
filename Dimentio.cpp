@@ -17,12 +17,13 @@ Dimentio::Dimentio(const Point2f& bottomLeft, Player* pPlayer, const Rectf& cont
 {
 	m_Hitbox.width = m_pSprite->GetFrameWidth();
 	m_Hitbox.height = m_pSprite->GetFrameHeight();
+	m_pDeath->Loop(1);
 }
 
 void Dimentio::Attack()
 {
 	bool canAttack{m_RemainingCooldownSec <= 0.f || m_RemainingFrozenSec <= 0.f};
-	if (!canAttack) return;
+	if (!canAttack && m_GameState != GameState::Dying) return;
 
 	m_RemainingAttackSec = m_AttackDuration;
 	m_RemainingCooldownSec = m_AttackCooldown;
@@ -98,7 +99,6 @@ void Dimentio::Attacked()
 void Dimentio::Die()
 {
 	m_GameState = GameState::Dying;
-	Managers::GetInstance()->GetEnemyManager()->SetKeySpawned(false);
 	Managers::GetInstance()->GetItemManager()->Spawn(Item::Type::Key, Point2f{ m_Hitbox.left, m_Hitbox.bottom });
 }
 

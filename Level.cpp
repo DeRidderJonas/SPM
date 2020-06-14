@@ -62,6 +62,7 @@ void Level::Draw(const Point2f& cameraTransform) const
 	glPushMatrix();
 		glScalef(1.f + m_ParalaxFactor, 1.f + m_ParalaxFactor, 1.f);
 		glTranslatef(m_ParalaxFactor * cameraTransform.x, m_ParalaxFactor * cameraTransform.y, 0.f);
+		if (m_IsRestArea) glTranslatef(0.f, -50.f, 0.f);
 		m_pBackgroundTexture->Draw();
 	glPopMatrix();
 	m_pDoor->Draw(m_Door);

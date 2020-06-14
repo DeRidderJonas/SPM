@@ -5,6 +5,7 @@
 Cherbil::Cherbil(const Point2f& bottomLeft)
 	: Enemy(new Sprite("Resources/Enemies/Cherbil.png", 2, 1, 0.3f), new Sprite("Resources/Enemies/Cherbil_Death.png", 3, 1, 0.3f), bottomLeft, 175.f)
 {
+	m_pDeathSprite->Loop(1);
 }
 
 Cherbil::~Cherbil()

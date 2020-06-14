@@ -22,5 +22,7 @@ private:
 	float m_FrameSec, m_AccuSec;
 	int m_ActFrame;
 	int m_AmountOfLoopsRemaining;
+
+	bool m_ReachedEnd;
 };
 

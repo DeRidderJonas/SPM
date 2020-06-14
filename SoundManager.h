@@ -38,7 +38,8 @@ public:
 		IceStorm,
 		ProjectileBounce,
 		MenuChange,
-		MenuConfirm
+		MenuConfirm,
+		Buy
 	};
 
 	SoundManager();

@@ -107,4 +107,5 @@ void Merchant::Buy(Player* pPlayer)
 	m_ShopItems.erase(it);
 	Managers::GetInstance()->GetItemManager()->AddItemToInventory(toBuy);
 	pPlayer->AdjustAmountOfCoins(-toBuy->GetCost());
+	Managers::GetInstance()->GetSoundManager()->PlaySoundEffect(SoundManager::Soundfx::Buy);
 }
