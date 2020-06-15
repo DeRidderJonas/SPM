@@ -168,11 +168,13 @@ void ItemManager::Reset()
 	{
 		delete item;
 	}
+	m_FloorItems.clear();
 
 	for (Item* item : m_Inventory)
 	{
 		delete item;
 	}
+	m_Inventory.clear();
 }
 
 std::string ItemManager::ToSaveFormat() const
