@@ -36,7 +36,7 @@ SoundManager::SoundManager()
 	m_SoundEffects[Soundfx::SquigletAttack] = new Sfx("Resources/Sound/SquigletAttack.ogg");
 	m_SoundEffects[Soundfx::DimentioAttacked] = new Sfx("Resources/Sound/oof.mp3");
 	m_SoundEffects[Soundfx::Pow] = new Sfx("Resources/Sound/Pow.oga");
-	m_SoundEffects[Soundfx::Shroomshake] = new Sfx("Resources/Sound/ShroomShake.oga");
+	m_SoundEffects[Soundfx::Shroomshake] = new Sfx("Resources/Sound/ShroomShake.wav");
 	m_SoundEffects[Soundfx::IceStorm] = new Sfx("Resources/Sound/IceStorm.flac");
 	m_SoundEffects[Soundfx::ProjectileBounce] = new Sfx("Resources/Sound/ProjectileBounce.wav");
 	m_SoundEffects[Soundfx::MenuChange] = new Sfx("Resources/Sound/MenuChange.wav");
