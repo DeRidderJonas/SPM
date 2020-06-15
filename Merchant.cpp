@@ -14,7 +14,7 @@ Merchant::Merchant(const Point2f& bottomLeft, Sprite* pSprite, Player* pPlayer)
 	, m_ActiveItem{0}
 {
 	int amountOfItems{ (rand() % (m_MaxAmountOfItems - m_MinAmountOfItems)) + m_MinAmountOfItems };
-	for (size_t i = 0; i < amountOfItems; i++)
+	for (int i = 0; i < amountOfItems; i++)
 	{
 		m_ShopItems.push_back(ItemFactory::CreateRandom(Point2f{}, pPlayer, false));
 	}
@@ -93,7 +93,7 @@ void Merchant::Scroll(bool up)
 {
 	m_ActiveItem += up ? -1 : 1;
 	if (m_ActiveItem < 0) m_ActiveItem = int(m_ShopItems.size()) - 1;
-	if (m_ActiveItem >= m_ShopItems.size()) m_ActiveItem = 0;
+	if (m_ActiveItem >= int(m_ShopItems.size())) m_ActiveItem = 0;
 }
 
 void Merchant::Buy(Player* pPlayer)

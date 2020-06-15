@@ -102,7 +102,7 @@ void SoundManager::DrawSettingsMenu(const Point2f& topLeft, bool isActive, bool 
 	Texture* pEmpty{ pTM->GetTexture(TextureManager::TextureType::SettingEmpty) };
 
 	Point2f bottomLeftSetting{ bottomLeft.x, bottomLeft.y - pFull->GetHeight() - margin };
-	for (size_t i = 0; i <= m_MaxVolume; i++)
+	for (int i = 0; i <= m_MaxVolume; i++)
 	{
 		if (i < m_MusicVolume) pFull->Draw(bottomLeftSetting);
 		else pEmpty->Draw(bottomLeftSetting);
@@ -117,7 +117,7 @@ void SoundManager::DrawSettingsMenu(const Point2f& topLeft, bool isActive, bool 
 	if (showCursor && m_SettingSelection == SettingSelection::SfxVolume) pCursor->Draw(Point2f{bottomLeft.x - pCursor->GetWidth(), bottomLeft.y});
 	bottomLeftSetting.y = bottomLeft.y - margin - pFull->GetHeight();
 	bottomLeftSetting.x = bottomLeft.x;
-	for (size_t i = 0; i <= m_MaxVolume; i++)
+	for (int i = 0; i <= m_MaxVolume; i++)
 	{
 		if (i < m_SfxVolume) pFull->Draw(bottomLeftSetting);
 		else pEmpty->Draw(bottomLeftSetting);

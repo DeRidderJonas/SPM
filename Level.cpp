@@ -233,14 +233,14 @@ void Level::DrawPlatforms() const
 	{
 		Rectf platformRect{GetRectfForVertices(platform)};
 		int amountOfTiles{ int(platformRect.width / m_pBrick->GetWidth()) };
-		for (size_t i = 0; i < amountOfTiles; i++)
+		for (int i = 0; i < amountOfTiles; i++)
 		{
 			Rectf brick{ platformRect.left + i * m_pBrick->GetWidth(), platformRect.bottom, m_pBrick->GetWidth(), m_pBrick->GetHeight() };
 			m_pBrick->Draw(brick);
 		}
 
 		int verticalAmountOfTiles{ int(platformRect.height / m_pBrick->GetHeight()) };
-		for (size_t i = 0; i < verticalAmountOfTiles; i++)
+		for (int i = 0; i < verticalAmountOfTiles; i++)
 		{
 			Rectf brick{ platformRect.left, platformRect.bottom + i * m_pBrick->GetHeight(), m_pBrick->GetWidth(), m_pBrick->GetHeight() };
 			m_pBrick->Draw(brick);

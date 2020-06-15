@@ -755,7 +755,7 @@ void Game::SpawnEnemies()
 
 		m_pBoss = new Dimentio(Point2f{ m_Window.width / 2,m_Window.height / 2 }, m_pPlayer, containmentfield);
 		Point2f bottomLeft{ m_pLevel->GetBoundaries().width / 4, 25.f };
-		for (size_t i = 0; i < m_AmountOfHearts; i++)
+		for (int i = 0; i < m_AmountOfHearts; i++)
 		{
 			m_Hearts.push_back(new Heart(bottomLeft));
 			bottomLeft.x += m_pLevel->GetBoundaries().width / 4;

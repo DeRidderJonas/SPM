@@ -21,13 +21,13 @@ void ParticleManager::Spawn(const Point2f& bottomLeft, Particle::ParticleType ty
 	switch (type)
 	{
 	case Particle::ParticleType::Coin:
-		for (size_t i = 0; i < amountOfParticles; i++)
+		for (int i = 0; i < amountOfParticles; i++)
 		{
 			m_Particles.push_back(new Coin(bottomLeft));
 		}
 		break;
 	case Particle::ParticleType::Smoke:
-		for (size_t i = 0; i < amountOfParticles; i++)
+		for (int i = 0; i < amountOfParticles; i++)
 		{
 			m_Particles.push_back(new Smoke(bottomLeft));
 		}
