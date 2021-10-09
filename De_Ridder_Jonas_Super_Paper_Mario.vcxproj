@@ -124,6 +124,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -151,120 +152,119 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Bomb.cpp" />
-    <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="Cherbil.cpp" />
-    <ClCompile Include="CherbilProjectile.cpp" />
-    <ClCompile Include="Coconut.cpp" />
-    <ClCompile Include="Coin.cpp" />
-    <ClCompile Include="Dimentio.cpp" />
-    <ClCompile Include="Heart.cpp" />
-    <ClCompile Include="IceStorm.cpp" />
-    <ClCompile Include="Managers.cpp" />
-    <ClCompile Include="Merchant.cpp" />
-    <ClCompile Include="Particle.cpp" />
-    <ClCompile Include="ParticleManager.cpp" />
-    <ClCompile Include="PowerBlock.cpp" />
-    <ClCompile Include="ProjectileFactory.cpp" />
-    <ClCompile Include="RedShroomshake.cpp" />
-    <ClCompile Include="Core.cpp" />
-    <ClCompile Include="Enemy.cpp" />
-    <ClCompile Include="EnemyFactory.cpp" />
-    <ClCompile Include="EnemyManager.cpp" />
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="Goomba.cpp" />
-    <ClCompile Include="Item.cpp" />
-    <ClCompile Include="ItemFactory.cpp" />
-    <ClCompile Include="ItemManager.cpp" />
-    <ClCompile Include="Key.cpp" />
-    <ClCompile Include="Level.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Matrix2x3.cpp" />
-    <ClCompile Include="pch.cpp">
+    <ClCompile Include="src\Bomb.cpp" />
+    <ClCompile Include="src\Camera.cpp" />
+    <ClCompile Include="src\Cherbil.cpp" />
+    <ClCompile Include="src\CherbilProjectile.cpp" />
+    <ClCompile Include="src\Coconut.cpp" />
+    <ClCompile Include="src\Coin.cpp" />
+    <ClCompile Include="src\Core.cpp" />
+    <ClCompile Include="src\Dimentio.cpp" />
+    <ClCompile Include="src\Enemy.cpp" />
+    <ClCompile Include="src\EnemyFactory.cpp" />
+    <ClCompile Include="src\EnemyManager.cpp" />
+    <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\GameObject.cpp" />
+    <ClCompile Include="src\Goomba.cpp" />
+    <ClCompile Include="src\Heart.cpp" />
+    <ClCompile Include="src\IceStorm.cpp" />
+    <ClCompile Include="src\Item.cpp" />
+    <ClCompile Include="src\ItemFactory.cpp" />
+    <ClCompile Include="src\ItemManager.cpp" />
+    <ClCompile Include="src\Key.cpp" />
+    <ClCompile Include="src\Level.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Managers.cpp" />
+    <ClCompile Include="src\Matrix2x3.cpp" />
+    <ClCompile Include="src\Merchant.cpp" />
+    <ClCompile Include="src\Particle.cpp" />
+    <ClCompile Include="src\ParticleManager.cpp" />
+    <ClCompile Include="src\pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Pixl.cpp" />
-    <ClCompile Include="PixlManager.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Projectile.cpp" />
-    <ClCompile Include="ProjectileManager.cpp" />
-    <ClCompile Include="Sentient.cpp" />
-    <ClCompile Include="Smoke.cpp" />
-    <ClCompile Include="SoundEffect.cpp" />
-    <ClCompile Include="SoundManager.cpp" />
-    <ClCompile Include="SoundStream.cpp" />
-    <ClCompile Include="Spiny.cpp" />
-    <ClCompile Include="Sprite.cpp" />
-    <ClCompile Include="SpriteManager.cpp" />
-    <ClCompile Include="Squiglet.cpp" />
-    <ClCompile Include="structs.cpp" />
-    <ClCompile Include="SVGParser.cpp" />
-    <ClCompile Include="TextManager.cpp" />
-    <ClCompile Include="Texture.cpp" />
-    <ClCompile Include="TextureManager.cpp" />
-    <ClCompile Include="utils.cpp" />
-    <ClCompile Include="Vector2f.cpp" />
+    <ClCompile Include="src\Pixl.cpp" />
+    <ClCompile Include="src\PixlManager.cpp" />
+    <ClCompile Include="src\Player.cpp" />
+    <ClCompile Include="src\PowerBlock.cpp" />
+    <ClCompile Include="src\Projectile.cpp" />
+    <ClCompile Include="src\ProjectileFactory.cpp" />
+    <ClCompile Include="src\ProjectileManager.cpp" />
+    <ClCompile Include="src\RedShroomshake.cpp" />
+    <ClCompile Include="src\Sentient.cpp" />
+    <ClCompile Include="src\Smoke.cpp" />
+    <ClCompile Include="src\SoundEffect.cpp" />
+    <ClCompile Include="src\SoundManager.cpp" />
+    <ClCompile Include="src\SoundStream.cpp" />
+    <ClCompile Include="src\Spiny.cpp" />
+    <ClCompile Include="src\Sprite.cpp" />
+    <ClCompile Include="src\SpriteManager.cpp" />
+    <ClCompile Include="src\Squiglet.cpp" />
+    <ClCompile Include="src\structs.cpp" />
+    <ClCompile Include="src\SVGParser.cpp" />
+    <ClCompile Include="src\TextManager.cpp" />
+    <ClCompile Include="src\Texture.cpp" />
+    <ClCompile Include="src\TextureManager.cpp" />
+    <ClCompile Include="src\utils.cpp" />
+    <ClCompile Include="src\Vector2f.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Bomb.h" />
-    <ClInclude Include="Camera.h" />
-    <ClInclude Include="Cherbil.h" />
-    <ClInclude Include="CherbilProjectile.h" />
-    <ClInclude Include="Coconut.h" />
-    <ClInclude Include="Coin.h" />
-    <ClInclude Include="Dimentio.h" />
-    <ClInclude Include="Heart.h" />
-    <ClInclude Include="IceStorm.h" />
-    <ClInclude Include="Managers.h" />
-    <ClInclude Include="Merchant.h" />
-    <ClInclude Include="Particle.h" />
-    <ClInclude Include="ParticleManager.h" />
-    <ClInclude Include="PowerBlock.h" />
-    <ClInclude Include="ProjectileFactory.h" />
-    <ClInclude Include="RedShroomshake.h" />
-    <ClInclude Include="Core.h" />
-    <ClInclude Include="Enemy.h" />
-    <ClInclude Include="EnemyFactory.h" />
-    <ClInclude Include="EnemyManager.h" />
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="GameObject.h" />
-    <ClInclude Include="Goomba.h" />
-    <ClInclude Include="Item.h" />
-    <ClInclude Include="ItemFactory.h" />
-    <ClInclude Include="ItemManager.h" />
-    <ClInclude Include="Key.h" />
-    <ClInclude Include="Level.h" />
-    <ClInclude Include="Matrix2x3.h" />
-    <ClInclude Include="pch.h" />
-    <ClInclude Include="Pixl.h" />
-    <ClInclude Include="PixlManager.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="Projectile.h" />
-    <ClInclude Include="ProjectileManager.h" />
-    <ClInclude Include="resource.h" />
-    <ClInclude Include="Sentient.h" />
-    <ClInclude Include="Smoke.h" />
-    <ClInclude Include="SoundEffect.h" />
-    <ClInclude Include="SoundManager.h" />
-    <ClInclude Include="SoundStream.h" />
-    <ClInclude Include="Spiny.h" />
-    <ClInclude Include="Sprite.h" />
-    <ClInclude Include="SpriteManager.h" />
-    <ClInclude Include="Squiglet.h" />
-    <ClInclude Include="structs.h" />
-    <ClInclude Include="SVGParser.h" />
-    <ClInclude Include="TextManager.h" />
-    <ClInclude Include="Texture.h" />
-    <ClInclude Include="TextureManager.h" />
-    <ClInclude Include="utils.h" />
-    <ClInclude Include="Vector2f.h" />
+    <ClInclude Include="src\Bomb.h" />
+    <ClInclude Include="src\Camera.h" />
+    <ClInclude Include="src\Cherbil.h" />
+    <ClInclude Include="src\CherbilProjectile.h" />
+    <ClInclude Include="src\Coconut.h" />
+    <ClInclude Include="src\Coin.h" />
+    <ClInclude Include="src\Core.h" />
+    <ClInclude Include="src\Dimentio.h" />
+    <ClInclude Include="src\Enemy.h" />
+    <ClInclude Include="src\EnemyFactory.h" />
+    <ClInclude Include="src\EnemyManager.h" />
+    <ClInclude Include="src\Game.h" />
+    <ClInclude Include="src\GameObject.h" />
+    <ClInclude Include="src\Goomba.h" />
+    <ClInclude Include="src\Heart.h" />
+    <ClInclude Include="src\IceStorm.h" />
+    <ClInclude Include="src\Item.h" />
+    <ClInclude Include="src\ItemFactory.h" />
+    <ClInclude Include="src\ItemManager.h" />
+    <ClInclude Include="src\Key.h" />
+    <ClInclude Include="src\Level.h" />
+    <ClInclude Include="src\Managers.h" />
+    <ClInclude Include="src\Matrix2x3.h" />
+    <ClInclude Include="src\Merchant.h" />
+    <ClInclude Include="src\Particle.h" />
+    <ClInclude Include="src\ParticleManager.h" />
+    <ClInclude Include="src\pch.h" />
+    <ClInclude Include="src\Pixl.h" />
+    <ClInclude Include="src\PixlManager.h" />
+    <ClInclude Include="src\Player.h" />
+    <ClInclude Include="src\PowerBlock.h" />
+    <ClInclude Include="src\Projectile.h" />
+    <ClInclude Include="src\ProjectileFactory.h" />
+    <ClInclude Include="src\ProjectileManager.h" />
+    <ClInclude Include="src\RedShroomshake.h" />
+    <ClInclude Include="src\resource.h" />
+    <ClInclude Include="src\Sentient.h" />
+    <ClInclude Include="src\Smoke.h" />
+    <ClInclude Include="src\SoundEffect.h" />
+    <ClInclude Include="src\SoundManager.h" />
+    <ClInclude Include="src\SoundStream.h" />
+    <ClInclude Include="src\Spiny.h" />
+    <ClInclude Include="src\Sprite.h" />
+    <ClInclude Include="src\SpriteManager.h" />
+    <ClInclude Include="src\Squiglet.h" />
+    <ClInclude Include="src\structs.h" />
+    <ClInclude Include="src\SVGParser.h" />
+    <ClInclude Include="src\TextManager.h" />
+    <ClInclude Include="src\Texture.h" />
+    <ClInclude Include="src\TextureManager.h" />
+    <ClInclude Include="src\utils.h" />
+    <ClInclude Include="src\Vector2f.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="De_Ridder_Jonas_Game.xlsx" />
     <None Include="SDLWin32.props" />
     <None Include="SDLx64.props" />
   </ItemGroup>

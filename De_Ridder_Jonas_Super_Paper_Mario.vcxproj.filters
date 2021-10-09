@@ -48,327 +48,324 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Game.cpp">
+    <ClCompile Include="src\Core.cpp">
       <Filter>Game Files</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="src\Game.cpp">
       <Filter>Game Files</Filter>
     </ClCompile>
-    <ClCompile Include="Matrix2x3.cpp">
-      <Filter>Framework Files</Filter>
+    <ClCompile Include="src\main.cpp">
+      <Filter>Game Files</Filter>
     </ClCompile>
-    <ClCompile Include="pch.cpp">
-      <Filter>Framework Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SoundEffect.cpp">
-      <Filter>Framework Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SoundStream.cpp">
-      <Filter>Framework Files</Filter>
-    </ClCompile>
-    <ClCompile Include="structs.cpp">
-      <Filter>Framework Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SVGParser.cpp">
-      <Filter>Framework Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Texture.cpp">
-      <Filter>Framework Files</Filter>
-    </ClCompile>
-    <ClCompile Include="utils.cpp">
-      <Filter>Framework Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Vector2f.cpp">
-      <Filter>Framework Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Core.cpp">
-      <Filter>Framework Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>Game Files\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemyManager.cpp">
-      <Filter>Game Files\Managers</Filter>
-    </ClCompile>
-    <ClCompile Include="SpriteManager.cpp">
-      <Filter>Game Files\Managers</Filter>
-    </ClCompile>
-    <ClCompile Include="Goomba.cpp">
-      <Filter>Game Files\GameObjects\Sentient\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="Spiny.cpp">
-      <Filter>Game Files\GameObjects\Sentient\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemyFactory.cpp">
-      <Filter>Game Files\Factories</Filter>
-    </ClCompile>
-    <ClCompile Include="TextureManager.cpp">
-      <Filter>Game Files\Managers</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Game Files\GameObjects\Sentient</Filter>
-    </ClCompile>
-    <ClCompile Include="Sentient.cpp">
-      <Filter>Game Files\GameObjects\Sentient</Filter>
-    </ClCompile>
-    <ClCompile Include="ProjectileManager.cpp">
-      <Filter>Game Files\Managers</Filter>
-    </ClCompile>
-    <ClCompile Include="Squiglet.cpp">
-      <Filter>Game Files\GameObjects\Sentient\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>Game Files\GameObjects\Sentient</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera.cpp">
+    <ClCompile Include="src\Camera.cpp">
       <Filter>Game Files\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="Level.cpp">
+    <ClCompile Include="src\Heart.cpp">
       <Filter>Game Files\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="Sprite.cpp">
+    <ClCompile Include="src\Level.cpp">
       <Filter>Game Files\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="Item.cpp">
+    <ClCompile Include="src\Managers.cpp">
+      <Filter>Game Files\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Merchant.cpp">
+      <Filter>Game Files\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Pixl.cpp">
+      <Filter>Game Files\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Sprite.cpp">
+      <Filter>Game Files\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Coin.cpp">
+      <Filter>Game Files\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Particle.cpp">
+      <Filter>Game Files\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Smoke.cpp">
+      <Filter>Game Files\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EnemyManager.cpp">
+      <Filter>Game Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ItemManager.cpp">
+      <Filter>Game Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ParticleManager.cpp">
+      <Filter>Game Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PixlManager.cpp">
+      <Filter>Game Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ProjectileManager.cpp">
+      <Filter>Game Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SoundManager.cpp">
+      <Filter>Game Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SpriteManager.cpp">
+      <Filter>Game Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TextManager.cpp">
+      <Filter>Game Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TextureManager.cpp">
+      <Filter>Game Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Item.cpp">
       <Filter>Game Files\Items</Filter>
     </ClCompile>
-    <ClCompile Include="ItemManager.cpp">
-      <Filter>Game Files\Managers</Filter>
-    </ClCompile>
-    <ClCompile Include="ItemFactory.cpp">
-      <Filter>Game Files\Factories</Filter>
-    </ClCompile>
-    <ClCompile Include="PixlManager.cpp">
-      <Filter>Game Files\Managers</Filter>
-    </ClCompile>
-    <ClCompile Include="Key.cpp">
+    <ClCompile Include="src\IceStorm.cpp">
       <Filter>Game Files\Items\Derived</Filter>
     </ClCompile>
-    <ClCompile Include="RedShroomshake.cpp">
+    <ClCompile Include="src\Key.cpp">
       <Filter>Game Files\Items\Derived</Filter>
     </ClCompile>
-    <ClCompile Include="TextManager.cpp">
-      <Filter>Game Files\Managers</Filter>
-    </ClCompile>
-    <ClCompile Include="Managers.cpp">
-      <Filter>Game Files\Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="Projectile.cpp">
-      <Filter>Game Files\GameObjects\Projectile</Filter>
-    </ClCompile>
-    <ClCompile Include="Coconut.cpp">
-      <Filter>Game Files\GameObjects\Projectile\Derived</Filter>
-    </ClCompile>
-    <ClCompile Include="ProjectileFactory.cpp">
-      <Filter>Game Files\Factories</Filter>
-    </ClCompile>
-    <ClCompile Include="Bomb.cpp">
-      <Filter>Game Files\GameObjects\Projectile\Derived</Filter>
-    </ClCompile>
-    <ClCompile Include="Coin.cpp">
-      <Filter>Game Files\Particles</Filter>
-    </ClCompile>
-    <ClCompile Include="Particle.cpp">
-      <Filter>Game Files\Particles</Filter>
-    </ClCompile>
-    <ClCompile Include="ParticleManager.cpp">
-      <Filter>Game Files\Managers</Filter>
-    </ClCompile>
-    <ClCompile Include="Smoke.cpp">
-      <Filter>Game Files\Particles</Filter>
-    </ClCompile>
-    <ClCompile Include="Pixl.cpp">
-      <Filter>Game Files\Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="PowerBlock.cpp">
+    <ClCompile Include="src\PowerBlock.cpp">
       <Filter>Game Files\Items\Derived</Filter>
     </ClCompile>
-    <ClCompile Include="IceStorm.cpp">
+    <ClCompile Include="src\RedShroomshake.cpp">
       <Filter>Game Files\Items\Derived</Filter>
     </ClCompile>
-    <ClCompile Include="Cherbil.cpp">
-      <Filter>Game Files\GameObjects\Sentient\Enemies</Filter>
+    <ClCompile Include="src\GameObject.cpp">
+      <Filter>Game Files\GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="CherbilProjectile.cpp">
-      <Filter>Game Files\GameObjects\Projectile\Derived</Filter>
-    </ClCompile>
-    <ClCompile Include="SoundManager.cpp">
-      <Filter>Game Files\Managers</Filter>
-    </ClCompile>
-    <ClCompile Include="Merchant.cpp">
-      <Filter>Game Files\Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="Dimentio.cpp">
+    <ClCompile Include="src\Sentient.cpp">
       <Filter>Game Files\GameObjects\Sentient</Filter>
     </ClCompile>
-    <ClCompile Include="Heart.cpp">
-      <Filter>Game Files\Utils</Filter>
+    <ClCompile Include="src\Player.cpp">
+      <Filter>Game Files\GameObjects\Sentient</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Enemy.cpp">
+      <Filter>Game Files\GameObjects\Sentient</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Dimentio.cpp">
+      <Filter>Game Files\GameObjects\Sentient</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Cherbil.cpp">
+      <Filter>Game Files\GameObjects\Sentient\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Goomba.cpp">
+      <Filter>Game Files\GameObjects\Sentient\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Spiny.cpp">
+      <Filter>Game Files\GameObjects\Sentient\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Squiglet.cpp">
+      <Filter>Game Files\GameObjects\Sentient\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Projectile.cpp">
+      <Filter>Game Files\GameObjects\Projectile</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Bomb.cpp">
+      <Filter>Game Files\GameObjects\Projectile\Derived</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CherbilProjectile.cpp">
+      <Filter>Game Files\GameObjects\Projectile\Derived</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Coconut.cpp">
+      <Filter>Game Files\GameObjects\Projectile\Derived</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EnemyFactory.cpp">
+      <Filter>Game Files\Factories</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ItemFactory.cpp">
+      <Filter>Game Files\Factories</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ProjectileFactory.cpp">
+      <Filter>Game Files\Factories</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Matrix2x3.cpp">
+      <Filter>Framework Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\pch.cpp">
+      <Filter>Framework Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SoundEffect.cpp">
+      <Filter>Framework Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SoundStream.cpp">
+      <Filter>Framework Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\structs.cpp">
+      <Filter>Framework Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SVGParser.cpp">
+      <Filter>Framework Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Texture.cpp">
+      <Filter>Framework Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils.cpp">
+      <Filter>Framework Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Vector2f.cpp">
+      <Filter>Framework Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="pch.h">
+    <ClInclude Include="src\Core.h">
       <Filter>Framework Files</Filter>
     </ClInclude>
-    <ClInclude Include="Core.h">
+    <ClInclude Include="src\Matrix2x3.h">
       <Filter>Framework Files</Filter>
     </ClInclude>
-    <ClInclude Include="Matrix2x3.h">
+    <ClInclude Include="src\pch.h">
       <Filter>Framework Files</Filter>
     </ClInclude>
-    <ClInclude Include="SoundEffect.h">
+    <ClInclude Include="src\resource.h">
       <Filter>Framework Files</Filter>
     </ClInclude>
-    <ClInclude Include="SoundStream.h">
+    <ClInclude Include="src\SoundEffect.h">
       <Filter>Framework Files</Filter>
     </ClInclude>
-    <ClInclude Include="structs.h">
+    <ClInclude Include="src\SoundStream.h">
       <Filter>Framework Files</Filter>
     </ClInclude>
-    <ClInclude Include="SVGParser.h">
+    <ClInclude Include="src\structs.h">
       <Filter>Framework Files</Filter>
     </ClInclude>
-    <ClInclude Include="Texture.h">
+    <ClInclude Include="src\SVGParser.h">
       <Filter>Framework Files</Filter>
     </ClInclude>
-    <ClInclude Include="utils.h">
+    <ClInclude Include="src\Texture.h">
       <Filter>Framework Files</Filter>
     </ClInclude>
-    <ClInclude Include="Vector2f.h">
+    <ClInclude Include="src\utils.h">
       <Filter>Framework Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>Game Files</Filter>
+    <ClInclude Include="src\Vector2f.h">
+      <Filter>Framework Files</Filter>
     </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>Game Files\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyManager.h">
-      <Filter>Game Files\Managers</Filter>
-    </ClInclude>
-    <ClInclude Include="SpriteManager.h">
-      <Filter>Game Files\Managers</Filter>
-    </ClInclude>
-    <ClInclude Include="Goomba.h">
-      <Filter>Game Files\GameObjects\Sentient\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="Spiny.h">
-      <Filter>Game Files\GameObjects\Sentient\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyFactory.h">
-      <Filter>Game Files\Factories</Filter>
-    </ClInclude>
-    <ClInclude Include="TextureManager.h">
-      <Filter>Game Files\Managers</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Game Files\GameObjects\Sentient</Filter>
-    </ClInclude>
-    <ClInclude Include="Sentient.h">
-      <Filter>Game Files\GameObjects\Sentient</Filter>
-    </ClInclude>
-    <ClInclude Include="Squiglet.h">
-      <Filter>Game Files\GameObjects\Sentient\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="ProjectileManager.h">
-      <Filter>Game Files\Managers</Filter>
-    </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>Game Files\GameObjects\Sentient</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.h">
+    <ClInclude Include="src\Camera.h">
       <Filter>Game Files\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="Level.h">
+    <ClInclude Include="src\Heart.h">
       <Filter>Game Files\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="Sprite.h">
+    <ClInclude Include="src\Level.h">
       <Filter>Game Files\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="PixlManager.h">
+    <ClInclude Include="src\Managers.h">
+      <Filter>Game Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Merchant.h">
+      <Filter>Game Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Pixl.h">
+      <Filter>Game Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Sprite.h">
+      <Filter>Game Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Coin.h">
+      <Filter>Game Files\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Particle.h">
+      <Filter>Game Files\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Smoke.h">
+      <Filter>Game Files\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EnemyManager.h">
       <Filter>Game Files\Managers</Filter>
     </ClInclude>
-    <ClInclude Include="Item.h">
+    <ClInclude Include="src\ItemManager.h">
+      <Filter>Game Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ParticleManager.h">
+      <Filter>Game Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PixlManager.h">
+      <Filter>Game Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ProjectileManager.h">
+      <Filter>Game Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SoundManager.h">
+      <Filter>Game Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SpriteManager.h">
+      <Filter>Game Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TextManager.h">
+      <Filter>Game Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TextureManager.h">
+      <Filter>Game Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Item.h">
       <Filter>Game Files\Items</Filter>
     </ClInclude>
-    <ClInclude Include="ItemFactory.h">
-      <Filter>Game Files\Factories</Filter>
-    </ClInclude>
-    <ClInclude Include="ItemManager.h">
-      <Filter>Game Files\Managers</Filter>
-    </ClInclude>
-    <ClInclude Include="Key.h">
+    <ClInclude Include="src\IceStorm.h">
       <Filter>Game Files\Items\Derived</Filter>
     </ClInclude>
-    <ClInclude Include="RedShroomshake.h">
+    <ClInclude Include="src\Key.h">
       <Filter>Game Files\Items\Derived</Filter>
     </ClInclude>
-    <ClInclude Include="TextManager.h">
-      <Filter>Game Files\Managers</Filter>
-    </ClInclude>
-    <ClInclude Include="Managers.h">
-      <Filter>Game Files\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Projectile.h">
-      <Filter>Game Files\GameObjects\Projectile</Filter>
-    </ClInclude>
-    <ClInclude Include="ProjectileFactory.h">
-      <Filter>Game Files\Factories</Filter>
-    </ClInclude>
-    <ClInclude Include="Coconut.h">
-      <Filter>Game Files\GameObjects\Projectile\Derived</Filter>
-    </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>Framework Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Bomb.h">
-      <Filter>Game Files\GameObjects\Projectile\Derived</Filter>
-    </ClInclude>
-    <ClInclude Include="Coin.h">
-      <Filter>Game Files\Particles</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticleManager.h">
-      <Filter>Game Files\Managers</Filter>
-    </ClInclude>
-    <ClInclude Include="Particle.h">
-      <Filter>Game Files\Particles</Filter>
-    </ClInclude>
-    <ClInclude Include="Smoke.h">
-      <Filter>Game Files\Particles</Filter>
-    </ClInclude>
-    <ClInclude Include="Pixl.h">
-      <Filter>Game Files\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="PowerBlock.h">
+    <ClInclude Include="src\PowerBlock.h">
       <Filter>Game Files\Items\Derived</Filter>
     </ClInclude>
-    <ClInclude Include="IceStorm.h">
+    <ClInclude Include="src\RedShroomshake.h">
       <Filter>Game Files\Items\Derived</Filter>
     </ClInclude>
-    <ClInclude Include="Cherbil.h">
-      <Filter>Game Files\GameObjects\Sentient\Enemies</Filter>
+    <ClInclude Include="src\GameObject.h">
+      <Filter>Game Files\GameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="CherbilProjectile.h">
-      <Filter>Game Files\GameObjects\Projectile\Derived</Filter>
-    </ClInclude>
-    <ClInclude Include="SoundManager.h">
-      <Filter>Game Files\Managers</Filter>
-    </ClInclude>
-    <ClInclude Include="Merchant.h">
-      <Filter>Game Files\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Dimentio.h">
+    <ClInclude Include="src\Sentient.h">
       <Filter>Game Files\GameObjects\Sentient</Filter>
     </ClInclude>
-    <ClInclude Include="Heart.h">
-      <Filter>Game Files\Utils</Filter>
+    <ClInclude Include="src\Player.h">
+      <Filter>Game Files\GameObjects\Sentient</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Enemy.h">
+      <Filter>Game Files\GameObjects\Sentient</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Dimentio.h">
+      <Filter>Game Files\GameObjects\Sentient</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Cherbil.h">
+      <Filter>Game Files\GameObjects\Sentient\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Goomba.h">
+      <Filter>Game Files\GameObjects\Sentient\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Spiny.h">
+      <Filter>Game Files\GameObjects\Sentient\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Squiglet.h">
+      <Filter>Game Files\GameObjects\Sentient\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Projectile.h">
+      <Filter>Game Files\GameObjects\Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Bomb.h">
+      <Filter>Game Files\GameObjects\Projectile\Derived</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CherbilProjectile.h">
+      <Filter>Game Files\GameObjects\Projectile\Derived</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Coconut.h">
+      <Filter>Game Files\GameObjects\Projectile\Derived</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EnemyFactory.h">
+      <Filter>Game Files\Factories</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ItemFactory.h">
+      <Filter>Game Files\Factories</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ProjectileFactory.h">
+      <Filter>Game Files\Factories</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game.h">
+      <Filter>Game Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="SDLWin32.props" />
     <None Include="SDLx64.props" />
-    <None Include="De_Ridder_Jonas_Game.xlsx">
-      <Filter>Resource Files</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="De_Ridder_Jonas_Super_Paper_Mario.rc">
